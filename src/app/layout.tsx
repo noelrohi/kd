@@ -3,10 +3,9 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
+import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 
-const font = Poppins({ weight: ["400", "800"], subsets: ["latin"] });
 const title = siteConfig.name;
 const description = siteConfig.description;
 
@@ -24,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          font.className,
+          GeistSans.className,
           "min-h-screen bg-background antialiased"
         )}
       >

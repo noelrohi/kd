@@ -19,3 +19,35 @@ export type SiteConfig = {
     href: string;
   }[];
 };
+
+export interface Featured {
+  id: string;
+  title: string;
+  image: string;
+}
+
+interface Resp<T> {
+  currentPage: number;
+  hasNextPage: boolean;
+  results: T;
+}
+
+export interface Featured {
+  id: string;
+  title: string;
+  image: string;
+}
+
+type RecentResult = {
+  type: "RAW" | "SUB";
+  time: string;
+  number: number;
+} & Featured;
+
+type SearchResult = {
+  url: string;
+} & Featured;
+
+export type Recent = Resp<RecentResult[]>;
+export type TopAiring = Resp<Featured[]>;
+export type Search = Resp<SearchResult[]>;

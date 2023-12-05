@@ -10,8 +10,22 @@ export const siteConfig: SiteConfig = {
   },
   mainNav: [
     {
-      title: "/",
+      title: "home",
       href: "/",
     },
+    {
+      title: "search",
+      href: "/search",
+    },
+    {
+      title: "popular",
+      href: "/popular",
+    },
   ],
+};
+
+export const placeholderImage = (str: string) => {
+  return `https://placehold.co/400x600/EEE/31343C?font=montserrat&text=${encodeURI(
+    str
+  )}`;
 };
