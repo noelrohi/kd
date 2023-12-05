@@ -5,7 +5,7 @@ export const episodeSchema = z.object({
   title: z.string(),
   episode: z.number(),
   subType: z.enum(["SUB", "DUB", "RAW"]),
-  releaseDate: z.coerce.date(),
+  releaseDate: z.string(),
   url: z.string().url(),
 });
 
@@ -16,7 +16,7 @@ export const infoSchema = z.object({
   image: z.string().url().includes("cover"),
   description: z.string(),
   releaseDate: z.coerce.number(),
-  episodes: z.array(episodeSchema),
+  episodes: z.array(episodeSchema).optional(),
 });
 
 const sourceSchema = z.object({
@@ -31,5 +31,5 @@ const subtitleSchema = z.object({
 
 export const episodeSourceSchema = z.object({
   sources: z.array(sourceSchema),
-  subtitles: z.array(subtitleSchema),
+  subtitles: z.array(subtitleSchema).optional(),
 });
