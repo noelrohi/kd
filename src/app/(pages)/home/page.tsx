@@ -30,7 +30,7 @@ export default function Page({}: PageProps) {
           <div className="space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">Popular</h2>
             <p className="text-sm text-muted-foreground">
-              Current drama series in high demand.
+              Most anticipated and popular drama series.
             </p>
           </div>
         </div>
