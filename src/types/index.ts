@@ -51,3 +51,15 @@ type SearchResult = {
 export type Recent = Resp<RecentResult[]>;
 export type TopAiring = Resp<Featured[]>;
 export type Search = Resp<SearchResult[]>;
+export type EpisodeInfo = {
+  title: string;
+  id: string;
+  dramaId: string;
+  number: number;
+  downloadLink: string;
+  episodes: {
+    next: string | undefined;
+    previous: string | undefined;
+    list: { value: string; label: string }[];
+  };
+};

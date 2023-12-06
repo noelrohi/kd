@@ -11,8 +11,9 @@ export default function GoBack({}: GoBackProps) {
   return (
     <Button
       onClick={() => router.back()}
-      variant={"ghost"}
+      variant={"outline"}
       className="flex items-center gap-4"
+      size={"sm"}
     >
       <Icons.arrowLeft /> Back
     </Button>

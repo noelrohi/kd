@@ -1,4 +1,4 @@
-import { Featured, Recent, Search, TopAiring } from "@/types";
+import { EpisodeInfo, Featured, Recent, Search, TopAiring } from "@/types";
 
 const baseUrl = "https://api-ani.rohi.dev/api/dramacool";
 
@@ -15,6 +15,14 @@ export async function getEpisodeSources(episodeSlug: string) {
   const res = await fetch(url);
   if (!res.ok) return null;
   const data = await res.json();
+  return data;
+}
+
+export async function getEpisodeInfo(episodeSlug: string) {
+  const url = `${baseUrl}/episode/${episodeSlug}`;
+  const res = await fetch(url);
+  if (!res.ok) return null;
+  const data: EpisodeInfo = await res.json();
   return data;
 }
 
