@@ -2,10 +2,11 @@ import {
   ArrowLeft,
   ChevronLeftSquare,
   Info,
+  LogOut,
   Moon,
   Play,
   Sun,
-  X
+  X,
 } from "lucide-react";
 
 export const Icons = {
@@ -16,4 +17,5 @@ export const Icons = {
   play: Play,
   arrowLeft: ArrowLeft,
   info: Info,
+  logout: LogOut,
 };

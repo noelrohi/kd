@@ -2,8 +2,14 @@ import { Card } from "@/components/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { getRecent, getTrending } from "@/lib/dramacool";
+import { generateMetadata } from "@/lib/utils";
 
 interface PageProps {}
+
+const title = "Home";
+const description = "Explore popular and airing kdrama series";
+
+export const metadata = generateMetadata({ title, description });
 
 export default function Page({}: PageProps) {
   return (
