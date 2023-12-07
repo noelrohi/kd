@@ -63,7 +63,7 @@ async function Recent() {
           data={{
             title: ep.title,
             image: ep.image,
-            description: ``,
+            description: `Episode ${ep.number}`,
             link: `watch/${ep.id}`,
             // slug: ep.id.replace("drama-detail/", ""),
           }}
@@ -81,14 +81,14 @@ async function Trending() {
   const topAiring = await getTrending();
   return (
     <>
-      {topAiring?.results?.map((ep, index) => (
+      {topAiring?.results?.map((drama, index) => (
         <Card
           key={index}
           data={{
-            title: ep.title,
-            image: ep.image,
+            title: drama.title,
+            image: drama.image,
             description: ``,
-            slug: ep.id.replace("drama-detail/", ""),
+            slug: drama.id.replace("drama-detail/", ""),
           }}
           className="lg:w-[250px] w-28"
           aspectRatio="portrait"
