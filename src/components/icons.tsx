@@ -5,6 +5,7 @@ import {
   LogOut,
   Moon,
   Play,
+  Search,
   Sun,
   X,
 } from "lucide-react";
@@ -18,4 +19,5 @@ export const Icons = {
   arrowLeft: ArrowLeft,
   info: Info,
   logout: LogOut,
+  search: Search
 };

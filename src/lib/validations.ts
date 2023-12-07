@@ -13,7 +13,7 @@ export const infoSchema = z.object({
   id: z.string(),
   title: z.string(),
   otherNames: z.array(z.string()),
-  image: z.string().url().includes("cover"),
+  image: z.string().url(),
   description: z.string(),
   releaseDate: z.coerce.number(),
   episodes: z.array(episodeSchema).optional(),

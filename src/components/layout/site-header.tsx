@@ -16,6 +16,8 @@ import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { Icons } from "../icons";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Input } from "../ui/input";
+import { redirect } from "next/navigation";
 
 interface SiteHeaderProps extends React.ComponentPropsWithoutRef<"header"> {
   sticky?: boolean;
@@ -38,12 +40,44 @@ export async function SiteHeader({
 
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
+            <Search />
             <ThemeToggle />
             <UserButton />
           </nav>
         </div>
       </div>
     </header>
+  );
+}
+function Search() {
+  return (
+    <>
+      <form
+        action={async (data: FormData) => {
+          "use server";
+          const q = (data.get("q") as string) ?? undefined;
+          redirect(`/search?q=${q}`);
+        }}
+        className="relative hidden lg:block"
+      >
+        <Input placeholder="Search series ..." name="q" />
+        <div className="absolute top-2 right-2">
+          <Button
+            size={"icon"}
+            className="h-5 w-5"
+            variant={"ghost"}
+            type="submit"
+          >
+            <Icons.search />
+          </Button>
+        </div>
+      </form>
+      <Link href={"/search"} className="block lg:hidden">
+        <Button size={"icon"} variant={"ghost"}>
+          <Icons.search className="h-5 w-5" />
+        </Button>
+      </Link>
+    </>
   );
 }
 

@@ -15,10 +15,6 @@ export const siteConfig: SiteConfig = {
       href: "/home",
     },
     {
-      title: "search",
-      href: "/search",
-    },
-    {
       title: "popular",
       href: "/popular",
     },
