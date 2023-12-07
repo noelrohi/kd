@@ -2,7 +2,15 @@ import { Card } from "@/components/card";
 import { Icons } from "@/components/icons";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { getDramaInfo } from "@/lib/dramacool";
+import {
+  getWatchLists,
+  popFromWatchList,
+  pushToWatchList,
+} from "@/lib/helpers/server";
+import { cn } from "@/lib/utils";
 import { infoSchema } from "@/lib/validations";
+import { revalidatePath } from "next/cache";
+import { SubmitButton } from "./client";
 
 interface PageProps {
   params: {
@@ -16,9 +24,12 @@ export default async function Page({ params }: PageProps) {
     infoSchema.parse(data);
   return (
     <section className="py-12 space-y-4">
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        {title}
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          {title}
+        </h1>
+        <WatchListed slug={id} />
+      </div>
       <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight text-muted-foreground">
         {otherNames.join(", ")}
       </h3>
@@ -55,5 +66,34 @@ export default async function Page({ params }: PageProps) {
         </ScrollArea>
       </div>
     </section>
+  );
+}
+
+async function WatchListed({ slug }: { slug: string }) {
+  const watchLists = await getWatchLists();
+  let isWatchlisted =
+    watchLists.find((l) => l.dramaId === slug)?.dramaId === slug;
+  console.log({ watchLists });
+  console.log({ slug });
+  console.log({ isWatchlisted });
+  return (
+    <form
+      action={async (_: FormData) => {
+        "use server";
+        if (isWatchlisted) {
+          await popFromWatchList({ slug });
+        } else {
+          await pushToWatchList({ slug });
+        }
+        revalidatePath(`/drama/${slug}`);
+      }}
+    >
+      <SubmitButton>
+        <Icons.bookmark
+          className={cn("", isWatchlisted && "text-blue-600 fill-blue-600")}
+        />
+        {isWatchlisted ? "Remove from " : "Add to "}watchlist
+      </SubmitButton>
+    </form>
   );
 }
