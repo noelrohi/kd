@@ -76,7 +76,7 @@ async function UserButton() {
               {session.user.name}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {session.user.name}
+              {session.user.email}
             </p>
           </div>
         </DropdownMenuLabel>
