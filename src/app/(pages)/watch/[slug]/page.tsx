@@ -24,12 +24,12 @@ export default async function Page({ params }: PageProps) {
     <section className="p-4 lg:container space-y-2">
       <Link href={`/drama/${dramaId.split("/")[1]}`}>
         <Button variant={"outline"} size={"sm"}>
-          Go back
+          View Drama Series
         </Button>
       </Link>
       <div className="lg:h-1/2">
         <AspectRatio ratio={16 / 9}>
-          <Vid slug={params.slug} />
+          <Vid slug={params.slug} number={number} />
         </AspectRatio>
       </div>
       <Typography as={"h1"} variant={"h2"} className="border-b mb-2 p-2">
@@ -58,9 +58,11 @@ export default async function Page({ params }: PageProps) {
   );
 }
 
-type Props = { slug: string };
-async function Vid({ slug }: Props) {
+type Props = { slug: string; number: number };
+async function Vid({ slug, number }: Props) {
   const episodeSources = await getEpisodeSources(slug);
   const parsed = episodeSourceSchema.parse(episodeSources);
-  return <VideoPlayer url={parsed.sources[0].url} />;
+  return (
+    <VideoPlayer url={parsed.sources[0].url} slug={slug} number={number} />
+  );
 }
