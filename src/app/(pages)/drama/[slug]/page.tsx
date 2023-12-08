@@ -78,8 +78,16 @@ async function WatchListed({
 }) {
   const watchLists = await getWatchLists();
   const slug = dramaSeries.id;
-  let isWatchlisted =
-    watchLists.find((l) => l.dramaId === slug)?.dramaId === slug;
+
+  const found = watchLists.find((l) => l.dramaId === slug);
+  if (typeof found === "undefined")
+    return (
+      <p className="text-destructive max-w-xs text-sm text-right">
+        This drama can't be added to watchlist yet. Kindly contact the
+        administrator.
+      </p>
+    );
+  let isWatchlisted = found?.dramaId === slug;
   return (
     <form
       action={async () => {
