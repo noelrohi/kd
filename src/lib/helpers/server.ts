@@ -38,7 +38,11 @@ export async function getWatchLists(): Promise<{ dramaId: string }[]> {
   return [];
 }
 
-export async function pushToWatchList({ slug }: { slug: string }) {
+type WatchlistProps = {
+  slug: string;
+};
+
+export async function pushToWatchList({ slug }: WatchlistProps) {
   const [session, cookieStore] = await authOrCookie();
   if (session) {
     await db.insert(watchListSchema).values({
@@ -60,7 +64,7 @@ export async function pushToWatchList({ slug }: { slug: string }) {
   }
 }
 
-export async function popFromWatchList({ slug }: { slug: string }) {
+export async function popFromWatchList({ slug }: WatchlistProps) {
   const [session, cookieStore] = await authOrCookie();
   if (session) {
     await db

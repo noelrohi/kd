@@ -10,6 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { infoSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 import { SubmitButton } from "./client";
 
 interface PageProps {
@@ -20,15 +21,16 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   let data = await getDramaInfo(params.slug);
-  const { description, episodes, id, image, otherNames, releaseDate, title } =
-    infoSchema.parse(data);
+  const parsed = infoSchema.parse(data);
+  let { description, episodes, id, image, otherNames, releaseDate, title } =
+    parsed;
   return (
     <section className="py-12 space-y-4">
       <div className="flex justify-between">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {title}
         </h1>
-        <WatchListed slug={id} />
+        <WatchListed dramaSeries={parsed} />
       </div>
       <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight text-muted-foreground">
         {otherNames.join(", ")}
@@ -69,16 +71,18 @@ export default async function Page({ params }: PageProps) {
   );
 }
 
-async function WatchListed({ slug }: { slug: string }) {
+async function WatchListed({
+  dramaSeries,
+}: {
+  dramaSeries: z.infer<typeof infoSchema>;
+}) {
   const watchLists = await getWatchLists();
+  const slug = dramaSeries.id;
   let isWatchlisted =
     watchLists.find((l) => l.dramaId === slug)?.dramaId === slug;
-  console.log({ watchLists });
-  console.log({ slug });
-  console.log({ isWatchlisted });
   return (
     <form
-      action={async (_: FormData) => {
+      action={async () => {
         "use server";
         if (isWatchlisted) {
           await popFromWatchList({ slug });
@@ -89,9 +93,6 @@ async function WatchListed({ slug }: { slug: string }) {
       }}
     >
       <SubmitButton>
-        <Icons.bookmark
-          className={cn("", isWatchlisted && "text-blue-600 fill-blue-600")}
-        />
         {isWatchlisted ? "Remove from " : "Add to "}watchlist
       </SubmitButton>
     </form>

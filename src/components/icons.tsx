@@ -8,7 +8,7 @@ import {
   Play,
   Search,
   Sun,
-  X
+  X,
 } from "lucide-react";
 
 export const Icons = {
