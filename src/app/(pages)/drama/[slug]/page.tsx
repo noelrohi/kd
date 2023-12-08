@@ -3,6 +3,7 @@ import { Icons } from "@/components/icons";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { getDramaInfo } from "@/lib/dramacool";
 import {
+  existingFromDatabase,
   getWatchLists,
   popFromWatchList,
   pushToWatchList,
@@ -82,15 +83,15 @@ async function WatchListed({
 }) {
   const watchLists = await getWatchLists();
   const slug = dramaSeries.id;
-
-  const found = watchLists.find((l) => l.dramaId === slug);
-  if (typeof found === "undefined")
+  const existsInDb = await existingFromDatabase(slug);
+  if (!existsInDb)
     return (
       <p className="text-destructive max-w-xs text-sm text-right">
         This drama can&apos;t be added to watchlist yet. Kindly contact the
         administrator.
       </p>
     );
+  const found = watchLists.find((l) => l.dramaId === slug);
   let isWatchlisted = found?.dramaId === slug;
   return (
     <form
