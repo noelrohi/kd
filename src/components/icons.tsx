@@ -4,8 +4,10 @@ import {
   ChevronLeftSquare,
   Info,
   LogOut,
+  Minus,
   Moon,
   Play,
+  Plus,
   Search,
   Sun,
   X,
@@ -25,4 +27,6 @@ export const Icons = {
   search: Search,
   bookmark: Bookmark,
   discord: IconBrandDiscord,
+  plus: Plus,
+  minus: Minus,
 };

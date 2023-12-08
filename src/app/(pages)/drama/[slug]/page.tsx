@@ -28,7 +28,7 @@ export default async function Page({ params }: PageProps) {
     parsed;
   return (
     <section className="py-12 space-y-4">
-      <div className="flex justify-between">
+      <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row lg:justify-between">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {title}
         </h1>
@@ -93,6 +93,7 @@ async function WatchListed({
     );
   const found = watchLists.find((l) => l.dramaId === slug);
   let isWatchlisted = found?.dramaId === slug;
+  const Icon = isWatchlisted ? Icons.minus : Icons.plus;
   return (
     <form
       action={async () => {
@@ -105,7 +106,8 @@ async function WatchListed({
         revalidatePath(`/drama/${slug}`);
       }}
     >
-      <SubmitButton>
+      <SubmitButton className="w-full">
+        <Icon className="w-4 h-4" />
         {isWatchlisted ? "Remove from " : "Add to "}watchlist
       </SubmitButton>
     </form>
