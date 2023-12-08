@@ -1,12 +1,13 @@
 import { ThemeProvider } from "@/components/providers/theme";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { siteConfig } from "@/config/site";
+import { fontHeading, fontMono, fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
-import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 
 export const viewport: Viewport = {
+  colorScheme: "light dark",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -68,8 +69,10 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          GeistSans.className,
-          "min-h-screen bg-background antialiased"
+          fontSans.variable,
+          fontMono.variable,
+          fontHeading.variable,
+          "min-h-screen bg-background antialiased font-sans"
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
