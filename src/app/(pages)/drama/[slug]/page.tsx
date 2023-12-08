@@ -38,7 +38,7 @@ export default async function Page({ params }: PageProps) {
     genres,
   } = parse.data;
   return (
-    <section className="py-12 space-y-4">
+    <section className="mx-auto px-4 lg:container py-10 space-y-6">
       <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row lg:justify-between">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {title}
@@ -102,7 +102,7 @@ async function WatchListed({
   const existsInDb = await existingFromDatabase(slug);
   if (!existsInDb)
     return (
-      <p className="text-destructive max-w-xs text-sm text-right">
+      <p className="text-destructive lg:max-w-xs text-sm text-right">
         This drama can&apos;t be added to watchlist yet. Kindly contact the
         administrator.
       </p>

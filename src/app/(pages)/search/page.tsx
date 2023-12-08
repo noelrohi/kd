@@ -23,7 +23,7 @@ const searchParamsSchema = z.object({
 export default function SearchPage(props: SearchPageProps) {
   const searchParams = searchParamsSchema.parse(props.searchParams);
   return (
-    <section className="py-8 space-y-4">
+    <section className="mx-auto px-4 lg:container py-10 space-y-6">
       <form
         action={async (data: FormData) => {
           "use server";
@@ -58,7 +58,7 @@ export default function SearchPage(props: SearchPageProps) {
           </Typography>
         </>
       )}
-      <div className="flex flex-wrap gap-2 items-center justify-center">
+      <div className="flex flex-wrap gap-2 items-center">
         <Suspense
           key={searchParams.q}
           fallback={<FallBackCard aspectRatio="square" />}
@@ -67,7 +67,7 @@ export default function SearchPage(props: SearchPageProps) {
         </Suspense>
       </div>
       {!searchParams.q && (
-        <div className="min-h-[50vh] flex justify-center items-center text-3xl font-semibold">
+        <div className="text-center w-full text-3xl font-semibold">
           No series, try searching some ..
         </div>
       )}

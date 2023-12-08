@@ -7,8 +7,12 @@ import { FallBackCard } from "@/components/fallbacks/card";
 
 export default function Page() {
   return (
-    <section className="py-8 space-y-4 text-center">
-      <Typography as={"h1"} variant={"h3"}>
+    <section className="mx-auto px-4 lg:container py-10 space-y-6">
+      <Typography
+        as={"h1"}
+        variant={"h3"}
+        className="text-center lg:text-start"
+      >
         Currently Popular Drama Series
       </Typography>
       <Suspense key={Math.random()} fallback={<FallBack />}>

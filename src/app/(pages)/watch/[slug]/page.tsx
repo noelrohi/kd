@@ -21,7 +21,7 @@ export default async function Page({ params }: PageProps) {
   if (!episodeInfo) throw new Error("Episode info not found!");
   const { downloadLink, dramaId, episodes, id, title, number } = episodeInfo;
   return (
-    <section className="p-4 lg:container space-y-2">
+    <section className="mx-auto px-4 lg:container py-10 space-y-6">
       <Link href={`/drama/${dramaId.split("/")[1]}`}>
         <Button variant={"outline"} size={"sm"}>
           View Drama Series
