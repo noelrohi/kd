@@ -12,6 +12,7 @@ import { infoSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { SubmitButton } from "./client";
+import { Typography } from "@/components/typography";
 
 interface PageProps {
   params: {
@@ -32,10 +33,13 @@ export default async function Page({ params }: PageProps) {
         </h1>
         <WatchListed dramaSeries={parsed} />
       </div>
-      <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight text-muted-foreground">
+      <Typography as={"h4"} variant={"h4"} className="text-muted-foreground">
+        <strong className="text-foreground">Other Names:</strong>{" "}
         {otherNames.join(", ")}
-      </h3>
-      <p className="leading-7 [&:not(:first-child)]:mt-6">{description}</p>
+      </Typography>
+      <p className="leading-7 [&:not(:first-child)]:mt-6 indent-10">
+        {description}
+      </p>
       <div className="relative">
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
