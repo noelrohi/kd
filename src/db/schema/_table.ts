@@ -9,6 +9,6 @@ import { mysqlTableCreator, varchar } from "drizzle-orm/mysql-core";
  */
 export const mySqlTable = mysqlTableCreator((name) => `kd_${name}`);
 
-export const idCreator = varchar("id", { length: 128 }).$defaultFn(() =>
-  createId()
-);
+export const idCreator = varchar("id", { length: 128 })
+  .$defaultFn(() => createId())
+  .primaryKey();

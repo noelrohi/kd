@@ -1,5 +1,6 @@
 import {
   ArrowLeft,
+  Bookmark,
   ChevronLeftSquare,
   Info,
   LogOut,
@@ -19,5 +20,6 @@ export const Icons = {
   arrowLeft: ArrowLeft,
   info: Info,
   logout: LogOut,
-  search: Search
+  search: Search,
+  bookmark: Bookmark,
 };

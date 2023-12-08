@@ -1,3 +1,4 @@
+import { env } from "@/env.mjs";
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
@@ -5,7 +6,7 @@ export default defineConfig({
   driver: "mysql2",
   out: "./src/db",
   dbCredentials: {
-    uri: process.env.DATABASE_URL || "",
+    uri: env.DATABASE_URL,
   },
   tablesFilter: ["kd_*"],
   verbose: true,
