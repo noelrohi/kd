@@ -87,7 +87,7 @@ async function WatchListed({
   if (typeof found === "undefined")
     return (
       <p className="text-destructive max-w-xs text-sm text-right">
-        This drama can't be added to watchlist yet. Kindly contact the
+        This drama can&apos;t be added to watchlist yet. Kindly contact the
         administrator.
       </p>
     );
