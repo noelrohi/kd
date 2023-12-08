@@ -131,7 +131,15 @@ async function WatchList() {
   const results = await getWatchLists();
   return (
     <>
-      {results.length === 0 && "No watchlists. Try adding some."}
+      {results.length === 0 && (
+        <p className="mt-2 italic">
+          No watchlists. Try adding some by going to a series page and click{" "}
+          <span className="font-bold not-italic text-blue-700">
+            Add to watchlist
+          </span>
+          .
+        </p>
+      )}
       {results.map(({ series: drama }, index) => {
         if (!drama) return null;
         return (
