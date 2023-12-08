@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { getRecent, getTrending } from "@/lib/dramacool";
 import { getWatchLists } from "@/lib/helpers/server";
 import { generateMetadata } from "@/lib/utils";
+import { Suspense } from "react";
 
 interface PageProps {}
 
@@ -16,7 +17,7 @@ export default function Page({}: PageProps) {
   return (
     <>
       <section className="mx-auto px-4 lg:container py-10">
-        {/* <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">
               Watch list
@@ -29,12 +30,14 @@ export default function Page({}: PageProps) {
         <div className="relative">
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              <WatchList />
+              <Suspense fallback="Loading watchlists...">
+                <WatchList />
+              </Suspense>
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
-        <Separator className="my-2" /> */}
+        <Separator className="my-2" />
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">Recent</h2>
@@ -46,7 +49,9 @@ export default function Page({}: PageProps) {
         <div className="relative">
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              <Recent />
+              <Suspense fallback="Loading recent ...">
+                <Recent />
+              </Suspense>
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
@@ -63,7 +68,9 @@ export default function Page({}: PageProps) {
         <div className="relative">
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              <Trending />
+              <Suspense fallback="Loading trending ...">
+                <Trending />
+              </Suspense>
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
@@ -124,22 +131,25 @@ async function WatchList() {
   const results = await getWatchLists();
   return (
     <>
-      {results.map((drama, index) => (
-        // <Card
-        //   key={index}
-        //   data={{
-        //     title: drama.title,
-        //     image: drama.image,
-        //     description: ``,
-        //     slug: drama.id.replace("drama-detail/", ""),
-        //   }}
-        //   className="lg:w-[250px] w-28"
-        //   aspectRatio="portrait"
-        //   width={250}
-        //   height={330}
-        // />
-        <div>{drama.dramaId}</div>
-      ))}
+      {results.length === 0 && "No watchlists. Try adding some."}
+      {results.map(({ series: drama }, index) => {
+        if (!drama) return null;
+        return (
+          <Card
+            key={index}
+            data={{
+              title: drama.title,
+              image: drama.coverImage,
+              description: ``,
+              slug: drama.slug.replace("drama-detail/", ""),
+            }}
+            className="lg:w-[250px] w-28"
+            aspectRatio="portrait"
+            width={250}
+            height={330}
+          />
+        );
+      })}
     </>
   );
 }

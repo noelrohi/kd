@@ -29,7 +29,10 @@ export const watchList = mySqlTable(
 );
 
 export const watchListRelations = relations(watchList, ({ one }) => ({
-  series: one(series),
+  series: one(series, {
+    fields: [watchList.dramaId],
+    references: [series.slug],
+  }),
 }));
 
 export const series = mySqlTable(
