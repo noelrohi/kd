@@ -1,7 +1,6 @@
 import { relations } from "drizzle-orm";
 import { index, mysqlEnum, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { idCreator, mySqlTable } from "./_table";
-import { users } from "./auth";
 
 export const watchList = mySqlTable(
   "watchList",
@@ -56,7 +55,24 @@ export const series = mySqlTable(
 
 export const seriesRelations = relations(series, ({ many }) => ({
   otherNames: many(otherName),
+  genres: many(genre),
 }));
+
+export const genre = mySqlTable(
+  "genre",
+  {
+    id: idCreator,
+    dramaId: varchar("dramaId", { length: 128 }).notNull(),
+    name: varchar("name", { length: 255 }).notNull(),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").onUpdateNow(),
+  },
+  (table) => {
+    return {
+      dramaIdx: index("drama_idx").on(table.dramaId),
+    };
+  }
+);
 
 export const otherName = mySqlTable(
   "other_name",

@@ -1,6 +1,11 @@
 import { Card } from "@/components/card";
 import { Icons } from "@/components/icons";
+import { Typography } from "@/components/typography";
+import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { db } from "@/db";
+import { genre, otherName, series } from "@/db/schema/main";
+import { auth } from "@/lib/auth";
 import { getDramaInfo } from "@/lib/dramacool";
 import {
   existingFromDatabase,
@@ -8,13 +13,12 @@ import {
   popFromWatchList,
   pushToWatchList,
 } from "@/lib/helpers/server";
-import { cn } from "@/lib/utils";
 import { infoSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { SubmitButton } from "./client";
-import { Typography } from "@/components/typography";
-import { Badge } from "@/components/ui/badge";
+import { Suspense } from "react";
+import { Button } from "@/components/ui/button";
 
 interface PageProps {
   params: {
@@ -43,7 +47,20 @@ export default async function Page({ params }: PageProps) {
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {title}
         </h1>
-        <WatchListed dramaSeries={parsed} />
+        <div className="flex flex-col">
+          <Suspense
+            fallback={
+              <Button variant={"secondary"} disabled>
+                Loading ...
+              </Button>
+            }
+          >
+            <WatchListed dramaSeries={parsed} />
+          </Suspense>
+          <Suspense>
+            <AdminAction slug={params.slug} />
+          </Suspense>
+        </div>
       </div>
       <Typography as={"h4"} variant={"h4"} className="text-muted-foreground">
         <strong className="text-foreground">Other Names:</strong>{" "}
@@ -125,6 +142,54 @@ async function WatchListed({
       <SubmitButton className="w-full">
         <Icon className="w-4 h-4" />
         {isWatchlisted ? "Remove from " : "Add to "}watchlist
+      </SubmitButton>
+    </form>
+  );
+}
+
+async function AdminAction(props: { slug: string }) {
+  const slug = `drama-detail/${props.slug}`;
+  const sess = await auth();
+  const existsInDb = await existingFromDatabase(slug);
+  if (existsInDb) return null;
+  if (sess?.user.email !== "n@rohi.dev") return null;
+  return (
+    <form
+      className="inline-flex justify-end mt-4"
+      action={async (_: FormData) => {
+        "use server";
+        try {
+          const res = await getDramaInfo(props.slug);
+          const parse = infoSchema.safeParse(res);
+          if (!parse.success)
+            throw new Error("Schema doesn't match drama info.");
+          const { data } = parse;
+          const values: typeof series.$inferInsert = {
+            coverImage: data.image,
+            slug,
+            title: data.title,
+            description: data.description,
+            releaseDate: String(data.releaseDate),
+          };
+          const genres: (typeof genre.$inferInsert)[] = data.genres.map(
+            (genre) => ({ name: genre, dramaId: slug })
+          );
+          const otherNames: (typeof otherName.$inferInsert)[] =
+            data.otherNames.map((genre) => ({ name: genre, dramaId: slug }));
+
+          await db.transaction(async (tx) => {
+            await tx.insert(series).values(values);
+            await tx.insert(genre).values(genres);
+            await tx.insert(otherName).values(otherNames);
+          });
+          revalidatePath(`/drama/${props.slug}`);
+        } catch (error) {
+          console.log(error);
+        }
+      }}
+    >
+      <SubmitButton>
+        <Icons.plus className="w-4 h-4" /> Add to db
       </SubmitButton>
     </form>
   );
