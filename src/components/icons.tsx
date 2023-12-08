@@ -11,6 +11,8 @@ import {
   X,
 } from "lucide-react";
 
+import { IconBrandDiscord } from "@irsyadadl/paranoid";
+
 export const Icons = {
   logo: ChevronLeftSquare,
   close: X,
@@ -22,4 +24,5 @@ export const Icons = {
   logout: LogOut,
   search: Search,
   bookmark: Bookmark,
+  discord: IconBrandDiscord,
 };

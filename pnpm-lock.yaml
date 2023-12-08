@@ -11,6 +11,9 @@ dependencies:
   '@auth/drizzle-adapter':
     specifier: ^0.3.9
     version: 0.3.9
+  '@irsyadadl/paranoid':
+    specifier: ^0.1.0
+    version: 0.1.0(react@18.2.0)
   '@paralleldrive/cuid2':
     specifier: ^2.2.2
     version: 2.2.2
@@ -2211,6 +2214,14 @@ packages:
   /@inquirer/type@1.1.5:
     resolution: {integrity: sha512-wmwHvHozpPo4IZkkNtbYenem/0wnfI6hvOcGKmPEa0DwuaH5XUQzFqy6OpEpjEegZMhYIk8HDYITI16BPLtrRA==}
     engines: {node: '>=14.18.0'}
+    dev: false
+
+  /@irsyadadl/paranoid@0.1.0(react@18.2.0):
+    resolution: {integrity: sha512-H8JDIO/j3XxiEKuxJyhwgUk1/BMrd8I7wLsaDZe5dw+SSR7yR/SOWJ4F6GZd5rlAYteP1Unu/8Z2k3bwY6vkRQ==}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@jest/environment@29.7.0:

@@ -1,10 +1,11 @@
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { auth, signIn } from "@/lib/auth";
 import { type Metadata } from "next";
@@ -22,18 +23,22 @@ export default async function SignInPage() {
     <section className="container max-w-lg">
       <Card>
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">K-Next</CardTitle>
-          <CardDescription>Sign in below to proceed</CardDescription>
+          <CardTitle className="text-2xl">Sign in to K-Next</CardTitle>
+          <CardDescription>
+            Choose your preferred sign in method
+          </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <form>
             <Button
+              variant={"outline"}
               formAction={async () => {
                 "use server";
                 await signIn("discord");
               }}
             >
-              Sign in with Discord
+              <Icons.discord className="h-5 w-5 mr-2" />
+              Discord
             </Button>
           </form>
         </CardContent>
