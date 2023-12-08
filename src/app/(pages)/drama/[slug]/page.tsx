@@ -152,7 +152,7 @@ async function AdminAction(props: { slug: string }) {
   const sess = await auth();
   const existsInDb = await existingFromDatabase(slug);
   if (existsInDb) return null;
-  if (sess?.user.email !== "n@rohi.dev") return null;
+  if (sess?.user.email !== "noelrohi59@gmail.com") return null;
   return (
     <form
       className="inline-flex justify-end mt-4"
