@@ -3,7 +3,9 @@ import { EpisodeInfo, Featured, Recent, Search, TopAiring } from "@/types";
 
 export async function getDramaInfo(slug: string) {
   const url = `${env.API_URL}/info/drama-detail/${slug}`;
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    cache: "no-cache",
+  });
   if (!res.ok) return null;
   const data = await res.json();
   return data;

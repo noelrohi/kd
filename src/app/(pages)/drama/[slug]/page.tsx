@@ -23,9 +23,11 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   let data = await getDramaInfo(params.slug);
-  const parsed = infoSchema.parse(data);
+  const parse = infoSchema.safeParse(data);
+  if (!parse.success) throw new Error("failed to parse drama info");
+  let parsed = parse.data;
   let { description, episodes, id, image, otherNames, releaseDate, title } =
-    parsed;
+    parse.data;
   return (
     <section className="py-12 space-y-4">
       <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row lg:justify-between">
