@@ -1,5 +1,11 @@
 import { relations } from "drizzle-orm";
-import { index, mysqlEnum, timestamp, varchar } from "drizzle-orm/mysql-core";
+import {
+  index,
+  longtext,
+  mysqlEnum,
+  timestamp,
+  varchar,
+} from "drizzle-orm/mysql-core";
 import { idCreator, mySqlTable } from "./_table";
 
 export const watchList = mySqlTable(
@@ -41,7 +47,7 @@ export const series = mySqlTable(
     slug: varchar("slug", { length: 255 }).notNull().unique(),
     title: varchar("title", { length: 255 }).notNull(),
     coverImage: varchar("coverImage", { length: 255 }).notNull(),
-    description: varchar("descripton", { length: 255 }),
+    description: longtext("descripton"),
     releaseDate: varchar("releaseDate", { length: 255 }),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").onUpdateNow(),

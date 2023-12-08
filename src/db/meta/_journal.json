@@ -15,6 +15,13 @@
       "when": 1702030717949,
       "tag": "0001_white_eternals",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1702036995849,
+      "tag": "0002_nosy_landau",
+      "breakpoints": true
     }
   ]
 }

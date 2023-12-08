@@ -1,0 +1,1 @@
+ALTER TABLE `kd_series` MODIFY COLUMN `descripton` longtext;
