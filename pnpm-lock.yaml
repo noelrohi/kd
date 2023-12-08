@@ -41,6 +41,9 @@ dependencies:
   '@t3-oss/env-nextjs':
     specifier: ^0.7.1
     version: 0.7.1(typescript@5.2.2)(zod@3.22.4)
+  '@unkey/nextjs':
+    specifier: ^0.13.3
+    version: 0.13.3
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -3407,6 +3410,16 @@ packages:
       '@typescript-eslint/types': 6.7.4
       eslint-visitor-keys: 3.4.3
     dev: true
+
+  /@unkey/api@0.12.1:
+    resolution: {integrity: sha512-hKMbXebeQ2sExRb4AqLDrodW1trdiC/3oUjzdp4kZsgTSt/kOtoPeZjf/5dxzXdre+5zhihETumwDw/JU7yvOQ==}
+    dev: false
+
+  /@unkey/nextjs@0.13.3:
+    resolution: {integrity: sha512-9Z5+8va1qMQOIGosMSpVUd+Pk+OoYVdq9tVO/rtO7Qe0dqR9Q+zdN0E7cyvmx7ooUp26T3CWDTuSi8vXiG+zog==}
+    dependencies:
+      '@unkey/api': 0.12.1
+    dev: false
 
   /@vercel/blob@0.14.1:
     resolution: {integrity: sha512-pGdEbzZ6wKJf5tknzeHP6bpDAmWvJQc9IsT2fvmI2hSLG/ir0hLt0ABcYv7W1aMHnSo4VQlcjucKOPMsaePmBg==}
@@ -8187,7 +8200,7 @@ packages:
       '@webassemblyjs/wasm-parser': 1.11.6
       acorn: 8.10.0
       acorn-import-assertions: 1.9.0(acorn@8.10.0)
-      browserslist: 4.22.1
+      browserslist: 4.22.2
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.15.0
       es-module-lexer: 1.4.1
