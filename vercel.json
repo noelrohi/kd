@@ -1,0 +1,8 @@
+{
+    "crons": [
+        {
+            "path": "/api/series/sync?type=recent",
+            "schedule": "0 17 * * *"
+        }
+    ]
+}
