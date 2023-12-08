@@ -1,4 +1,5 @@
 import { Card } from "@/components/card";
+import { FallBackCard as FallBack } from "@/components/fallbacks/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { getRecent, getTrending } from "@/lib/dramacool";
@@ -30,7 +31,7 @@ export default function Page({}: PageProps) {
         <div className="relative">
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              <Suspense fallback="Loading watchlists...">
+              <Suspense fallback={<FallBack />}>
                 <WatchList />
               </Suspense>
             </div>
@@ -49,7 +50,7 @@ export default function Page({}: PageProps) {
         <div className="relative">
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              <Suspense fallback="Loading recent ...">
+              <Suspense fallback={<FallBack />}>
                 <Recent />
               </Suspense>
             </div>
@@ -68,7 +69,7 @@ export default function Page({}: PageProps) {
         <div className="relative">
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              <Suspense fallback="Loading trending ...">
+              <Suspense fallback={<FallBack />}>
                 <Trending />
               </Suspense>
             </div>

@@ -1,9 +1,11 @@
 import { Card } from "@/components/card";
+import { FallBackCard } from "@/components/fallbacks/card";
 import { Icons } from "@/components/icons";
 import { Typography } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { search } from "@/lib/dramacool";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { z } from "zod";
@@ -25,12 +27,17 @@ export default function SearchPage(props: SearchPageProps) {
       <form
         action={async (data: FormData) => {
           "use server";
-          const q = (data.get("q") as string) ?? undefined;
+          const q = (data.get("dramaSeries") as string) ?? undefined;
+          revalidatePath("/search");
           redirect(`/search?q=${q}`);
         }}
         className="relative max-w-lg block lg:hidden"
       >
-        <Input placeholder="Search series ..." name="q" />
+        <Input
+          placeholder="Search series ..."
+          name="dramaSeries"
+          defaultValue={searchParams.q}
+        />
         <div className="absolute top-2 right-2">
           <Button
             size={"icon"}
@@ -49,13 +56,16 @@ export default function SearchPage(props: SearchPageProps) {
             Search results for{" "}
             <span className="italic text-blue-500">{searchParams.q}</span>
           </Typography>
-          <div className="flex flex-wrap gap-2">
-            <Suspense key={Math.random()} fallback={<>Loading results...</>}>
-              <SearchResults query={searchParams.q} />
-            </Suspense>
-          </div>
         </>
       )}
+      <div className="flex flex-wrap gap-2">
+        <Suspense
+          key={searchParams.q}
+          fallback={<FallBackCard aspectRatio="square" />}
+        >
+          <SearchResults query={searchParams.q} />
+        </Suspense>
+      </div>
       {!searchParams.q && (
         <div className="min-h-[50vh] flex justify-center items-center text-3xl font-semibold">
           No series, try searching some ..
@@ -65,7 +75,8 @@ export default function SearchPage(props: SearchPageProps) {
   );
 }
 
-async function SearchResults({ query }: { query: string }) {
+async function SearchResults({ query }: { query: string | undefined }) {
+  if (!query) return null;
   const data = await search({ query });
   return (
     <>

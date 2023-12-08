@@ -6,8 +6,8 @@ import { WithErrorImage } from "@/components/modified-image";
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Data;
   aspectRatio?: "portrait" | "square";
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
   progress?: number;
 }
 
