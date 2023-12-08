@@ -1,7 +1,7 @@
 import { db } from "@/db";
-import { watchList as watchListSchema } from "@/db/schema/main";
+import { series, watchList as watchListSchema } from "@/db/schema/main";
 import { auth } from "@/lib/auth";
-import { and, eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { z } from "zod";
 
@@ -17,13 +17,30 @@ const watchListZodSchema = z.array(
   })
 );
 
-export async function getWatchLists(): Promise<{ dramaId: string }[]> {
+export async function getWatchLists(): Promise<
+  {
+    dramaId: string;
+    series: {
+      id: string;
+      description: string | null;
+      createdAt: Date | null;
+      updatedAt: Date | null;
+      slug: string;
+      title: string;
+      coverImage: string;
+      releaseDate: string | null;
+    } | null;
+  }[]
+> {
   const [session, cookieStore] = await authOrCookie();
   if (session) {
     const lists = await db.query.watchList.findMany({
       where: eq(watchListSchema.userId, session.user.id),
       columns: {
         dramaId: true,
+      },
+      with: {
+        series: true,
       },
     });
     return lists;
@@ -32,7 +49,16 @@ export async function getWatchLists(): Promise<{ dramaId: string }[]> {
   if (watchlistLocal) {
     const parse = watchListZodSchema.safeParse(JSON.parse(watchlistLocal));
     if (parse.success) {
-      return parse.data;
+      const array = parse.data.map((d) => d.dramaId);
+      if (array.length !== 0) {
+        const lists = await db.query.series.findMany({
+          where: inArray(series.slug, array),
+        });
+        return lists.map((l) => ({
+          dramaId: l.slug,
+          series: l,
+        }));
+      }
     }
   }
   return [];
@@ -45,6 +71,7 @@ type WatchlistProps = {
 export async function pushToWatchList({ slug }: WatchlistProps) {
   const [session, cookieStore] = await authOrCookie();
   if (session) {
+    // console.log("reading db planetscale ...");
     await db.insert(watchListSchema).values({
       dramaId: slug,
       status: "plan_to_watch",
@@ -53,6 +80,7 @@ export async function pushToWatchList({ slug }: WatchlistProps) {
   }
   const watchlistLocal = cookieStore.get("watchlist")?.value;
   if (watchlistLocal) {
+    // console.log("reading cookie store...");
     const parse = watchListZodSchema.safeParse(JSON.parse(watchlistLocal));
     if (parse.success) {
       let lists = parse.data;
