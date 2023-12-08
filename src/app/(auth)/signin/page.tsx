@@ -28,8 +28,8 @@ export default async function SignInPage() {
             Choose your preferred sign in method
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4">
-          <form>
+        <CardContent>
+          <form className="flex gap-4">
             <Button
               variant={"outline"}
               formAction={async () => {
@@ -39,6 +39,16 @@ export default async function SignInPage() {
             >
               <Icons.discord className="h-5 w-5 mr-2" />
               Discord
+            </Button>
+            <Button
+              variant={"outline"}
+              formAction={async () => {
+                "use server";
+                await signIn("google");
+              }}
+            >
+              <Icons.google className="h-5 w-5 mr-2" />
+              Google
             </Button>
           </form>
         </CardContent>
