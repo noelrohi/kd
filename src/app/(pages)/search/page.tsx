@@ -23,7 +23,7 @@ const searchParamsSchema = z.object({
 export default function SearchPage(props: SearchPageProps) {
   const searchParams = searchParamsSchema.parse(props.searchParams);
   return (
-    <section className="mx-auto px-4 lg:container py-10 space-y-6">
+    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-6">
       <form
         action={async (data: FormData) => {
           "use server";

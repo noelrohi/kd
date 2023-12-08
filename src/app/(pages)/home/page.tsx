@@ -17,7 +17,7 @@ export const metadata = generateMetadata({ title, description });
 export default function Page({}: PageProps) {
   return (
     <>
-      <section className="mx-auto px-4 lg:container py-10">
+      <section className="mx-auto px-4 lg:container py-4 lg:py-10">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">
