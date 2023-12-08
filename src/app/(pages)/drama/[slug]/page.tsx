@@ -148,10 +148,16 @@ async function WatchListed({
 }
 
 async function AdminAction(props: { slug: string }) {
-  const slug = `drama-detail/${props.slug}`;
-  const sess = await auth();
-  const [results, existsInDb] = await existingFromDatabase(slug);
+  let slug = `drama-detail/${props.slug}`;
+  let sess = await auth();
+  let [results, existsInDb] = await existingFromDatabase(slug);
   if (sess?.user.email !== "noelrohi59@gmail.com") return null;
+  let seriesStatus: "not_upserted" | "upserted" | "not_exists" =
+    existsInDb && !results?.description
+      ? "not_upserted"
+      : !!results?.description
+      ? "upserted"
+      : "not_exists";
   return (
     <form
       className="inline-flex justify-end mt-4"
@@ -197,10 +203,10 @@ async function AdminAction(props: { slug: string }) {
         }
       }}
     >
-      <SubmitButton>
-        {existsInDb && !results?.description ? (
+      <SubmitButton disabled={seriesStatus === "upserted"}>
+        {seriesStatus === "not_upserted" ? (
           "Upsert"
-        ) : !!results?.description ? (
+        ) : seriesStatus === "upserted" ? (
           "Upserted"
         ) : (
           <>
