@@ -120,5 +120,5 @@ export async function popFromWatchList({ slug }: WatchlistProps) {
 
 export async function existingFromDatabase(slug: string) {
   const res = await db.query.series.findFirst({ where: eq(series.slug, slug) });
-  return typeof res !== "undefined";
+  return [res, typeof res !== "undefined"] as const;
 }

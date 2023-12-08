@@ -2,6 +2,7 @@ import { Card } from "@/components/card";
 import { Icons } from "@/components/icons";
 import { Typography } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { db } from "@/db";
 import { genre, otherName, series } from "@/db/schema/main";
@@ -15,10 +16,9 @@ import {
 } from "@/lib/helpers/server";
 import { infoSchema } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
+import { Suspense } from "react";
 import { z } from "zod";
 import { SubmitButton } from "./client";
-import { Suspense } from "react";
-import { Button } from "@/components/ui/button";
 
 interface PageProps {
   params: {
@@ -64,13 +64,13 @@ export default async function Page({ params }: PageProps) {
       </div>
       <Typography as={"h4"} variant={"h4"} className="text-muted-foreground">
         <strong className="text-foreground">Other Names:</strong>{" "}
-        {otherNames.join(", ")}
+        {otherNames?.join(", ")}
       </Typography>
       <p className="leading-7 [&:not(:first-child)]:mt-6 indent-10">
         {description}
       </p>
       <div className="flex flex-wrap gap-1">
-        {genres.map((genre, index) => (
+        {genres?.map((genre, index) => (
           <Badge key={index}>{genre}</Badge>
         ))}
       </div>
@@ -116,7 +116,7 @@ async function WatchListed({
 }) {
   const watchLists = await getWatchLists();
   const slug = dramaSeries.id;
-  const existsInDb = await existingFromDatabase(slug);
+  const [_, existsInDb] = await existingFromDatabase(slug);
   if (!existsInDb)
     return (
       <p className="text-destructive lg:max-w-xs text-sm text-right">
@@ -150,8 +150,7 @@ async function WatchListed({
 async function AdminAction(props: { slug: string }) {
   const slug = `drama-detail/${props.slug}`;
   const sess = await auth();
-  const existsInDb = await existingFromDatabase(slug);
-  if (existsInDb) return null;
+  const [results, existsInDb] = await existingFromDatabase(slug);
   if (sess?.user.email !== "noelrohi59@gmail.com") return null;
   return (
     <form
@@ -171,16 +170,26 @@ async function AdminAction(props: { slug: string }) {
             description: data.description,
             releaseDate: String(data.releaseDate),
           };
-          const genres: (typeof genre.$inferInsert)[] = data.genres.map(
-            (genre) => ({ name: genre, dramaId: slug })
-          );
+          const genres: (typeof genre.$inferInsert)[] =
+            data.genres?.map((genre) => ({ name: genre, dramaId: slug })) ?? [];
           const otherNames: (typeof otherName.$inferInsert)[] =
-            data.otherNames.map((genre) => ({ name: genre, dramaId: slug }));
+            data.otherNames?.map((genre) => ({ name: genre, dramaId: slug })) ??
+            [];
 
           await db.transaction(async (tx) => {
-            await tx.insert(series).values(values);
-            await tx.insert(genre).values(genres);
-            await tx.insert(otherName).values(otherNames);
+            const { description, releaseDate } = values;
+            await tx.insert(series).values(values).onDuplicateKeyUpdate({
+              set: {
+                description,
+                releaseDate,
+              },
+            });
+            if (genres.length > 0) {
+              await tx.insert(genre).values(genres);
+            }
+            if (otherNames.length > 0) {
+              await tx.insert(otherName).values(otherNames);
+            }
           });
           revalidatePath(`/drama/${props.slug}`);
         } catch (error) {
@@ -189,7 +198,15 @@ async function AdminAction(props: { slug: string }) {
       }}
     >
       <SubmitButton>
-        <Icons.plus className="w-4 h-4" /> Add to db
+        {existsInDb && !results?.description ? (
+          "Upsert"
+        ) : !!results?.description ? (
+          "Upserted"
+        ) : (
+          <>
+            <Icons.plus className="w-4 h-4" /> Add to db
+          </>
+        )}
       </SubmitButton>
     </form>
   );

@@ -12,10 +12,10 @@ export const episodeSchema = z.object({
 export const infoSchema = z.object({
   id: z.string(),
   title: z.string(),
-  otherNames: z.array(z.string()),
+  otherNames: z.array(z.string()).optional(),
   image: z.string().url(),
   description: z.string(),
-  genres: z.array(z.string()),
+  genres: z.array(z.string()).optional(),
   releaseDate: z.coerce.number(),
   episodes: z.array(episodeSchema).optional(),
 });
