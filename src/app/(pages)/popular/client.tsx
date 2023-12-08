@@ -18,7 +18,7 @@ export function InfiniteList({ initialData }: InfiniteListProps) {
 
   return (
     <div className="w-full">
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         {list.map((drama) => (
           <Card
             key={drama.id}

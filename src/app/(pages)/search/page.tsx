@@ -58,7 +58,7 @@ export default function SearchPage(props: SearchPageProps) {
           </Typography>
         </>
       )}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 items-center justify-center">
         <Suspense
           key={searchParams.q}
           fallback={<FallBackCard aspectRatio="square" />}

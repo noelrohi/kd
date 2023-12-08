@@ -7,7 +7,7 @@ import { FallBackCard } from "@/components/fallbacks/card";
 
 export default function Page() {
   return (
-    <section className="py-8 space-y-4">
+    <section className="py-8 space-y-4 text-center">
       <Typography as={"h1"} variant={"h3"}>
         Currently Popular Drama Series
       </Typography>
