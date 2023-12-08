@@ -60,8 +60,8 @@ function Search() {
         }}
         className="relative hidden lg:block"
       >
-        <Input placeholder="Search series ..." name="q" />
-        <div className="absolute top-2 right-2">
+        <Input placeholder="Search series ..." className="lg:pr-8" name="q" />
+        <div className="absolute top-1/4 right-2">
           <Button
             size={"icon"}
             className="h-5 w-5"
