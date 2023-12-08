@@ -6,7 +6,7 @@ import { sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export const POST = withUnkey(async (req) => {
-  if (!req.unkey.valid) {
+  if (!req.unkey.valid || req.unkey.ownerId !== "Rohi") {
     return new NextResponse("unauthorized", { status: 403 });
   }
   try {
