@@ -5,6 +5,8 @@ import { withUnkey } from "@unkey/nextjs";
 import { sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export const POST = withUnkey(async (req) => {
   if (!req.unkey.valid || req.unkey.ownerId !== "Rohi") {
     return new NextResponse("unauthorized", { status: 403 });
