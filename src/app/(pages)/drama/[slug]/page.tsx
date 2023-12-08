@@ -14,6 +14,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { SubmitButton } from "./client";
 import { Typography } from "@/components/typography";
+import { Badge } from "@/components/ui/badge";
 
 interface PageProps {
   params: {
@@ -26,8 +27,16 @@ export default async function Page({ params }: PageProps) {
   const parse = infoSchema.safeParse(data);
   if (!parse.success) throw new Error("failed to parse drama info");
   let parsed = parse.data;
-  let { description, episodes, id, image, otherNames, releaseDate, title } =
-    parse.data;
+  let {
+    description,
+    episodes,
+    id,
+    image,
+    otherNames,
+    releaseDate,
+    title,
+    genres,
+  } = parse.data;
   return (
     <section className="py-12 space-y-4">
       <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row lg:justify-between">
@@ -43,6 +52,11 @@ export default async function Page({ params }: PageProps) {
       <p className="leading-7 [&:not(:first-child)]:mt-6 indent-10">
         {description}
       </p>
+      <div className="flex flex-wrap gap-1">
+        {genres.map((genre, index) => (
+          <Badge key={index}>{genre}</Badge>
+        ))}
+      </div>
       <div className="relative">
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
