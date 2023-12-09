@@ -44,6 +44,9 @@ dependencies:
   '@t3-oss/env-nextjs':
     specifier: ^0.7.1
     version: 0.7.1(typescript@5.2.2)(zod@3.22.4)
+  '@unkey/api':
+    specifier: ^0.13.0
+    version: 0.13.0
   '@unkey/nextjs':
     specifier: ^0.13.3
     version: 0.13.3
@@ -3430,6 +3433,10 @@ packages:
 
   /@unkey/api@0.12.1:
     resolution: {integrity: sha512-hKMbXebeQ2sExRb4AqLDrodW1trdiC/3oUjzdp4kZsgTSt/kOtoPeZjf/5dxzXdre+5zhihETumwDw/JU7yvOQ==}
+    dev: false
+
+  /@unkey/api@0.13.0:
+    resolution: {integrity: sha512-usGEnESCfimLzLJS3qhS4Yzt41AuorUoLBloIHNHtm7pWWiL8mh7IsehFZxpK7Q+zvaTfi3MY4zsHPHSjxnTzA==}
     dev: false
 
   /@unkey/nextjs@0.13.3:
