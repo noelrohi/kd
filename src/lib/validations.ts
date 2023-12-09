@@ -15,6 +15,7 @@ export const infoSchema = z.object({
   otherNames: z.array(z.string()).optional(),
   image: z.string().url(),
   description: z.string(),
+  _status: z.enum(["completed", "upcoming", "ongoing"]).optional(),
   genres: z.array(z.string()).optional(),
   releaseDate: z.coerce.number(),
   episodes: z.array(episodeSchema).optional(),
