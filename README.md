@@ -1,10 +1,10 @@
 # K-NEXT
 
 ## Features
-- tracking [x]
-- watchlist [x]
-- activity api [x]
-- comments []
+- [x] tracking
+- [x] watchlist
+- [x] activity api
+- [] comments
 
 ### Tech used
 
