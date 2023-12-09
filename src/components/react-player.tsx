@@ -75,8 +75,7 @@ export default function ReactPlayerAsVideo({
               });
               toast.dismiss(1);
               if (res.error) toast.error(res.message);
-              if (!res.error)
-                toast.success("Successfully updated your progress.");
+              if (!res.error) toast.success(res.message);
             });
           },
         },

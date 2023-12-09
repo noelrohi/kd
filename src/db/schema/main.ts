@@ -99,6 +99,7 @@ export const episode = mySqlTable(
       dramaIdx: index("drama_idx").on(table.dramaId),
       titleIdx: index("title_idx").on(table.title),
       episodeSlugIdx: index("episode_slug_idx").on(table.episodeSlug),
+      numberIdx: index("number_idx").on(table.number),
     };
   }
 );
