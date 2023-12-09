@@ -4,7 +4,7 @@
 - [x] tracking
 - [x] watchlist
 - [x] activity api
-- [] comments
+- [ ] comments
 
 ### Tech used
 
