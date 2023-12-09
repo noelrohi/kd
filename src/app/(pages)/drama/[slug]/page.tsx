@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { db } from "@/db";
-import { genre, otherName, series } from "@/db/schema/main";
+import { episode, series } from "@/db/schema/main";
 import { auth } from "@/lib/auth";
 import { getDramaInfo } from "@/lib/dramacool";
 import {
@@ -15,6 +15,7 @@ import {
   pushToWatchList,
 } from "@/lib/helpers/server";
 import { infoSchema } from "@/lib/validations";
+import { eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
 import { z } from "zod";
@@ -169,32 +170,45 @@ async function AdminAction(props: { slug: string }) {
           if (!parse.success)
             throw new Error("Schema doesn't match drama info.");
           const { data } = parse;
+
+          const genres: string[] | undefined = data.genres?.map(
+            (genre) => genre
+          );
+          const otherNames: string[] | undefined = data.otherNames?.map(
+            (name) => name
+          );
+
           const values: typeof series.$inferInsert = {
             coverImage: data.image,
             slug,
             title: data.title,
             description: data.description,
             releaseDate: String(data.releaseDate),
+            status: data._status,
+            genres,
+            otherNames,
           };
-          const genres: (typeof genre.$inferInsert)[] =
-            data.genres?.map((genre) => ({ name: genre, dramaId: slug })) ?? [];
-          const otherNames: (typeof otherName.$inferInsert)[] =
-            data.otherNames?.map((genre) => ({ name: genre, dramaId: slug })) ??
-            [];
+
+          const episodeCount = data.episodes?.length ?? 0;
+          console.log({ episodeCount });
+          const episodes: (typeof episode.$inferInsert)[] =
+            data.episodes?.map((ep) => ({
+              dramaId: slug,
+              episodeSlug: ep.id,
+              number: ep.episode,
+              title: ep.title,
+              isLast: ep.episode === episodeCount,
+              subType: ep.subType,
+            })) ?? [];
 
           await db.transaction(async (tx) => {
-            const { description, releaseDate } = values;
             await tx.insert(series).values(values).onDuplicateKeyUpdate({
-              set: {
-                description,
-                releaseDate,
-              },
+              set: values,
             });
-            if (genres.length > 0) {
-              await tx.insert(genre).values(genres);
-            }
-            if (otherNames.length > 0) {
-              await tx.insert(otherName).values(otherNames);
+
+            if (episodes.length > 0) {
+              await tx.delete(episode).where(eq(episode.dramaId, slug));
+              await tx.insert(episode).values(episodes);
             }
           });
           revalidatePath(`/drama/${props.slug}`);
@@ -203,7 +217,9 @@ async function AdminAction(props: { slug: string }) {
         }
       }}
     >
-      <SubmitButton disabled={seriesStatus === "upserted"}>
+      <SubmitButton
+      // disabled={seriesStatus === "upserted"}
+      >
         {seriesStatus === "not_upserted" ? (
           "Upsert"
         ) : seriesStatus === "upserted" ? (

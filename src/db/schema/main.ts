@@ -5,6 +5,7 @@ import {
   float,
   index,
   int,
+  json,
   longtext,
   mysqlEnum,
   timestamp,
@@ -60,6 +61,8 @@ export const series = mySqlTable(
     status: mysqlEnum("status", ["ongoing", "upcoming", "completed"]).default(
       "upcoming"
     ),
+    genres: json("genres").$type<string[]>(),
+    otherNames: json("other_names").$type<string[]>(),
     description: longtext("descripton"),
     releaseDate: varchar("releaseDate", { length: 255 }),
     createdAt: timestamp("created_at").defaultNow(),
@@ -74,8 +77,6 @@ export const series = mySqlTable(
 );
 
 export const seriesRelations = relations(series, ({ many }) => ({
-  otherNames: many(otherName),
-  genres: many(genre),
   episodes: many(episode),
 }));
 
@@ -105,52 +106,6 @@ export const episode = mySqlTable(
 export const episodeRelations = relations(episode, ({ one }) => ({
   series: one(series, {
     fields: [episode.dramaId],
-    references: [series.slug],
-  }),
-}));
-
-export const genre = mySqlTable(
-  "genre",
-  {
-    id: idCreator,
-    dramaId: varchar("dramaId", { length: 255 }).notNull(),
-    name: varchar("name", { length: 255 }).notNull(),
-    createdAt: timestamp("created_at").defaultNow(),
-    updatedAt: timestamp("updated_at").onUpdateNow(),
-  },
-  (table) => {
-    return {
-      dramaIdx: index("drama_idx").on(table.dramaId),
-    };
-  }
-);
-
-export const genreRelations = relations(genre, ({ one }) => ({
-  series: one(series, {
-    fields: [genre.dramaId],
-    references: [series.slug],
-  }),
-}));
-
-export const otherName = mySqlTable(
-  "other_name",
-  {
-    id: idCreator,
-    dramaId: varchar("dramaId", { length: 128 }).notNull(),
-    name: varchar("name", { length: 255 }).notNull(),
-    createdAt: timestamp("created_at").defaultNow(),
-    updatedAt: timestamp("updated_at").onUpdateNow(),
-  },
-  (table) => {
-    return {
-      dramaIdx: index("drama_idx").on(table.dramaId),
-    };
-  }
-);
-
-export const otherNameRelations = relations(otherName, ({ one }) => ({
-  series: one(series, {
-    fields: [otherName.dramaId],
     references: [series.slug],
   }),
 }));
