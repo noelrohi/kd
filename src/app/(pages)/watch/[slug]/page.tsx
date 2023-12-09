@@ -1,6 +1,7 @@
 import { Typography } from "@/components/typography";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
 import { getEpisodeInfo, getEpisodeSources } from "@/lib/dramacool";
 import { episodeSourceSchema } from "@/lib/validations";
 import dynamic from "next/dynamic";
@@ -61,8 +62,14 @@ export default async function Page({ params }: PageProps) {
 type Props = { slug: string; number: number };
 async function Vid({ slug, number }: Props) {
   const episodeSources = await getEpisodeSources(slug);
+  const session = await auth();
   const parsed = episodeSourceSchema.parse(episodeSources);
   return (
-    <VideoPlayer url={parsed.sources[0].url} slug={slug} number={number} />
+    <VideoPlayer
+      url={parsed.sources[0].url}
+      slug={slug}
+      number={number}
+      authenticated={!!session}
+    />
   );
 }

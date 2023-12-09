@@ -1,6 +1,8 @@
 import { relations } from "drizzle-orm";
 import {
+  float,
   index,
+  int,
   longtext,
   mysqlEnum,
   timestamp,
@@ -21,6 +23,7 @@ export const watchList = mySqlTable(
       "plan_to_watch",
       "finished",
     ]).notNull(),
+    episode: float("episode").default(0),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },

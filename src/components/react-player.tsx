@@ -3,15 +3,25 @@
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { Icons } from "./icons";
 import { OnProgressProps } from "react-player/base";
-import { useState } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { updateProgress } from "@/lib/actions";
+
+interface Props extends ReactPlayerProps {
+  slug: string;
+  number: number;
+  authenticated: boolean;
+}
 
 export default function ReactPlayerAsVideo({
   slug,
   url,
   number,
-}: ReactPlayerProps & { slug: string; number: number }) {
+  authenticated,
+}: Props) {
   let storageName = `kd-${slug}-${number}`;
   const [media, setMedia, rmMedia] = useLocalStorage(storageName, "");
   const parsedStoredItem: OnProgressProps = media
@@ -45,6 +55,31 @@ export default function ReactPlayerAsVideo({
     }
     player.seekTo(seek);
   };
+  const [isPending, startTransition] = useTransition();
+  const [isEnding, setIsEnding] = useState(false);
+
+  useEffect(() => {
+    console.log({ isEnding });
+    if (isEnding) {
+      toast(`Set your progress for this drama to ${number}?`, {
+        duration: 1000 * 60 * 20,
+        action: {
+          label: "Yes",
+          onClick: () => {
+            toast.loading("Updating your progress.", { id: 1 });
+            startTransition(async () => {
+              const res = await updateProgress({ episode: number, slug });
+              toast.dismiss(1);
+              if (res.error) toast.error(res.message);
+              if (!res.error)
+                toast.success("Successfully updated your progress.");
+            });
+          },
+        },
+      });
+    }
+  }, [isEnding]);
+
   return (
     <ReactPlayer
       url={url}
@@ -58,6 +93,8 @@ export default function ReactPlayerAsVideo({
         setIsSeeking(true);
       }}
       onProgress={(state) => {
+        let almostEnd = state.played > 0.89;
+        setIsEnding(almostEnd);
         setProgress({ ...state, playedSeconds: state.playedSeconds });
       }}
       onDuration={(number) => {
