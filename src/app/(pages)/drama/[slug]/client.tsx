@@ -7,6 +7,7 @@ import { useFormStatus } from "react-dom";
 export function SubmitButton({
   children,
   className,
+  disabled,
 }: React.ComponentPropsWithoutRef<"button">) {
   const { pending } = useFormStatus();
   return (
@@ -14,7 +15,7 @@ export function SubmitButton({
       className={cn("flex gap-2", className)}
       size="sm"
       type="submit"
-      disabled={pending}
+      disabled={pending || disabled}
     >
       {children}
     </Button>
