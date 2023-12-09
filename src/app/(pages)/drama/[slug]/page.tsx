@@ -197,7 +197,8 @@ async function AdminAction(props: { slug: string }) {
               episodeSlug: ep.id,
               number: ep.episode,
               title: ep.title,
-              isLast: ep.episode === episodeCount,
+              isLast:
+                ep.episode === episodeCount && values.status === "completed",
               subType: ep.subType,
             })) ?? [];
 
