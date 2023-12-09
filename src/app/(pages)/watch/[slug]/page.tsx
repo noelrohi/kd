@@ -30,7 +30,7 @@ export default async function Page({ params }: PageProps) {
       </Link>
       <div className="lg:h-1/2">
         <AspectRatio ratio={16 / 9}>
-          <Vid slug={params.slug} number={number} />
+          <Vid episodeSlug={params.slug} number={number} dramaId={dramaId} />
         </AspectRatio>
       </div>
       <Typography as={"h1"} variant={"h2"} className="border-b mb-2 p-2">
@@ -59,15 +59,16 @@ export default async function Page({ params }: PageProps) {
   );
 }
 
-type Props = { slug: string; number: number };
-async function Vid({ slug, number }: Props) {
-  const episodeSources = await getEpisodeSources(slug);
+type Props = { episodeSlug: string; number: number; dramaId: string };
+async function Vid({ episodeSlug, dramaId, number }: Props) {
+  const episodeSources = await getEpisodeSources(episodeSlug);
   const session = await auth();
   const parsed = episodeSourceSchema.parse(episodeSources);
   return (
     <VideoPlayer
       url={parsed.sources[0].url}
-      slug={slug}
+      slug={episodeSlug}
+      dramaId={dramaId}
       number={number}
       authenticated={!!session}
     />

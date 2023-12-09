@@ -1,19 +1,19 @@
 "use client";
 
-import ReactPlayer, { ReactPlayerProps } from "react-player";
-import { Icons } from "./icons";
-import { OnProgressProps } from "react-player/base";
-import { useCallback, useEffect, useState, useTransition } from "react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
-import { useSession } from "next-auth/react";
 import { updateProgress } from "@/lib/actions";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
+import ReactPlayer, { ReactPlayerProps } from "react-player";
+import { OnProgressProps } from "react-player/base";
+import { toast } from "sonner";
+import { Icons } from "./icons";
 
 interface Props extends ReactPlayerProps {
   slug: string;
   number: number;
   authenticated: boolean;
+  dramaId: string;
 }
 
 export default function ReactPlayerAsVideo({
@@ -21,6 +21,7 @@ export default function ReactPlayerAsVideo({
   url,
   number,
   authenticated,
+  dramaId,
 }: Props) {
   let storageName = `kd-${slug}-${number}`;
   const [media, setMedia, rmMedia] = useLocalStorage(storageName, "");
@@ -59,8 +60,8 @@ export default function ReactPlayerAsVideo({
   const [isEnding, setIsEnding] = useState(false);
 
   useEffect(() => {
-    console.log({ isEnding });
-    if (isEnding) {
+    // console.log({ isEnding });
+    if (isEnding && authenticated) {
       toast(`Set your progress for this drama to ${number}?`, {
         duration: 1000 * 60 * 20,
         action: {
@@ -68,7 +69,10 @@ export default function ReactPlayerAsVideo({
           onClick: () => {
             toast.loading("Updating your progress.", { id: 1 });
             startTransition(async () => {
-              const res = await updateProgress({ episode: number, slug });
+              const res = await updateProgress({
+                episode: number,
+                slug: dramaId,
+              });
               toast.dismiss(1);
               if (res.error) toast.error(res.message);
               if (!res.error)
@@ -78,7 +82,7 @@ export default function ReactPlayerAsVideo({
         },
       });
     }
-  }, [isEnding]);
+  }, [isEnding, authenticated]);
 
   return (
     <ReactPlayer
@@ -89,6 +93,7 @@ export default function ReactPlayerAsVideo({
       loop={false}
       onEnded={handleEnded}
       onReady={handleReady}
+      playbackRate={Number(playbackRate)}
       onSeek={(number) => {
         setIsSeeking(true);
       }}
