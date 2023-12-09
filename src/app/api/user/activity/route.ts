@@ -1,10 +1,10 @@
 import { db } from "@/db";
 import { users } from "@/db/schema/auth";
-import { eq } from "drizzle-orm";
-import { verifyKey } from "@unkey/api";
-import { z } from "zod";
-import { env } from "@/env.mjs";
+import { watchList } from "@/db/schema/main";
 import { absoluteUrl } from "@/lib/utils";
+import { verifyKey } from "@unkey/api";
+import { desc, eq, notInArray } from "drizzle-orm";
+import { z } from "zod";
 
 const metaSchema = z.object({
   email_address: z.string().email(),
@@ -33,6 +33,12 @@ export async function GET(req: Request) {
       where: eq(users.email, parse.data.email_address),
       with: {
         watchlists: {
+          orderBy: [desc(watchList.updatedAt), desc(watchList.createdAt)],
+          where: notInArray(watchList.status, [
+            "dropped",
+            "on_hold",
+            "plan_to_watch",
+          ]),
           columns: {
             episode: true,
             status: true,
