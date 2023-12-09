@@ -3,6 +3,8 @@ import { users } from "@/db/schema/auth";
 import { eq } from "drizzle-orm";
 import { verifyKey } from "@unkey/api";
 import { z } from "zod";
+import { env } from "@/env.mjs";
+import { absoluteUrl } from "@/lib/utils";
 
 const metaSchema = z.object({
   email_address: z.string().email(),
@@ -41,6 +43,7 @@ export async function GET(req: Request) {
             series: {
               columns: {
                 title: true,
+                slug: true,
               },
             },
           },
@@ -53,6 +56,9 @@ export async function GET(req: Request) {
         date: w.updatedAt ? w.updatedAt : w.createdAt,
         episode: w.episode,
         status: w.status,
+        url: absoluteUrl(
+          `/drama/${w.series.slug.replace("drama-detail/", "")}`
+        ),
       }))
     );
   } catch (error) {
