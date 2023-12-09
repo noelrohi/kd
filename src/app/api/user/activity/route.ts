@@ -8,6 +8,7 @@ import { z } from "zod";
 
 const metaSchema = z.object({
   email_address: z.string().email(),
+  for: z.string(),
 });
 
 export const dynamic = "force-dynamic";
@@ -26,6 +27,12 @@ export async function GET(req: Request) {
   if (!parse.success)
     return Response.json(
       { message: "This key has no email address meta." },
+      { status: 400 }
+    );
+
+  if (parse.data.for !== "K-NEXT")
+    return Response.json(
+      { message: "Key does not belong to K-Next" },
       { status: 400 }
     );
   try {
