@@ -4,6 +4,14 @@ import { Suspense } from "react";
 import { InfiniteList } from "./client";
 import { Button } from "@/components/ui/button";
 import { FallBackCard } from "@/components/fallbacks/card";
+import { generateMetadata } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
+
+export const metadata = generateMetadata({
+  title: "Popular Drama Series",
+  description: siteConfig.description,
+  opengraphImage: `https://og.rohi.dev/general?title=K-NEXT - Popular&textColor=fff&backgroundColorHex=000`,
+});
 
 export default function Page() {
   return (

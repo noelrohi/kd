@@ -9,6 +9,14 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { z } from "zod";
+import { generateMetadata } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
+
+export const metadata = generateMetadata({
+  title: "Search Drama Series",
+  description: siteConfig.description,
+  opengraphImage: `https://og.rohi.dev/general?title=K-NEXT - Search&textColor=fff&backgroundColorHex=000`,
+});
 
 interface SearchPageProps {
   searchParams: {
