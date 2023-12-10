@@ -2,7 +2,7 @@ import { Card } from "@/components/card";
 import { Icons } from "@/components/icons";
 import { Typography } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { db } from "@/db";
 import { episode, series, watchList } from "@/db/schema/main";
@@ -23,6 +23,7 @@ import { z } from "zod";
 import { SubmitButton } from "./client";
 import { Loading } from "@/components/fallbacks/loading";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface PageProps {
   params: {
@@ -77,11 +78,15 @@ export default async function Page({ params }: PageProps) {
         </h1>
         <div className="flex flex-col gap-2">
           {!!episodes && episodes.length > 0 && (
-            <Button className="w-full">
-              <Suspense fallback={<Loading />}>
-                <LastPlayedEpisode slug={params.slug} />
-              </Suspense>
-            </Button>
+            <Suspense
+              fallback={
+                <Button disabled>
+                  <Loading />
+                </Button>
+              }
+            >
+              <LastPlayedEpisode slug={params.slug} />
+            </Suspense>
           )}
           <Suspense
             fallback={
@@ -308,7 +313,10 @@ async function LastPlayedEpisode({ slug }: { slug: string }) {
   const episodeData = episodes.find((_, index) => index === episodeIndex + 1);
 
   return (
-    <Link href={episodeData ? `/watch/${episodeData?.episodeSlug}` : "#"}>
+    <Link
+      href={episodeData ? `/watch/${episodeData?.episodeSlug}` : "#"}
+      className={cn(buttonVariants(), "w-full")}
+    >
       Continue episode {episodeData?.number ?? 1}
     </Link>
   );
