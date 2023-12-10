@@ -35,13 +35,12 @@ export async function generateMetadata(
   try {
     const dramaInfo = await getDramaInfo(params.slug);
     if (!dramaInfo) throw new Error("Episode info not found!");
-    const { description, title } = infoSchema.parse(dramaInfo);
-    const ogImage = `https://og.rohi.dev/general?title=K - NEXT | ${title}&textColor=fff&backgroundColorHex=000`;
+    const { description, title, image } = infoSchema.parse(dramaInfo);
     return {
       title,
       description,
       openGraph: {
-        images: [ogImage],
+        images: [image],
       },
     };
   } catch (error) {
