@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { getEpisodeInfo, getEpisodeSources } from "@/lib/dramacool";
 import { episodeSourceSchema } from "@/lib/validations";
+import type { Metadata, ResolvingMetadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -11,6 +12,33 @@ interface PageProps {
   params: {
     slug: string;
   };
+}
+
+export async function generateMetadata(
+  { params }: PageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  try {
+    const episodeInfo = await getEpisodeInfo(params.slug);
+    if (!episodeInfo) throw new Error("Episode info not found!");
+    const title = `${episodeInfo.title} | Episode ${episodeInfo.number}`;
+    const ogImage = `https://og.rohi.dev/general?title=${title}&textColor=fff&backgroundColorHex=000`;
+    return {
+      title,
+      description: `Watch episode ${episodeInfo.number} of ${
+        episodeInfo.title
+      }. ${(await parent).description}`,
+      openGraph: {
+        images: [ogImage],
+      },
+    };
+  } catch (error) {
+    const { title, description } = await parent;
+    return {
+      title,
+      description,
+    };
+  }
 }
 
 const VideoPlayer = dynamic(() => import("@/components/react-player"), {

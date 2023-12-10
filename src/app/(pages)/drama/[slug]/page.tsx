@@ -15,7 +15,8 @@ import {
   pushToWatchList,
 } from "@/lib/helpers/server";
 import { infoSchema } from "@/lib/validations";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
+import type { Metadata, ResolvingMetadata } from "next";
 import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
 import { z } from "zod";
@@ -25,6 +26,31 @@ interface PageProps {
   params: {
     slug: string;
   };
+}
+
+export async function generateMetadata(
+  { params }: PageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  try {
+    const dramaInfo = await getDramaInfo(params.slug);
+    if (!dramaInfo) throw new Error("Episode info not found!");
+    const { description, title } = infoSchema.parse(dramaInfo);
+    const ogImage = `https://og.rohi.dev/general?title=K - NEXT | ${title}&textColor=fff&backgroundColorHex=000`;
+    return {
+      title,
+      description,
+      openGraph: {
+        images: [ogImage],
+      },
+    };
+  } catch (error) {
+    const { title, description } = await parent;
+    return {
+      title,
+      description,
+    };
+  }
 }
 
 export default async function Page({ params }: PageProps) {
