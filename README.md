@@ -12,3 +12,5 @@
 - shadcn-ui
 - unkey
 - consumet api
+- drizzle
+- next-auth
