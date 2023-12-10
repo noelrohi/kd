@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { db } from "@/db";
-import { episode, series } from "@/db/schema/main";
+import { episode, series, watchList } from "@/db/schema/main";
 import { auth } from "@/lib/auth";
 import { getDramaInfo } from "@/lib/dramacool";
 import {
@@ -15,12 +15,14 @@ import {
   pushToWatchList,
 } from "@/lib/helpers/server";
 import { infoSchema } from "@/lib/validations";
-import { eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import type { Metadata, ResolvingMetadata } from "next";
 import { revalidatePath } from "next/cache";
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import { z } from "zod";
 import { SubmitButton } from "./client";
+import { Loading } from "@/components/fallbacks/loading";
+import Link from "next/link";
 
 interface PageProps {
   params: {
@@ -73,11 +75,18 @@ export default async function Page({ params }: PageProps) {
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {title}
         </h1>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
+          {!!episodes && episodes.length > 0 && (
+            <Button className="w-full">
+              <Suspense fallback={<Loading />}>
+                <LastPlayedEpisode slug={params.slug} />
+              </Suspense>
+            </Button>
+          )}
           <Suspense
             fallback={
               <Button variant={"secondary"} disabled>
-                Loading ...
+                <Loading />
               </Button>
             }
           >
@@ -175,7 +184,7 @@ async function WatchListed({
 
 async function AdminAction(props: { slug: string }) {
   let slug = `drama-detail/${props.slug}`;
-  let sess = await auth();
+  let sess = await userSession();
   let [results, existsInDb] = await existingFromDatabase(slug);
   if (sess?.user.email !== "noelrohi59@gmail.com") return null;
   let seriesStatus: "not_upserted" | "upserted" | "not_exists" =
@@ -244,7 +253,12 @@ async function AdminAction(props: { slug: string }) {
       }}
     >
       <SubmitButton
-      // disabled={seriesStatus === "upserted"}
+        className={
+          seriesStatus === "upserted"
+            ? "text-destructive-foreground bg-destructive"
+            : ""
+        }
+        // disabled={seriesStatus === "upserted"}
       >
         {seriesStatus === "not_upserted" ? (
           "Upsert"
@@ -259,3 +273,47 @@ async function AdminAction(props: { slug: string }) {
     </form>
   );
 }
+
+async function LastPlayedEpisode({ slug }: { slug: string }) {
+  const auth = await userSession();
+  if (!auth) return null;
+
+  const watchlistData = await db.query.watchList.findFirst({
+    where: and(
+      eq(watchList.dramaId, `drama-detail/${slug}`),
+      eq(watchList.userId, auth.user.id)
+    ),
+    with: {
+      series: {
+        columns: {
+          id: true,
+        },
+        with: {
+          episodes: {
+            columns: {
+              episodeSlug: true,
+              number: true,
+            },
+            orderBy: [asc(episode.number)],
+          },
+        },
+      },
+    },
+  });
+  if (!watchlistData) return null;
+  const episodes = watchlistData.series.episodes;
+  const episodeIndex = episodes.findIndex(
+    (e) => e.number === watchlistData.episode
+  );
+  const episodeData = episodes.find((_, index) => index === episodeIndex + 1);
+
+  return (
+    <Link href={episodeData ? `/watch/${episodeData?.episodeSlug}` : "#"}>
+      Continue episode {episodeData?.number ?? 1}
+    </Link>
+  );
+}
+
+const userSession = cache(async () => {
+  return await auth();
+});

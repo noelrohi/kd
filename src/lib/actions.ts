@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { episode as episodeDb, watchList } from "@/db/schema/main";
 import { auth } from "@/lib/auth";
 import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export async function updateProgress({
   episode,
@@ -47,6 +48,7 @@ export async function updateProgress({
           )
         );
     }
+    revalidatePath(`/drama/${slug.replace("drama-detail/", "")}`);
     return {
       message: `Your progress is updated. Status: ${status}, Episode: ${episode}`,
       error: false,

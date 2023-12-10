@@ -1,5 +1,7 @@
 import { Card } from "@/components/card";
 import { FallBackCard as FallBack } from "@/components/fallbacks/card";
+import { Loading } from "@/components/fallbacks/loading";
+import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { getRecent, getTrending } from "@/lib/dramacool";
