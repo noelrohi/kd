@@ -16,7 +16,7 @@ export function absoluteUrl(path: string) {
 export function generateMetadata({
   description,
   title,
-  opengraphImage = absoluteUrl("/opengraph-image.pnh"),
+  opengraphImage = absoluteUrl("/opengraph-image.png"),
 }: {
   title: string;
   description: string;
