@@ -1,5 +1,6 @@
 import {
   ArrowLeft,
+  ArrowRight,
   Bookmark,
   ChevronLeftSquare,
   Info,
@@ -11,6 +12,7 @@ import {
   Plus,
   Search,
   Sun,
+  Tv,
   X,
 } from "lucide-react";
 
@@ -41,6 +43,8 @@ export const Icons = {
   sun: Sun,
   play: Play,
   arrowLeft: ArrowLeft,
+  arrowRight: ArrowRight,
+  tv: Tv,
   info: Info,
   logout: LogOut,
   search: Search,

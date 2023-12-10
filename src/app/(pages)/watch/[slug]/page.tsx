@@ -1,3 +1,4 @@
+import { Icons } from "@/components/icons";
 import { Typography } from "@/components/typography";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
@@ -50,7 +51,7 @@ export default async function Page({ params }: PageProps) {
   if (!episodeInfo) throw new Error("Episode info not found!");
   const { downloadLink, dramaId, episodes, id, title, number } = episodeInfo;
   return (
-    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-6">
+    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-4">
       <Link href={`/drama/${dramaId.split("/")[1]}`}>
         <Button variant={"outline"} size={"sm"}>
           View Drama Series
@@ -61,27 +62,45 @@ export default async function Page({ params }: PageProps) {
           <Vid episodeSlug={params.slug} number={number} dramaId={dramaId} />
         </AspectRatio>
       </div>
-      <Typography as={"h1"} variant={"h2"} className="border-b mb-2 p-2">
-        {title} | Episode {number}
-      </Typography>
       <div className="flex gap-1">
         <Button size={"sm"} disabled={!episodes.previous}>
-          <Link href={`/watch/${episodes.previous}`}>Previous</Link>
+          <Link
+            href={`/watch/${episodes.previous}`}
+            className="flex items-center gap-2 justify-center"
+          >
+            <Icons.arrowLeft className="w-4 h-4" /> Previous
+          </Link>
         </Button>
-        <Button size={"sm"} variant={"outline"}>
-          {number}
+        <Button
+          size={"sm"}
+          variant={"outline"}
+          className="flex items-center justify-start gap-2"
+        >
+          <Icons.tv className="w-4 h-4" /> {number}
         </Button>
         <Button size={"sm"} disabled={!episodes.next}>
-          <Link href={`/watch/${episodes.next}`}>Next</Link>
+          <Link
+            href={`/watch/${episodes.next}`}
+            className="flex items-center gap-2 justify-center"
+          >
+            Next <Icons.arrowRight className="w-4 h-4" />
+          </Link>
         </Button>
-      </div>
-      <div>
         <Button size={"sm"} variant={"secondary"}>
-          <Link href={downloadLink} download>
+          <Link
+            href={downloadLink}
+            download
+            className="flex gap-2 items-center justify-center"
+          >
+            <Icons.arrowLeft className="w-4 h-4 -rotate-90" />
             Download
           </Link>
         </Button>
       </div>
+      <Typography as={"h1"} variant={"h2"} className="border-b mb-2">
+        {title} | Episode {number}
+      </Typography>
+
       {/* <div className="break-all">{JSON.stringify(parsed)}</div> */}
     </section>
   );
