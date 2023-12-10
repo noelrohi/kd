@@ -2,8 +2,9 @@ import { db } from "@/db";
 import { users } from "@/db/schema/auth";
 import { watchList } from "@/db/schema/main";
 import { absoluteUrl } from "@/lib/utils";
-import { verifyKey } from "@unkey/api";
+import { withUnkey } from "@unkey/nextjs";
 import { desc, eq, notInArray } from "drizzle-orm";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 
 const metaSchema = z.object({
@@ -13,25 +14,19 @@ const metaSchema = z.object({
 
 export const dynamic = "force-dynamic";
 
-export async function GET(req: Request) {
-  const key = req.headers.get("Authorization")?.replace("Bearer ", "") ?? null;
-  if (!key) return Response.json({ message: "Unauthorized" }, { status: 401 });
-
-  const { error, result } = await verifyKey(key);
-  if (!result?.valid) {
-    console.log({ error });
-    return Response.json({ message: "Not valid api key" }, { status: 400 });
+export const GET = withUnkey(async (req) => {
+  if (!req.unkey.valid) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
   }
-
-  const parse = metaSchema.safeParse(result.meta);
+  const parse = metaSchema.safeParse(req.unkey.meta);
   if (!parse.success)
-    return Response.json(
+    return NextResponse.json(
       { message: "This key has no email address meta." },
       { status: 400 }
     );
 
   if (parse.data.for !== "K-NEXT")
-    return Response.json(
+    return NextResponse.json(
       { message: "Key does not belong to K-Next" },
       { status: 400 }
     );
@@ -63,7 +58,7 @@ export async function GET(req: Request) {
         },
       },
     });
-    return Response.json(
+    return NextResponse.json(
       watchlists?.watchlists.map((w) => ({
         title: w.series.title,
         date: w.updatedAt ? w.updatedAt : w.createdAt,
@@ -72,9 +67,13 @@ export async function GET(req: Request) {
         url: absoluteUrl(
           `/drama/${w.series.slug.replace("drama-detail/", "")}`
         ),
-      }))
+      })),
+      { status: 200 }
     );
   } catch (error) {
-    return Response.json({ message: "Something went wrong." }, { status: 500 });
+    return NextResponse.json(
+      { message: "Something went wrong." },
+      { status: 500 }
+    );
   }
-}
+});
