@@ -167,6 +167,9 @@ async function WatchListed({
   const found = watchLists.find((l) => l.dramaId === slug);
   let isWatchlisted = found?.dramaId === slug;
   const Icon = isWatchlisted ? Icons.minus : Icons.plus;
+  const isCompleted = found?.status === "finished";
+  if (isCompleted)
+    return <Button disabled> You already finished this drama.</Button>;
   return (
     <form
       action={async () => {
@@ -179,7 +182,7 @@ async function WatchListed({
         revalidatePath(`/drama/${slug}`);
       }}
     >
-      <SubmitButton className="w-full">
+      <SubmitButton className="w-full min-w-[200px]">
         <Icon className="w-4 h-4" />
         {isWatchlisted ? "Remove from " : "Add to "}watchlist
       </SubmitButton>
@@ -305,19 +308,19 @@ async function LastPlayedEpisode({ slug }: { slug: string }) {
       },
     },
   });
-  if (!watchlistData) return null;
+  if (!watchlistData || watchlistData.status === "finished") return null;
   const episodes = watchlistData.series.episodes;
   const episodeIndex = episodes.findIndex(
     (e) => e.number === watchlistData.episode
   );
   const episodeData = episodes.find((_, index) => index === episodeIndex + 1);
-
+  const episodeNumber = episodeData?.number ?? 1;
   return (
     <Link
       href={episodeData ? `/watch/${episodeData?.episodeSlug}` : "#"}
       className={cn(buttonVariants(), "w-full")}
     >
-      Continue episode {episodeData?.number ?? 1}
+      {episodeNumber === 1 ? "Watch" : "Continue"} episode {episodeNumber}
     </Link>
   );
 }
