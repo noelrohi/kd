@@ -131,10 +131,14 @@ async function Trending() {
 }
 
 async function WatchList() {
-  const results = await getWatchLists();
+  const watchlists = await getWatchLists();
+  // This results to list of 'watching' status of auth'd users or cookie based watchlists only
+  const filteredList = watchlists.filter(
+    (l) => l.status === "watching" || !l.status
+  );
   return (
     <>
-      {results.length === 0 && (
+      {filteredList.length === 0 && (
         <p className="mt-2 italic">
           No watchlists. Try adding some by going to a series page and click{" "}
           <span className="font-bold not-italic text-blue-700">
@@ -143,7 +147,7 @@ async function WatchList() {
           .
         </p>
       )}
-      {results.map(({ series: drama }, index) => {
+      {filteredList.map(({ series: drama }, index) => {
         if (!drama) return null;
         return (
           <Card

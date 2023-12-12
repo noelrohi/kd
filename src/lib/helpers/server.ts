@@ -20,6 +20,7 @@ const watchListZodSchema = z.array(
 export async function getWatchLists(): Promise<
   {
     dramaId: string;
+    status: "watching" | "on_hold" | "dropped" | "plan_to_watch" | "finished" | null;
     series: {
       id: string;
       description: string | null;
@@ -38,6 +39,7 @@ export async function getWatchLists(): Promise<
       where: eq(watchListSchema.userId, session.user.id),
       columns: {
         dramaId: true,
+        status: true,
       },
       with: {
         series: true,
@@ -56,6 +58,7 @@ export async function getWatchLists(): Promise<
         });
         return lists.map((l) => ({
           dramaId: l.slug,
+          status: null,
           series: l,
         }));
       }
