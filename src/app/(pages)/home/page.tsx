@@ -132,9 +132,9 @@ async function Trending() {
 
 async function WatchList() {
   const watchlists = await getWatchLists();
-  // This results to list of 'watching' status of auth'd users or cookie based watchlists only
-  const filteredList = watchlists.filter(
-    (l) => l.status === "watching" || !l.status
+  // This results to list of 'watching' or 'planned' status of auth'd users or cookie based watchlists only
+  const filteredList = watchlists.filter((l) =>
+    [null, "watching", "plan_to_watch"].includes(l.status)
   );
   return (
     <>
