@@ -1,5 +1,6 @@
 "use client";
 
+import { Loading } from "@/components/fallbacks/loading";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useFormStatus } from "react-dom";
@@ -17,7 +18,7 @@ export function SubmitButton({
       type="submit"
       disabled={pending || disabled}
     >
-      {children}
+      {pending ? <Loading /> : children}
     </Button>
   );
 }
