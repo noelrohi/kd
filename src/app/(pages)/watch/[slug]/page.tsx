@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { getEpisodeInfo, getEpisodeSources } from "@/lib/dramacool";
 import { episodeSourceSchema } from "@/lib/validations";
+import { notifyWatching } from "@/lib/webhooks/slack";
 import type { Metadata, ResolvingMetadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -50,6 +51,7 @@ export default async function Page({ params }: PageProps) {
   const episodeInfo = await getEpisodeInfo(params.slug);
   if (!episodeInfo) throw new Error("Episode info not found!");
   const { downloadLink, dramaId, episodes, id, title, number } = episodeInfo;
+  await notifyWatching(`Someone is watching at ${title} episode ${number}`);
   return (
     <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-4">
       <Link href={`/drama/${dramaId.split("/")[1]}`}>

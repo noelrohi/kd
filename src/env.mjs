@@ -10,6 +10,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     GOOGLE_CLIENT_ID: z.string().min(1),
     API_URL: z.string().url(),
+    SLACK_WEBHOOK_URL: z.string().url().optional()
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url(),
@@ -23,5 +24,6 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     API_URL: process.env.API_URL,
+    SLACK_WEBHOOK_URL: process.env.SLACK_WEBHOOK_URL
   },
 });
