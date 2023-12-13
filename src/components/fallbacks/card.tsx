@@ -16,7 +16,7 @@ export function FallBackCard({
       aspectRatio={aspectRatio}
       data={{
         description: "",
-        title: "Loading",
+        title: "...",
         image: placeholderImage("loading.. "),
       }}
     />
