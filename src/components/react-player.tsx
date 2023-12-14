@@ -83,7 +83,7 @@ export default function ReactPlayerAsVideo({
         },
       });
     }
-  }, [isEnding, authenticated]);
+  }, [isEnding, authenticated, dramaId, number]);
 
   return (
     <ReactPlayer
