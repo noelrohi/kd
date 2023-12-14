@@ -67,15 +67,17 @@ export default function ReactPlayerAsVideo({
         action: {
           label: "Yes",
           onClick: () => {
-            toast.loading("Updating your progress.", { id: 1 });
             startTransition(async () => {
-              const res = await updateProgress({
-                episode: number,
-                slug: dramaId,
-              });
-              toast.dismiss(1);
-              if (res.error) toast.error(res.message);
-              if (!res.error) toast.success(res.message);
+              toast.promise(
+                updateProgress({ episode: number, slug: dramaId }),
+                {
+                  loading: "Updating your progress.",
+                  success: (data) => {
+                    return data.message;
+                  },
+                  error: "Error. Something went wrong.",
+                }
+              );
             });
           },
         },
