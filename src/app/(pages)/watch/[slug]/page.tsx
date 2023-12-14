@@ -9,6 +9,7 @@ import { notifyWatching } from "@/lib/webhooks/slack";
 import type { Metadata, ResolvingMetadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { Suspense, cache } from "react";
 
 interface PageProps {
   params: {
@@ -51,9 +52,11 @@ export default async function Page({ params }: PageProps) {
   const episodeInfo = await getEpisodeInfo(params.slug);
   if (!episodeInfo) throw new Error("Episode info not found!");
   const { downloadLink, dramaId, episodes, id, title, number } = episodeInfo;
-  await notifyWatching(`Someone is watching at ${title} episode ${number}`);
   return (
     <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-4">
+      <Suspense>
+        <Notify text={`Someone is watching at ${title} episode ${number}`} />
+      </Suspense>
       <Link href={`/drama/${dramaId.split("/")[1]}`}>
         <Button variant={"outline"} size={"sm"}>
           View Drama Series
@@ -122,4 +125,11 @@ async function Vid({ episodeSlug, dramaId, number }: Props) {
       authenticated={!!session}
     />
   );
+}
+
+const cacheNotify = cache(notifyWatching);
+
+async function Notify({ text }: { text: string }) {
+  await cacheNotify(text);
+  return <></>;
 }
