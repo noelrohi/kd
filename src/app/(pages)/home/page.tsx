@@ -1,25 +1,42 @@
-import { Card } from "@/components/card";
+import { Card as DramaCard } from "@/components/card";
 import { FallBackCard as FallBack } from "@/components/fallbacks/card";
-import { Loading } from "@/components/fallbacks/loading";
-import { Button } from "@/components/ui/button";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { getRecent, getTrending } from "@/lib/dramacool";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getFeatured, getRecent, getTrending } from "@/lib/dramacool";
 import { getWatchLists } from "@/lib/helpers/server";
 import { generateMetadata } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 import { Suspense } from "react";
-
-interface PageProps {}
 
 const title = "Home";
 const description = "Explore popular and airing kdrama series";
 
 export const metadata = generateMetadata({ title, description });
 
-export default function Page({}: PageProps) {
+export default function Page() {
   return (
     <>
       <section className="mx-auto px-4 lg:container py-4 lg:py-10">
+        <Suspense
+          fallback={
+            <AspectRatio ratio={16 / 5} className="relative">
+              <Skeleton className="w-full h-full" />
+            </AspectRatio>
+          }
+        >
+          <FeaturedDramas />
+        </Suspense>
+        <Separator className="my-2" />
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-2xl font-semibold tracking-tight">
@@ -83,12 +100,37 @@ export default function Page({}: PageProps) {
   );
 }
 
+async function FeaturedDramas() {
+  const featured = await getFeatured();
+  return (
+    <Carousel className="w-full">
+      <CarouselContent>
+        {featured?.map((item) => (
+          <CarouselItem key={item.id} className="basis-full">
+            <Link href={`/drama/${item.id.replace("drama-detail/", "")}`}>
+              <AspectRatio ratio={16 / 5} className="relative">
+                <Image src={item.image} alt={item.title} fill />
+                <div className="absolute inset-0 bg-gradient-to-t from-background to-background/20"></div>
+                <div className="absolute bottom-0 mb-4 text-lg lg:text-2xl text-center w-full font-heading">
+                  {item.title}
+                </div>
+              </AspectRatio>
+            </Link>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  );
+}
+
 async function Recent() {
   const recentEpisodes = await getRecent();
   return (
     <>
       {recentEpisodes?.results?.map((ep, index) => (
-        <Card
+        <DramaCard
           key={index}
           data={{
             title: ep.title,
@@ -112,7 +154,7 @@ async function Trending() {
   return (
     <>
       {topAiring?.results?.map((drama, index) => (
-        <Card
+        <DramaCard
           key={index}
           data={{
             title: drama.title,
@@ -150,7 +192,7 @@ async function WatchList() {
       {filteredList.map(({ series: drama }, index) => {
         if (!drama) return null;
         return (
-          <Card
+          <DramaCard
             key={index}
             data={{
               title: drama.title,
