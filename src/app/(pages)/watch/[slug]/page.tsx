@@ -1,9 +1,12 @@
 import { Icons } from "@/components/icons";
 import { Typography } from "@/components/typography";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
-import { getEpisodeInfo, getEpisodeSources } from "@/lib/dramacool";
+import {
+  getEpisodeInfo as getEpInfo,
+  getEpisodeSources,
+} from "@/lib/dramacool";
 import { episodeSourceSchema } from "@/lib/validations";
 import { notify } from "@/lib/webhooks/slack";
 import type { Metadata, ResolvingMetadata } from "next";
@@ -48,66 +51,74 @@ const VideoPlayer = dynamic(() => import("@/components/react-player"), {
   ssr: false,
 });
 
-export default async function Page({ params }: PageProps) {
-  const episodeInfo = await getEpisodeInfo(params.slug);
+const getEpisodeInfo = cache(async (episodeSlug: string) => {
+  const episodeInfo = await getEpInfo(episodeSlug);
   if (!episodeInfo) throw new Error("Episode info not found!");
-  const { downloadLink, dramaId, episodes, id, title, number } = episodeInfo;
+  return episodeInfo;
+});
+
+export default async function Page({ params }: PageProps) {
+  const { dramaId, title, number } = await getEpisodeInfo(params.slug);
+  const text = `Someone is watching at ${title} episode ${number}`;
+  notify(text);
   return (
     <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-4">
       <Suspense>
-        <Notify text={`Someone is watching at ${title} episode ${number}`} />
+        <Notify text={text} />
       </Suspense>
-      <Link href={`/drama/${dramaId.split("/")[1]}`}>
-        <Button variant={"outline"} size={"sm"}>
-          View Drama Series
-        </Button>
+      <Link
+        href={`/drama/${dramaId.split("/")[1]}`}
+        className={buttonVariants({ variant: "outline", size: "sm" })}
+      >
+        View Drama Series
       </Link>
-      <div className="lg:h-1/2">
-        <AspectRatio ratio={16 / 9}>
-          <Vid episodeSlug={params.slug} number={number} dramaId={dramaId} />
-        </AspectRatio>
-      </div>
-      <div className="flex gap-1">
-        <Button size={"sm"} disabled={!episodes.previous}>
-          <Link
-            href={`/watch/${episodes.previous}`}
-            className="flex items-center gap-2 justify-center"
-          >
-            <Icons.arrowLeft className="w-4 h-4" /> Previous
-          </Link>
-        </Button>
-        <Button
-          size={"sm"}
-          variant={"outline"}
-          className="flex items-center justify-start gap-2"
-        >
-          <Icons.tv className="w-4 h-4" /> {number}
-        </Button>
-        <Button size={"sm"} disabled={!episodes.next}>
-          <Link
-            href={`/watch/${episodes.next}`}
-            className="flex items-center gap-2 justify-center"
-          >
-            Next <Icons.arrowRight className="w-4 h-4" />
-          </Link>
-        </Button>
-        <Button size={"sm"} variant={"secondary"}>
-          <Link
-            href={downloadLink}
-            download
-            className="flex gap-2 items-center justify-center"
-          >
-            <Icons.arrowLeft className="w-4 h-4 -rotate-90" />
-            Download
-          </Link>
-        </Button>
-      </div>
+      <Vid episodeSlug={params.slug} number={number} dramaId={dramaId} />
+      <ControlButtons episodeSlug={params.slug} />
       <Typography as={"h1"} variant={"h2"} className="border-b mb-2">
         {title} | Episode {number}
       </Typography>
-
-      {/* <div className="break-all">{JSON.stringify(parsed)}</div> */}
     </section>
+  );
+}
+
+async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
+  const { episodes, number, downloadLink } = await getEpisodeInfo(episodeSlug);
+  return (
+    <div className="flex gap-1">
+      <Button size={"sm"} disabled={!episodes.previous}>
+        <Link
+          href={`/watch/${episodes.previous}`}
+          className="flex items-center gap-2 justify-center"
+        >
+          <Icons.arrowLeft className="w-4 h-4" /> Previous
+        </Link>
+      </Button>
+      <Button
+        size={"sm"}
+        variant={"outline"}
+        className="flex items-center justify-start gap-2"
+      >
+        <Icons.tv className="w-4 h-4" /> {number}
+      </Button>
+      <Button size={"sm"} disabled={!episodes.next}>
+        <Link
+          href={`/watch/${episodes.next}`}
+          className="flex items-center gap-2 justify-center"
+        >
+          Next <Icons.arrowRight className="w-4 h-4" />
+        </Link>
+      </Button>
+      <Button size={"sm"} variant={"secondary"}>
+        <Link
+          href={downloadLink}
+          download
+          className="flex gap-2 items-center justify-center"
+        >
+          <Icons.arrowLeft className="w-4 h-4 -rotate-90" />
+          Download
+        </Link>
+      </Button>
+    </div>
   );
 }
 
@@ -117,13 +128,17 @@ async function Vid({ episodeSlug, dramaId, number }: Props) {
   const session = await auth();
   const parsed = episodeSourceSchema.parse(episodeSources);
   return (
-    <VideoPlayer
-      url={parsed.sources[0].url}
-      slug={episodeSlug}
-      dramaId={dramaId}
-      number={number}
-      authenticated={!!session}
-    />
+    <div className="lg:h-1/2">
+      <AspectRatio ratio={16 / 9}>
+        <VideoPlayer
+          url={parsed.sources[0].url}
+          slug={episodeSlug}
+          dramaId={dramaId}
+          number={number}
+          authenticated={!!session}
+        />
+      </AspectRatio>
+    </div>
   );
 }
 
