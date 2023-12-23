@@ -5,7 +5,7 @@ import { fontHeading, fontMono, fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
@@ -79,7 +79,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           <TailwindIndicator />
-          <Toaster richColors />
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
