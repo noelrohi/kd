@@ -56,9 +56,6 @@ dependencies:
   drizzle-orm:
     specifier: ^0.29.1
     version: 0.29.1(@planetscale/database@1.11.0)(mysql2@3.6.5)
-  embla-carousel-autoplay:
-    specifier: 8.0.0-rc17
-    version: 8.0.0-rc17(embla-carousel@8.0.0-rc17)
   embla-carousel-react:
     specifier: 8.0.0-rc17
     version: 8.0.0-rc17(react@18.2.0)
@@ -4594,14 +4591,6 @@ packages:
 
   /electron-to-chromium@1.4.607:
     resolution: {integrity: sha512-YUlnPwE6eYxzwBnFmawA8LiLRfm70R2aJRIUv0n03uHt/cUzzYACOogmvk8M2+hVzt/kB80KJXx7d5f5JofPvQ==}
-    dev: false
-
-  /embla-carousel-autoplay@8.0.0-rc17(embla-carousel@8.0.0-rc17):
-    resolution: {integrity: sha512-U8YweUZg2DJd3IXxTV3UsjFyJEsQuCHOBRyJxoJZ8r1L/SYbYnk7BbknH6N0yfgzeMn6pL27RPEf0vIz+JtFYw==}
-    peerDependencies:
-      embla-carousel: 8.0.0-rc17
-    dependencies:
-      embla-carousel: 8.0.0-rc17
     dev: false
 
   /embla-carousel-react@8.0.0-rc17(react@18.2.0):
