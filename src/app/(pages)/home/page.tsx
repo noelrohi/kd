@@ -103,7 +103,7 @@ export default function Page() {
 async function FeaturedDramas() {
   const featured = await getFeatured();
   return (
-    <Carousel className="w-full">
+    <Carousel className="w-full" autoPlay>
       <CarouselContent>
         {featured?.map((item) => (
           <CarouselItem key={item.id} className="basis-full">
@@ -111,7 +111,7 @@ async function FeaturedDramas() {
               <AspectRatio ratio={16 / 5} className="relative">
                 <Image src={item.image} alt={item.title} fill />
                 <div className="absolute inset-0 bg-gradient-to-t from-background to-background/20"></div>
-                <div className="absolute bottom-0 mb-4 text-lg lg:text-2xl text-center w-full font-heading">
+                <div className="absolute bottom-0 mb-4 text-lg lg:text-2xl text-center w-full font-heading font-extrabold">
                   {item.title}
                 </div>
               </AspectRatio>
