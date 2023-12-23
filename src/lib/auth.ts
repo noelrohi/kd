@@ -7,6 +7,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { db, tableCreator } from "@/db";
 
 import { env } from "@/env.mjs";
+import { notify } from "./webhooks/slack";
 
 export type { Session } from "next-auth";
 
@@ -47,6 +48,13 @@ export const {
     }),
     authorized({ request, auth }) {
       return !!auth?.user;
+    },
+  },
+  events: {
+    signIn: async ({ isNewUser, user }) => {
+      if (isNewUser) {
+        notify(`User ${user.name}(${user.email}) has signed up.`);
+      }
     },
   },
 });
