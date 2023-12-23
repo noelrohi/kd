@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { getEpisodeInfo, getEpisodeSources } from "@/lib/dramacool";
 import { episodeSourceSchema } from "@/lib/validations";
-import { notifyWatching } from "@/lib/webhooks/slack";
+import { notify } from "@/lib/webhooks/slack";
 import type { Metadata, ResolvingMetadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -127,7 +127,7 @@ async function Vid({ episodeSlug, dramaId, number }: Props) {
   );
 }
 
-const cacheNotify = cache(notifyWatching);
+const cacheNotify = cache(notify);
 
 async function Notify({ text }: { text: string }) {
   await cacheNotify(text);
