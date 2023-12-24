@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@/components/analytics";
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
@@ -79,6 +80,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           <TailwindIndicator />
+          <Analytics />
           <Toaster />
         </ThemeProvider>
       </body>

@@ -17,6 +17,7 @@
     "@auth/core": "^0.18.4",
     "@auth/drizzle-adapter": "^0.3.9",
     "@irsyadadl/paranoid": "^0.1.0",
+    "@loglib/tracker": "^0.8.0",
     "@paralleldrive/cuid2": "^2.2.2",
     "@planetscale/database": "^1.11.0",
     "@radix-ui/react-aspect-ratio": "^1.0.3",

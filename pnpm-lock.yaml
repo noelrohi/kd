@@ -14,6 +14,9 @@ dependencies:
   '@irsyadadl/paranoid':
     specifier: ^0.1.0
     version: 0.1.0(react@18.2.0)
+  '@loglib/tracker':
+    specifier: ^0.8.0
+    version: 0.8.0(react@18.2.0)
   '@paralleldrive/cuid2':
     specifier: ^2.2.2
     version: 2.2.2
@@ -2308,6 +2311,15 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  /@loglib/tracker@0.8.0(react@18.2.0):
+    resolution: {integrity: sha512-WShEN7s4fcmWaWgBNmx4sDNaoLPudvfmopHxeJpWTAb4SEpypRsk4Kx143UQQEvFHE+jPQi/P3m8ennpVqFWAg==}
+    peerDependencies:
+      react: ^16.8||^17||^18
+    dependencies:
+      react: 18.2.0
+      web-vitals: 3.5.0
+    dev: false
 
   /@mux/mux-node@8.0.0-canary.0:
     resolution: {integrity: sha512-qkCOj7MKKigum0vYIOG/aE89Sy4iglzgYGAgm9mRYNYCngLmih3JPw1MiGkSyHsK/9ba2jEb/lyI1VrZdqo/aQ==}
@@ -8319,6 +8331,10 @@ packages:
   /web-streams-polyfill@4.0.0-beta.3:
     resolution: {integrity: sha512-QW95TCTaHmsYfHDybGMwO5IJIM93I/6vTRk+daHTWFPhwh+C8Cg7j7XyKrwrj8Ib6vYXe0ocYNrmzY4xAAN6ug==}
     engines: {node: '>= 14'}
+    dev: false
+
+  /web-vitals@3.5.0:
+    resolution: {integrity: sha512-f5YnCHVG9Y6uLCePD4tY8bO/Ge15NPEQWtvm3tPzDKygloiqtb4SVqRHBcrIAqo2ztqX5XueqDn97zHF0LdT6w==}
     dev: false
 
   /webidl-conversions@3.0.1:
