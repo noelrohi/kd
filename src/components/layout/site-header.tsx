@@ -114,11 +114,6 @@ async function UserButton() {
             </p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuLabel className="font-normal">
-          <p className="text-sm font-medium leading-none">
-            {session.user.name}
-          </p>
-        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <div>
