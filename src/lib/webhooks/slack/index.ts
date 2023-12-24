@@ -8,6 +8,6 @@ export async function notify(text: string) {
         text,
       }),
     });
-    console.log(await res.text());
+    // console.log(await res.text());
   }
 }
