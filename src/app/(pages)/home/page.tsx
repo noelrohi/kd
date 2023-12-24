@@ -103,7 +103,7 @@ export default function Page() {
 async function FeaturedDramas() {
   const featured = await getFeatured();
   return (
-    <Carousel className="w-full">
+    <Carousel className="w-full overflow-hidden">
       <CarouselContent>
         {featured?.map((item) => (
           <CarouselItem key={item.id} className="basis-full">
