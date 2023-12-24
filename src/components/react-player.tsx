@@ -8,6 +8,7 @@ import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
 import { toast } from "sonner";
 import { Icons } from "./icons";
+import { loglib } from "@loglib/tracker";
 
 interface Props extends ReactPlayerProps {
   slug: string;
@@ -94,6 +95,7 @@ export default function ReactPlayerAsVideo({
       loop={false}
       onEnded={handleEnded}
       onReady={handleReady}
+      onPlay={() => loglib.track("play", { title: slug })}
       playbackRate={Number(playbackRate)}
       onSeek={(number) => {
         setIsSeeking(true);
