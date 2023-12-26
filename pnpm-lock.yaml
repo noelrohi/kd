@@ -50,6 +50,9 @@ dependencies:
   '@unkey/nextjs':
     specifier: ^0.13.3
     version: 0.13.3
+  '@vercel/edge':
+    specifier: ^1.1.1
+    version: 1.1.1
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -550,7 +553,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.23.5
-      '@babel/helper-create-class-features-plugin': 7.23.5(@babel/core@7.23.5)
+      '@babel/helper-create-class-features-plugin': 7.23.6(@babel/core@7.23.5)
       '@babel/helper-plugin-utils': 7.22.5
     dev: false
 
@@ -4169,6 +4172,10 @@ packages:
       - canvas
       - supports-color
       - utf-8-validate
+    dev: false
+
+  /@vercel/edge@1.1.1:
+    resolution: {integrity: sha512-NtKiIbn9Cq6HWGy+qRudz28mz5nxfOJWls5Pnckjw1yCfSX8rhXdvY/il3Sy3Zd5n/sKCM2h7VSCCpJF/oaDrQ==}
     dev: false
 
   /@webassemblyjs/ast@1.11.6:
