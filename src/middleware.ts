@@ -10,11 +10,9 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.fixedWindow(5, "10s"),
 });
 
-const ignoredPaths = ["/"];
-
 export async function middleware(request: NextRequest) {
-  if (ignoredPaths.includes(request.nextUrl.pathname)) {
-    console.log("Ignoring public path");
+  const pathname = request.nextUrl.pathname;
+  if (!pathname.startsWith("/watch")) {
     return NextResponse.next();
   }
 
@@ -33,5 +31,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };
