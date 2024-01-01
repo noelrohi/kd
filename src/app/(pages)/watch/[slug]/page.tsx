@@ -90,7 +90,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
           href={`/watch/${episodes.previous}`}
           className="flex items-center gap-2 justify-center"
         >
-          <Icons.arrowLeft className="w-4 h-4" /> Previous
+          <Icons.arrowLeft className="size-4" /> Previous
         </Link>
       </Button>
       <Button
@@ -98,14 +98,14 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
         variant={"outline"}
         className="flex items-center justify-start gap-2"
       >
-        <Icons.tv className="w-4 h-4" /> {number}
+        <Icons.tv className="size-4" /> {number}
       </Button>
       <Button size={"sm"} disabled={!episodes.next}>
         <Link
           href={`/watch/${episodes.next}`}
           className="flex items-center gap-2 justify-center"
         >
-          Next <Icons.arrowRight className="w-4 h-4" />
+          Next <Icons.arrowRight className="size-4" />
         </Link>
       </Button>
       <Button size={"sm"} variant={"secondary"}>
@@ -114,7 +114,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
           download
           className="flex gap-2 items-center justify-center"
         >
-          <Icons.arrowLeft className="w-4 h-4 -rotate-90" />
+          <Icons.arrowLeft className="size-4 -rotate-90" />
           Download
         </Link>
       </Button>
