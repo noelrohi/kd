@@ -183,7 +183,7 @@ async function WatchListed({
       }}
     >
       <SubmitButton className="w-full min-w-[200px]">
-        <Icon className="w-4 h-4" />
+        <Icon className="size-4" />
         {isWatchlisted ? "Remove from " : "Add to "}watchlist
       </SubmitButton>
     </form>
@@ -274,7 +274,7 @@ async function AdminAction(props: { slug: string }) {
           "Upserted"
         ) : (
           <>
-            <Icons.plus className="w-4 h-4" /> Add to db
+            <Icons.plus className="size-4" /> Add to db
           </>
         )}
       </SubmitButton>

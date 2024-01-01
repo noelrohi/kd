@@ -117,7 +117,7 @@ async function UserButton() {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <div>
-            <Icons.logout className="mr-2 h-4 w-4" aria-hidden="true" />
+            <Icons.logout className="mr-2 size-4" aria-hidden="true" />
             <Link href={"/signout"}>Log out</Link>
           </div>
         </DropdownMenuItem>
