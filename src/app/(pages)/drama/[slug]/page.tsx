@@ -125,6 +125,7 @@ export default async function Page({ params }: PageProps) {
             {episodes?.map((ep, index) => (
               <Card
                 key={index}
+                prefetch={false}
                 data={{
                   title: ep.title,
                   image: image,

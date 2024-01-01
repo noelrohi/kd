@@ -9,6 +9,7 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   width: number;
   height: number;
   progress?: number;
+  prefetch?: boolean
 }
 
 type Data = {
@@ -26,13 +27,14 @@ export function Card({
   width,
   height,
   className,
+  prefetch = true,
   ...props
 }: CardProps) {
   const href = data.slug ? `/drama/${data.slug}` : data.link ?? "#";
   return (
     <div className={cn("space-y-3", className)} {...props}>
       <div className="overflow-hidden rounded-md relative">
-        <Link href={href}>
+        <Link href={href} prefetch={prefetch}>
           <WithErrorImage
             src={data.image}
             alt={data.title}
