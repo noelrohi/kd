@@ -1,7 +1,7 @@
 {
     "crons": [
         {
-            "path": "/api/series/sync?type=recent",
+            "path": "/api/series/sync",
             "schedule": "0 17 * * *"
         }
     ]

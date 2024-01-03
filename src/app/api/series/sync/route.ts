@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { series } from "@/db/schema/main";
-import { getRecent, getTrending } from "@/lib/dramacool";
+import { getTrending } from "@/lib/dramacool";
 import { withUnkey } from "@unkey/nextjs";
 import { sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
@@ -13,32 +13,17 @@ export const POST = withUnkey(async (req) => {
   }
   try {
     let valuesToInsert: (typeof series.$inferInsert)[] = [];
-    const searchparams = req.nextUrl.searchParams;
-    const type = searchparams.get("type") ?? "trending";
+    const trends = await getTrending();
+    if (!trends) throw new Error("Trending failed to fetch.");
+    const data = trends.results;
+    data.forEach((d) => {
+      valuesToInsert.push({
+        coverImage: d.image,
+        slug: d.id,
+        title: d.title,
+      });
+    });
 
-    if (type === "trending") {
-      const trends = await getTrending();
-      if (!trends) throw new Error("Trending failed to fetch.");
-      const data = trends.results;
-      data.forEach((d) => {
-        valuesToInsert.push({
-          coverImage: d.image,
-          slug: d.id,
-          title: d.title,
-        });
-      });
-    } else if (type === "recent") {
-      const recents = await getRecent();
-      if (!recents) throw new Error("Recents failed to fetch");
-      const data = recents.results;
-      data.forEach((d) => {
-        valuesToInsert.push({
-          coverImage: d.image,
-          slug: d.id,
-          title: d.title,
-        });
-      });
-    }
     await db
       .insert(series)
       .values(valuesToInsert)
