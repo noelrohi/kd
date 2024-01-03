@@ -132,6 +132,7 @@ async function Recent() {
       {recentEpisodes?.results?.map((ep, index) => (
         <DramaCard
           key={index}
+          prefetch={false}
           data={{
             title: ep.title,
             image: ep.image,
