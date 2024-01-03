@@ -88,6 +88,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
       <Button size={"sm"} disabled={!episodes.previous}>
         <Link
           href={`/watch/${episodes.previous}`}
+          scroll={false}
           className="flex items-center gap-2 justify-center"
         >
           <Icons.arrowLeft className="size-4" /> Previous
@@ -103,6 +104,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
       <Button size={"sm"} disabled={!episodes.next}>
         <Link
           href={`/watch/${episodes.next}`}
+          scroll={false}
           className="flex items-center gap-2 justify-center"
         >
           Next <Icons.arrowRight className="size-4" />
