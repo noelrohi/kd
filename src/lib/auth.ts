@@ -38,6 +38,7 @@ export const {
     }),
   ],
   secret: env.NEXTAUTH_SECRET,
+  // trustHost: true,
   callbacks: {
     session: ({ session, user }) => ({
       ...session,
