@@ -26,11 +26,11 @@ export const metadata = generateMetadata({ title, description });
 export default function Page() {
   return (
     <>
-      <section className="mx-auto px-4 lg:container py-4 lg:py-10">
+      <section className="mx-auto px-4 lg:container py-4 lg:py-10 w-screen">
         <Suspense
           fallback={
             <AspectRatio ratio={16 / 5} className="relative">
-              <Skeleton className="w-full h-full" />
+              <Skeleton className="size-full" />
             </AspectRatio>
           }
         >
