@@ -71,7 +71,7 @@ export default async function Page({ params }: PageProps) {
     genres,
   } = parse.data;
   return (
-    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-6">
+    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-6 w-screen">
       <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row lg:justify-between">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {title}
