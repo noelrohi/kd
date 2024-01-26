@@ -115,6 +115,9 @@ dependencies:
     version: 3.22.4
 
 devDependencies:
+  '@biomejs/biome':
+    specifier: 1.5.3-nightly.24fcf19
+    version: 1.5.3-nightly.24fcf19
   '@types/node':
     specifier: ^20.11.5
     version: 20.11.5
@@ -1498,6 +1501,94 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
     dev: false
+
+  /@biomejs/biome@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-QHhabaQfex6kyxct0M9Gw2F9/EIQ0agg4t3MvcB/z8gcUQzbxQ+3TMTHLoVrZ/2yKePjVqkCps1F80+unAyoDg==}
+    engines: {node: '>=14.*'}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      '@biomejs/cli-darwin-arm64': 1.5.3-nightly.24fcf19
+      '@biomejs/cli-darwin-x64': 1.5.3-nightly.24fcf19
+      '@biomejs/cli-linux-arm64': 1.5.3-nightly.24fcf19
+      '@biomejs/cli-linux-arm64-musl': 1.5.3-nightly.24fcf19
+      '@biomejs/cli-linux-x64': 1.5.3-nightly.24fcf19
+      '@biomejs/cli-linux-x64-musl': 1.5.3-nightly.24fcf19
+      '@biomejs/cli-win32-arm64': 1.5.3-nightly.24fcf19
+      '@biomejs/cli-win32-x64': 1.5.3-nightly.24fcf19
+    dev: true
+
+  /@biomejs/cli-darwin-arm64@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-GrbZ415ezLy5HQrkAlFvG0FEdVMY/vJsgN2amKPXC5n5uBkvSaxxK3AApXSlXp+6RtSYyItK79Y3syLPi+CboQ==}
+    engines: {node: '>=14.*'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-darwin-x64@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-nVExDggm627g/N5jvvVJm3GjwSdeNDnTatV0utm81mFQwPjBUN/JaAdzN3vjReBDQLxlMBDxDE12clhgKb4WCw==}
+    engines: {node: '>=14.*'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-arm64-musl@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-vtlFIeCp5eR47yvLRMTopWu52s0npecogIMPGLI/LAiI0wrfeRIX3bL1kBhkryQosIQpldt8j/x9ER+V2pksRw==}
+    engines: {node: '>=14.*'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-arm64@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-ulIiXMCOwoMejx/8ZWgVZWecIWIpW2nmZVDejusSfwoEaaEXbx90ulSQG7lKtiR9A5rxDpk9jlpFuwWhvMXfYQ==}
+    engines: {node: '>=14.*'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-x64-musl@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-pdWUUvU3j7nz+Hx1w0GL30DKo8BnhC/UmHhLM8xZ0kNJMQ/eY6rBwYyQxnhVzUbFeIMhZlhIA0jzReUI0cof5g==}
+    engines: {node: '>=14.*'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-linux-x64@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-T3sfho4vtl6Xttilt+eiTgWx59IVrdzG0Sm4Hkaq1zHZMoBiybnqbo0ZZiuTrYaGGOQcyR/qPOdyxizNClA12g==}
+    engines: {node: '>=14.*'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-win32-arm64@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-n2jU38xM1R3/zMxLn7F+u6vUfubqf5YsogNVNIeYgzAN6g/0HGlLFQGLXrtZ0OQ16DkWhUpzGerugKobuvbTFw==}
+    engines: {node: '>=14.*'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@biomejs/cli-win32-x64@1.5.3-nightly.24fcf19:
+    resolution: {integrity: sha512-xjzcYWyRpUEurciofrw6QelpSWa3I4Dws3qVjzvm8yn2x7r6y6uaYqwbnBgNpXVP0RLTQp+BDzuWEA/ERXMaTw==}
+    engines: {node: '>=14.*'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /@drizzle-team/studio@0.0.39:
     resolution: {integrity: sha512-c5Hkm7MmQC2n5qAsKShjQrHoqlfGslB8+qWzsGGZ+2dHMRTNG60UuzalF0h0rvBax5uzPXuGkYLGaQ+TUX3yMw==}

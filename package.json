@@ -6,12 +6,12 @@
     "dev": "next dev -p 1999",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "ui": "pnpm dlx shadcn-ui",
     "postinstall": "drizzle-kit generate:mysql",
     "db:push": "drizzle-kit push:mysql",
     "db:introspect": "drizzle-kit introspect:mysql",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "fmt": "pnpm biome format ./src --write && pnpm biome check ./src --apply-unsafe"
   },
   "dependencies": {
     "@auth/core": "^0.21.0",
@@ -52,13 +52,12 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.5.3-nightly.24fcf19",
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.4.17",
     "drizzle-kit": "^0.20.13",
-    "eslint": "^8.56.0",
-    "eslint-config-next": "14.1.0",
     "mysql2": "^3.7.1",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
