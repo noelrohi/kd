@@ -26,7 +26,7 @@ export const users = mySqlTable(
   },
   (table) => ({
     emailIdx: index("email_idx").on(table.email),
-  })
+  }),
 );
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -56,7 +56,7 @@ export const accounts = mySqlTable(
       columns: [account.provider, account.providerAccountId],
     }),
     userIdIdx: index("userId_idx").on(account.userId),
-  })
+  }),
 );
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -74,7 +74,7 @@ export const sessions = mySqlTable(
   },
   (session) => ({
     userIdIdx: index("userId_idx").on(session.userId),
-  })
+  }),
 );
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
@@ -90,5 +90,5 @@ export const verificationTokens = mySqlTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
+  }),
 );

@@ -37,7 +37,7 @@ export default async function SignInPage() {
                 await signIn("discord");
               }}
             >
-              <Icons.discord className="h-5 w-5 mr-2" />
+              <Icons.discord className="mr-2 h-5 w-5" />
               Discord
             </Button>
             <Button
@@ -47,7 +47,7 @@ export default async function SignInPage() {
                 await signIn("google");
               }}
             >
-              <Icons.google className="h-5 w-5 mr-2" />
+              <Icons.google className="mr-2 h-5 w-5" />
               Google
             </Button>
           </form>

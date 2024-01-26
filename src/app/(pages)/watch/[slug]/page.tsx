@@ -22,7 +22,7 @@ interface PageProps {
 
 export async function generateMetadata(
   { params }: PageProps,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   try {
     const episodeInfo = await getEpisodeInfo(params.slug);
@@ -62,7 +62,7 @@ export default async function Page({ params }: PageProps) {
   const text = `Someone is watching at ${title} episode ${number}`;
   notify(text);
   return (
-    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-4">
+    <section className="mx-auto space-y-4 px-4 py-4 lg:container lg:py-10">
       <Suspense>
         <Notify text={text} />
       </Suspense>
@@ -74,7 +74,7 @@ export default async function Page({ params }: PageProps) {
       </Link>
       <Vid episodeSlug={params.slug} number={number} dramaId={dramaId} />
       <ControlButtons episodeSlug={params.slug} />
-      <Typography as={"h1"} variant={"h2"} className="border-b mb-2">
+      <Typography as={"h1"} variant={"h2"} className="mb-2 border-b">
         {title} | Episode {number}
       </Typography>
     </section>
@@ -89,7 +89,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
         <Link
           href={`/watch/${episodes.previous}`}
           scroll={false}
-          className="flex items-center gap-2 justify-center"
+          className="flex items-center justify-center gap-2"
         >
           <Icons.arrowLeft className="size-4" /> Previous
         </Link>
@@ -105,7 +105,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
         <Link
           href={`/watch/${episodes.next}`}
           scroll={false}
-          className="flex items-center gap-2 justify-center"
+          className="flex items-center justify-center gap-2"
         >
           Next <Icons.arrowRight className="size-4" />
         </Link>
@@ -114,9 +114,9 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
         <Link
           href={downloadLink}
           download
-          className="flex gap-2 items-center justify-center"
+          className="flex items-center justify-center gap-2"
         >
-          <Icons.arrowLeft className="size-4 -rotate-90" />
+          <Icons.arrowLeft className="-rotate-90 size-4" />
           Download
         </Link>
       </Button>

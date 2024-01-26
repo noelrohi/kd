@@ -2,13 +2,13 @@
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { updateProgress } from "@/lib/actions";
+import { loglib } from "@loglib/tracker";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
 import { toast } from "sonner";
 import { Icons } from "./icons";
-import { loglib } from "@loglib/tracker";
 
 interface Props extends ReactPlayerProps {
   slug: string;
@@ -24,7 +24,7 @@ export default function ReactPlayerAsVideo({
   authenticated,
   dramaId,
 }: Props) {
-  let storageName = `kd-${slug}-${number}`;
+  const storageName = `kd-${slug}-${number}`;
   const [media, setMedia, rmMedia] = useLocalStorage(storageName, "");
   const parsedStoredItem: OnProgressProps = media
     ? JSON.parse(media)
@@ -34,7 +34,7 @@ export default function ReactPlayerAsVideo({
   const [progress, setProgress] = useState<OnProgressProps>(parsedStoredItem);
   const [playbackRate, setPlaybackRate] = useLocalStorage(
     "kd-playbackrate",
-    "1"
+    "1",
   );
   const handlePause = () => {
     setMedia(JSON.stringify(progress));
@@ -77,7 +77,7 @@ export default function ReactPlayerAsVideo({
                     return data.message;
                   },
                   error: "Error. Something went wrong.",
-                }
+                },
               );
             });
           },
@@ -101,7 +101,7 @@ export default function ReactPlayerAsVideo({
         setIsSeeking(true);
       }}
       onProgress={(state) => {
-        let almostEnd = state.played > 0.89;
+        const almostEnd = state.played > 0.89;
         setIsEnding(almostEnd);
         setProgress({ ...state, playedSeconds: state.playedSeconds });
       }}

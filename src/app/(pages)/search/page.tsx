@@ -4,18 +4,19 @@ import { Icons } from "@/components/icons";
 import { Typography } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { siteConfig } from "@/config/site";
 import { search } from "@/lib/dramacool";
+import { generateMetadata } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { z } from "zod";
-import { generateMetadata } from "@/lib/utils";
-import { siteConfig } from "@/config/site";
 
 export const metadata = generateMetadata({
   title: "Search Drama Series",
   description: siteConfig.description,
-  opengraphImage: `https://og.rohi.dev/general?title=K-NEXT - Search&textColor=fff&backgroundColorHex=000`,
+  opengraphImage:
+    "https://og.rohi.dev/general?title=K-NEXT - Search&textColor=fff&backgroundColorHex=000",
 });
 
 interface SearchPageProps {
@@ -31,7 +32,7 @@ const searchParamsSchema = z.object({
 export default function SearchPage(props: SearchPageProps) {
   const searchParams = searchParamsSchema.parse(props.searchParams);
   return (
-    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-6">
+    <section className="mx-auto space-y-6 px-4 py-4 lg:container lg:py-10">
       <form
         action={async (data: FormData) => {
           "use server";
@@ -39,7 +40,7 @@ export default function SearchPage(props: SearchPageProps) {
           revalidatePath("/search");
           redirect(`/search?q=${q}`);
         }}
-        className="relative max-w-lg block lg:hidden"
+        className="relative block max-w-lg lg:hidden"
       >
         <Input
           placeholder="Search series ..."
@@ -62,11 +63,11 @@ export default function SearchPage(props: SearchPageProps) {
         <>
           <Typography as={"h1"} variant={"h3"}>
             Search results for{" "}
-            <span className="italic text-blue-500">{searchParams.q}</span>
+            <span className="text-blue-500 italic">{searchParams.q}</span>
           </Typography>
         </>
       )}
-      <div className="flex flex-wrap gap-2 items-center">
+      <div className="flex flex-wrap items-center gap-2">
         <Suspense
           key={searchParams.q}
           fallback={<FallBackCard aspectRatio="square" />}
@@ -75,7 +76,7 @@ export default function SearchPage(props: SearchPageProps) {
         </Suspense>
       </div>
       {!searchParams.q && (
-        <div className="text-center w-full text-3xl font-semibold">
+        <div className="w-full text-center font-semibold text-3xl">
           No series, try searching some ..
         </div>
       )}
@@ -95,10 +96,10 @@ async function SearchResults({ query }: { query: string | undefined }) {
           data={{
             title: drama.title,
             image: drama.image,
-            description: ``,
+            description: "",
             slug: drama.id.replace("drama-detail/", ""),
           }}
-          className="lg:w-[250px] w-28"
+          className="w-28 lg:w-[250px]"
           aspectRatio="square"
           width={250}
           height={330}

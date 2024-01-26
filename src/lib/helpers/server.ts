@@ -14,7 +14,7 @@ async function authOrCookie() {
 const watchListZodSchema = z.array(
   z.object({
     dramaId: z.string(),
-  })
+  }),
 );
 
 export async function getWatchLists(): Promise<
@@ -96,7 +96,7 @@ export async function pushToWatchList({ slug }: WatchlistProps) {
     // console.log("reading cookie store...");
     const parse = watchListZodSchema.safeParse(JSON.parse(watchlistLocal));
     if (parse.success) {
-      let lists = parse.data;
+      const lists = parse.data;
       lists.push({ dramaId: slug });
       cookieStore.set("watchlist", JSON.stringify(lists));
     }
@@ -113,16 +113,16 @@ export async function popFromWatchList({ slug }: WatchlistProps) {
       .where(
         and(
           eq(watchListSchema.dramaId, slug),
-          eq(watchListSchema.userId, session.user.id)
-        )
+          eq(watchListSchema.userId, session.user.id),
+        ),
       );
   }
   const watchlistLocal = cookieStore.get("watchlist")?.value;
   if (watchlistLocal) {
     const parse = watchListZodSchema.safeParse(JSON.parse(watchlistLocal));
     if (parse.success) {
-      let lists = parse.data;
-      let indexToRemove = lists.findIndex((obj) => obj.dramaId === slug);
+      const lists = parse.data;
+      const indexToRemove = lists.findIndex((obj) => obj.dramaId === slug);
       if (indexToRemove !== -1) {
         lists.splice(indexToRemove, 1);
       }

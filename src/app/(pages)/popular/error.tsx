@@ -4,7 +4,7 @@ import { Typography } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 
-export default function Error({
+export default function PopularError({
   error,
   reset,
 }: {
@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <section className="flex min-h-[100vh-84px] justify-center items-center flex-col">
+    <section className="flex min-h-[100vh-84px] flex-col items-center justify-center">
       <Typography as={"h1"} variant={"h2"}>
         Something went wrong!
       </Typography>

@@ -17,7 +17,7 @@ const typographyVariants = cva(
     defaultVariants: {
       variant: "p",
     },
-  }
+  },
 );
 
 interface TypographyProps

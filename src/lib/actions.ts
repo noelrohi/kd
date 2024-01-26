@@ -19,7 +19,7 @@ export async function updateProgress({
     const found = await db.query.watchList.findFirst({
       where: and(
         eq(watchList.userId, session.user.id),
-        eq(watchList.dramaId, slug)
+        eq(watchList.dramaId, slug),
       ),
     });
     let status: "watching" | "finished" = "watching";
@@ -44,8 +44,8 @@ export async function updateProgress({
         .where(
           and(
             eq(watchList.dramaId, slug),
-            eq(watchList.userId, session.user.id)
-          )
+            eq(watchList.userId, session.user.id),
+          ),
         );
     }
     revalidatePath(`/drama/${slug.replace("drama-detail/", "")}`);

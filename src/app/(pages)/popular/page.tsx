@@ -1,21 +1,22 @@
+import { FallBackCard } from "@/components/fallbacks/card";
 import { Typography } from "@/components/typography";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 import { getTrending } from "@/lib/dramacool";
+import { generateMetadata } from "@/lib/utils";
 import { Suspense } from "react";
 import { InfiniteList } from "./client";
-import { Button } from "@/components/ui/button";
-import { FallBackCard } from "@/components/fallbacks/card";
-import { generateMetadata } from "@/lib/utils";
-import { siteConfig } from "@/config/site";
 
 export const metadata = generateMetadata({
   title: "Popular Drama Series",
   description: siteConfig.description,
-  opengraphImage: `https://og.rohi.dev/general?title=K-NEXT - Popular&textColor=fff&backgroundColorHex=000`,
+  opengraphImage:
+    "https://og.rohi.dev/general?title=K-NEXT - Popular&textColor=fff&backgroundColorHex=000",
 });
 
 export default function Page() {
   return (
-    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-6">
+    <section className="mx-auto space-y-6 px-4 py-4 lg:container lg:py-10">
       <Typography
         as={"h1"}
         variant={"h3"}
@@ -42,7 +43,7 @@ function FallBack() {
       <div className="flex flex-wrap gap-2">
         <FallBackCard aspectRatio="square" />
       </div>
-      <Button className="w-full mt-4" variant={"secondary"} disabled>
+      <Button className="mt-4 w-full" variant={"secondary"} disabled>
         Load more
       </Button>
     </div>

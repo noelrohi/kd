@@ -1,10 +1,10 @@
 "use client";
 
-import { authenticate } from "../actions";
-import { PasswordInput } from "./password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useFormState, useFormStatus } from "react-dom";
+import { authenticate } from "../actions";
+import { PasswordInput } from "./password-input";
 
 export function UserAuthForm() {
   const [state, dispatch] = useFormState(authenticate, undefined);

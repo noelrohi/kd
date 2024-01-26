@@ -22,13 +22,13 @@ export const GET = withUnkey(async (req) => {
   if (!parse.success)
     return NextResponse.json(
       { message: "This key has no email address meta." },
-      { status: 400 }
+      { status: 400 },
     );
 
   if (parse.data.for !== "K-NEXT")
     return NextResponse.json(
       { message: "Key does not belong to K-Next" },
-      { status: 400 }
+      { status: 400 },
     );
   try {
     const watchlists = await db.query.users.findFirst({
@@ -65,15 +65,15 @@ export const GET = withUnkey(async (req) => {
         episode: w.episode,
         status: w.status,
         url: absoluteUrl(
-          `/drama/${w.series.slug.replace("drama-detail/", "")}`
+          `/drama/${w.series.slug.replace("drama-detail/", "")}`,
         ),
       })),
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
       { message: "Something went wrong." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 });

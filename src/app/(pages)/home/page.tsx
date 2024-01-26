@@ -26,7 +26,7 @@ export const metadata = generateMetadata({ title, description });
 export default function Page() {
   return (
     <>
-      <section className="mx-auto px-4 lg:container py-4 lg:py-10 w-screen">
+      <section className="mx-auto w-screen px-4 py-4 lg:container lg:py-10">
         <Suspense
           fallback={
             <AspectRatio ratio={16 / 5} className="relative">
@@ -39,10 +39,10 @@ export default function Page() {
         <Separator className="my-2" />
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h2 className="text-2xl font-semibold tracking-tight">
+            <h2 className="font-semibold text-2xl tracking-tight">
               Watch list
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
           </div>
@@ -60,8 +60,8 @@ export default function Page() {
         <Separator className="my-2" />
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h2 className="text-2xl font-semibold tracking-tight">Recent</h2>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="font-semibold text-2xl tracking-tight">Recent</h2>
+            <p className="text-muted-foreground text-sm">
               Freshly aired drama episodes that have been recently released.
             </p>
           </div>
@@ -79,8 +79,8 @@ export default function Page() {
         <Separator className="my-2" />
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h2 className="text-2xl font-semibold tracking-tight">Popular</h2>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="font-semibold text-2xl tracking-tight">Popular</h2>
+            <p className="text-muted-foreground text-sm">
               Most anticipated and popular drama series.
             </p>
           </div>
@@ -110,8 +110,8 @@ async function FeaturedDramas() {
             <Link href={`/drama/${item.id.replace("drama-detail/", "")}`}>
               <AspectRatio ratio={16 / 5} className="relative">
                 <Image src={item.image} alt={item.title} fill />
-                <div className="absolute inset-0 bg-gradient-to-t from-background to-background/20"></div>
-                <div className="absolute bottom-0 mb-4 text-lg lg:text-2xl text-center w-full font-heading">
+                <div className="absolute inset-0 bg-gradient-to-t from-background to-background/20" />
+                <div className="absolute bottom-0 mb-4 w-full text-center font-heading text-lg lg:text-2xl">
                   {item.title}
                 </div>
               </AspectRatio>
@@ -140,7 +140,7 @@ async function Recent() {
             link: `watch/${ep.id}`,
             // slug: ep.id.replace("drama-detail/", ""),
           }}
-          className="lg:w-[250px] w-28"
+          className="w-28 lg:w-[250px]"
           aspectRatio="portrait"
           width={250}
           height={330}
@@ -160,10 +160,10 @@ async function Trending() {
           data={{
             title: drama.title,
             image: drama.image,
-            description: ``,
+            description: "",
             slug: drama.id.replace("drama-detail/", ""),
           }}
-          className="lg:w-[250px] w-28"
+          className="w-28 lg:w-[250px]"
           aspectRatio="portrait"
           width={250}
           height={330}
@@ -177,14 +177,14 @@ async function WatchList() {
   const watchlists = await getWatchLists();
   // This results to list of 'watching' or 'planned' status of auth'd users or cookie based watchlists only
   const filteredList = watchlists.filter((l) =>
-    [null, "watching", "plan_to_watch"].includes(l.status)
+    [null, "watching", "plan_to_watch"].includes(l.status),
   );
   return (
     <>
       {filteredList.length === 0 && (
         <p className="mt-2 italic">
           No watchlists. Try adding some by going to a series page and click{" "}
-          <span className="font-bold not-italic text-blue-700">
+          <span className="font-bold text-blue-700 not-italic">
             Add to watchlist
           </span>
           .
@@ -198,10 +198,10 @@ async function WatchList() {
             data={{
               title: drama.title,
               image: drama.coverImage,
-              description: ``,
+              description: "",
               slug: drama.slug.replace("drama-detail/", ""),
             }}
-            className="lg:w-[250px] w-28"
+            className="w-28 lg:w-[250px]"
             aspectRatio="portrait"
             width={250}
             height={330}

@@ -5,14 +5,12 @@ import { useRouter } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 import { logOut } from "../actions";
 
-interface SignOutButtonsProps {}
-
-export default function SignOutButtons({}: SignOutButtonsProps) {
+export default function SignOutButtons() {
   const router = useRouter();
   const [state, dispatch] = useFormState(logOut, undefined);
   return (
     <>
-      <div className="flex gap-2 justify-center">
+      <div className="flex justify-center gap-2">
         <form action={dispatch}>
           <SignOut />
         </form>

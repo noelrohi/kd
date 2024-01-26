@@ -27,7 +27,7 @@ export async function getEpisodeInfo(episodeSlug: string) {
   return data;
 }
 
-export async function getTrending(page: number = 1) {
+export async function getTrending(page = 1) {
   const url = `${env.API_URL}/top-airing?page=${page}`;
   const res = await fetch(url);
   if (!res.ok) return null;
@@ -43,7 +43,7 @@ export async function getFeatured() {
   return data;
 }
 
-export async function getRecent(page: number = 1) {
+export async function getRecent(page = 1) {
   const url = `${env.API_URL}/recent?page=${page}`;
   const res = await fetch(url);
   if (!res.ok) return null;

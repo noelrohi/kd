@@ -12,17 +12,18 @@ export const POST = withUnkey(async (req) => {
     return new NextResponse("unauthorized", { status: 403 });
   }
   try {
-    let valuesToInsert: (typeof series.$inferInsert)[] = [];
+    const valuesToInsert: (typeof series.$inferInsert)[] = [];
     const trends = await getTrending();
     if (!trends) throw new Error("Trending failed to fetch.");
     const data = trends.results;
-    data.forEach((d) => {
+
+    for (const d of data) {
       valuesToInsert.push({
         coverImage: d.image,
         slug: d.id,
         title: d.title,
       });
-    });
+    }
 
     await db
       .insert(series)
@@ -33,7 +34,7 @@ export const POST = withUnkey(async (req) => {
     console.log(error);
     return NextResponse.json(
       { error: "Something went wrong." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 });

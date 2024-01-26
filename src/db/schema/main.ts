@@ -37,7 +37,7 @@ export const watchList = mySqlTable(
       dramaIdx: index("drama_idx").on(table.dramaId),
       statusIdx: index("status_idx").on(table.status),
     };
-  }
+  },
 );
 
 export const watchListRelations = relations(watchList, ({ one }) => ({
@@ -59,7 +59,7 @@ export const series = mySqlTable(
     title: varchar("title", { length: 255 }).notNull(),
     coverImage: varchar("coverImage", { length: 255 }).notNull(),
     status: mysqlEnum("status", ["ongoing", "upcoming", "completed"]).default(
-      "upcoming"
+      "upcoming",
     ),
     genres: json("genres").$type<string[]>(),
     otherNames: json("other_names").$type<string[]>(),
@@ -73,7 +73,7 @@ export const series = mySqlTable(
       slugIdx: index("slug_idx").on(table.slug),
       status: index("status_idx").on(table.status),
     };
-  }
+  },
 );
 
 export const seriesRelations = relations(series, ({ many }) => ({
@@ -101,7 +101,7 @@ export const episode = mySqlTable(
       episodeSlugIdx: index("episode_slug_idx").on(table.episodeSlug),
       numberIdx: index("number_idx").on(table.number),
     };
-  }
+  },
 );
 
 export const episodeRelations = relations(episode, ({ one }) => ({

@@ -18,17 +18,17 @@ export function InfiniteList({ initialData }: InfiniteListProps) {
 
   return (
     <div className="w-full">
-      <div className="flex flex-wrap items-center justify-center lg:items-start lg:justify-start gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2 lg:items-start lg:justify-start">
         {list.map((drama) => (
           <Card
             key={drama.id}
             data={{
               title: drama.title,
               image: drama.image,
-              description: ``,
+              description: "",
               slug: drama.id.replace("drama-detail/", ""),
             }}
-            className="lg:w-[250px] w-28"
+            className="w-28 lg:w-[250px]"
             aspectRatio="square"
             width={250}
             height={330}
@@ -36,7 +36,7 @@ export function InfiniteList({ initialData }: InfiniteListProps) {
         ))}
       </div>
       <Button
-        className="w-full mt-4"
+        className="mt-4 w-full"
         variant={"secondary"}
         onClick={() =>
           startTransition(async () => {

@@ -1,16 +1,16 @@
 "use client";
 
-import * as React from "react";
-import useEmblaCarousel from "embla-carousel-react";
 import {
   type EmblaCarouselType as CarouselApi,
   type EmblaOptionsType as CarouselOptions,
   type EmblaPluginType as CarouselPlugin,
 } from "embla-carousel";
+import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type CarouselProps = {
   opts?: CarouselOptions;
@@ -54,14 +54,14 @@ const Carousel = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
       },
-      plugins
+      plugins,
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
@@ -93,7 +93,7 @@ const Carousel = React.forwardRef<
           scrollNext();
         }
       },
-      [scrollPrev, scrollNext]
+      [scrollPrev, scrollNext],
     );
 
     React.useEffect(() => {
@@ -144,7 +144,7 @@ const Carousel = React.forwardRef<
         </div>
       </CarouselContext.Provider>
     );
-  }
+  },
 );
 Carousel.displayName = "Carousel";
 
@@ -161,7 +161,7 @@ const CarouselContent = React.forwardRef<
         className={cn(
           "flex",
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className
+          className,
         )}
         {...props}
       />
@@ -184,7 +184,7 @@ const CarouselItem = React.forwardRef<
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
         orientation === "horizontal" ? "pl-4" : "pt-4",
-        className
+        className,
       )}
       {...props}
     />
@@ -204,11 +204,11 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute  h-8 w-8 rounded-full",
+        "absolute h-8 w-8 rounded-full",
         orientation === "horizontal"
-          ? "-left-12 top-1/2 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+          ? "-left-12 -translate-y-1/2 top-1/2"
+          : "-top-12 -translate-x-1/2 left-1/2 rotate-90",
+        className,
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
@@ -235,9 +235,9 @@ const CarouselNext = React.forwardRef<
       className={cn(
         "absolute h-8 w-8 rounded-full",
         orientation === "horizontal"
-          ? "-right-12 top-1/2 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+          ? "-right-12 -translate-y-1/2 top-1/2"
+          : "-bottom-12 -translate-x-1/2 left-1/2 rotate-90",
+        className,
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}

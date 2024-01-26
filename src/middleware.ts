@@ -18,13 +18,13 @@ export async function middleware(request: NextRequest) {
 
   const ip = headers().get("x-forwarded-for");
   const { success, limit, remaining, reset } = await ratelimit.limit(
-    ip ?? "anonymous"
+    ip ?? "anonymous",
   );
   if (!success) {
     console.log(`Ratelimited, reset in ${formatRelative(reset, new Date())}`);
     return new NextResponse(
       `Too many Requests. Try again in ${formatRelative(reset, new Date())}`,
-      { status: 429 }
+      { status: 429 },
     );
   }
 }

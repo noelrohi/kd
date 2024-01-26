@@ -1,4 +1,5 @@
 import { Card } from "@/components/card";
+import { Loading } from "@/components/fallbacks/loading";
 import { Icons } from "@/components/icons";
 import { Typography } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
@@ -14,16 +15,15 @@ import {
   popFromWatchList,
   pushToWatchList,
 } from "@/lib/helpers/server";
+import { cn } from "@/lib/utils";
 import { infoSchema } from "@/lib/validations";
 import { and, asc, eq } from "drizzle-orm";
 import type { Metadata, ResolvingMetadata } from "next";
 import { revalidatePath } from "next/cache";
+import Link from "next/link";
 import { Suspense, cache } from "react";
 import { z } from "zod";
 import { SubmitButton } from "./client";
-import { Loading } from "@/components/fallbacks/loading";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 interface PageProps {
   params: {
@@ -33,7 +33,7 @@ interface PageProps {
 
 export async function generateMetadata(
   { params }: PageProps,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   try {
     const dramaInfo = await getDramaInfo(params.slug);
@@ -56,11 +56,11 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: PageProps) {
-  let data = await getDramaInfo(params.slug);
+  const data = await getDramaInfo(params.slug);
   const parse = infoSchema.safeParse(data);
   if (!parse.success) throw new Error("failed to parse drama info");
-  let parsed = parse.data;
-  let {
+  const parsed = parse.data;
+  const {
     description,
     episodes,
     id,
@@ -71,9 +71,9 @@ export default async function Page({ params }: PageProps) {
     genres,
   } = parse.data;
   return (
-    <section className="mx-auto px-4 lg:container py-4 lg:py-10 space-y-6 w-screen">
-      <div className="flex flex-col gap-2 lg:gap-0 lg:flex-row lg:justify-between">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+    <section className="mx-auto w-screen space-y-6 px-4 py-4 lg:container lg:py-10">
+      <div className="flex flex-col gap-2 lg:flex-row lg:justify-between lg:gap-0">
+        <h1 className="scroll-m-20 font-extrabold text-4xl tracking-tight lg:text-5xl">
           {title}
         </h1>
         <div className="flex flex-col gap-2">
@@ -106,7 +106,7 @@ export default async function Page({ params }: PageProps) {
         <strong className="text-foreground">Other Names:</strong>{" "}
         {otherNames?.join(", ")}
       </Typography>
-      <p className="leading-7 [&:not(:first-child)]:mt-6 indent-10">
+      <p className="indent-10 leading-7 [&:not(:first-child)]:mt-6">
         {description}
       </p>
       <div className="flex flex-wrap gap-1">
@@ -118,7 +118,7 @@ export default async function Page({ params }: PageProps) {
         <ScrollArea>
           <div className="flex space-x-4 pb-4">
             {episodes?.length === 0 && (
-              <div className="flex justify-center items-center gap-2 text-blue-500">
+              <div className="flex items-center justify-center gap-2 text-blue-500">
                 <Icons.info /> No episodes for this drama yet.
               </div>
             )}
@@ -136,7 +136,7 @@ export default async function Page({ params }: PageProps) {
                   }`,
                   link: `/watch/${ep.id}`,
                 }}
-                className="lg:w-[250px] w-28"
+                className="w-28 lg:w-[250px]"
                 aspectRatio="square"
                 width={250}
                 height={330}
@@ -160,13 +160,13 @@ async function WatchListed({
   const [_, existsInDb] = await existingFromDatabase(slug);
   if (!existsInDb)
     return (
-      <p className="text-destructive lg:max-w-xs text-sm text-right">
+      <p className="text-right text-destructive text-sm lg:max-w-xs">
         This drama can&apos;t be added to watchlist yet. Kindly contact the
         administrator.
       </p>
     );
   const found = watchLists.find((l) => l.dramaId === slug);
-  let isWatchlisted = found?.dramaId === slug;
+  const isWatchlisted = found?.dramaId === slug;
   const Icon = isWatchlisted ? Icons.minus : Icons.plus;
   const isCompleted = found?.status === "finished";
   if (isCompleted)
@@ -192,19 +192,19 @@ async function WatchListed({
 }
 
 async function AdminAction(props: { slug: string }) {
-  let slug = `drama-detail/${props.slug}`;
-  let sess = await userSession();
-  let [results, existsInDb] = await existingFromDatabase(slug);
+  const slug = `drama-detail/${props.slug}`;
+  const sess = await userSession();
+  const [results, existsInDb] = await existingFromDatabase(slug);
   if (sess?.user.email !== "noelrohi59@gmail.com") return null;
-  let seriesStatus: "not_upserted" | "upserted" | "not_exists" =
+  const seriesStatus: "not_upserted" | "upserted" | "not_exists" =
     existsInDb && !results?.description
       ? "not_upserted"
-      : !!results?.description
-      ? "upserted"
-      : "not_exists";
+      : results?.description
+        ? "upserted"
+        : "not_exists";
   return (
     <form
-      className="inline-flex justify-end mt-4"
+      className="mt-4 inline-flex justify-end"
       action={async (_: FormData) => {
         "use server";
         try {
@@ -215,10 +215,10 @@ async function AdminAction(props: { slug: string }) {
           const { data } = parse;
 
           const genres: string[] | undefined = data.genres?.map(
-            (genre) => genre
+            (genre) => genre,
           );
           const otherNames: string[] | undefined = data.otherNames?.map(
-            (name) => name
+            (name) => name,
           );
 
           const values: typeof series.$inferInsert = {
@@ -264,7 +264,7 @@ async function AdminAction(props: { slug: string }) {
       <SubmitButton
         className={
           seriesStatus === "upserted"
-            ? "text-destructive-foreground bg-destructive"
+            ? "bg-destructive text-destructive-foreground"
             : ""
         }
         // disabled={seriesStatus === "upserted"}
@@ -290,7 +290,7 @@ async function LastPlayedEpisode({ slug }: { slug: string }) {
   const watchlistData = await db.query.watchList.findFirst({
     where: and(
       eq(watchList.dramaId, `drama-detail/${slug}`),
-      eq(watchList.userId, auth.user.id)
+      eq(watchList.userId, auth.user.id),
     ),
     with: {
       series: {
@@ -312,7 +312,7 @@ async function LastPlayedEpisode({ slug }: { slug: string }) {
   if (!watchlistData || watchlistData.status === "finished") return null;
   const episodes = watchlistData.series.episodes;
   const episodeIndex = episodes.findIndex(
-    (e) => e.number === watchlistData.episode
+    (e) => e.number === watchlistData.episode,
   );
   const episodeData = episodes.find((_, index) => index === episodeIndex + 1);
   const episodeNumber = episodeData?.number ?? 1;

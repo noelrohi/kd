@@ -1,5 +1,5 @@
-import { JetBrains_Mono as FontMono } from "next/font/google";
 import { GeistSans as FontSans } from "geist/font/sans";
+import { JetBrains_Mono as FontMono } from "next/font/google";
 
 import localFont from "next/font/local";
 

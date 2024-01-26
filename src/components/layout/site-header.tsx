@@ -13,11 +13,11 @@ import { siteConfig } from "@/config/site";
 import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { ThemeToggle } from "./theme-toggle";
+import { redirect } from "next/navigation";
 import { Icons } from "../icons";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Input } from "../ui/input";
-import { redirect } from "next/navigation";
+import { ThemeToggle } from "./theme-toggle";
 
 interface SiteHeaderProps extends React.ComponentPropsWithoutRef<"header"> {
   sticky?: boolean;
@@ -31,14 +31,14 @@ export async function SiteHeader({
     <header
       className={cn(
         "w-full bg-background",
-        sticky && "sticky top-0 z-40 ",
-        className
+        sticky && "sticky top-0 z-40",
+        className,
       )}
     >
       <div className="container flex h-16 items-center">
         <MainNav items={siteConfig.mainNav} />
 
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex-1 flex items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
             <Search />
             <ThemeToggle />
@@ -106,10 +106,10 @@ async function UserButton() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">
+            <p className="font-medium text-sm leading-none">
               {session.user.name}
             </p>
-            <p className="text-xs leading-none text-muted-foreground">
+            <p className="text-muted-foreground text-xs leading-none">
               {session.user.email}
             </p>
           </div>

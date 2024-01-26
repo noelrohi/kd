@@ -29,7 +29,7 @@ export function generateMetadata({
       title,
       description,
       type: "website",
-      url: absoluteUrl(`/home`),
+      url: absoluteUrl("/home"),
       images: [
         {
           url: opengraphImage,

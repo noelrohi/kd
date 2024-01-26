@@ -1,12 +1,12 @@
+import { Analytics } from "@/components/analytics";
 import { ThemeProvider } from "@/components/providers/theme";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/config/site";
 import { fontHeading, fontMono, fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
-import { Toaster } from "@/components/ui/sonner";
-import { Analytics } from "@/components/analytics";
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
@@ -74,7 +74,7 @@ export default function RootLayout({
           fontSans.variable,
           fontMono.variable,
           fontHeading.variable,
-          "min-h-screen bg-background antialiased font-sans"
+          "min-h-screen bg-background font-sans antialiased",
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

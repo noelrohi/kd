@@ -88,9 +88,7 @@
       "indexes": {
         "userId_idx": {
           "name": "userId_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         }
       },
@@ -98,10 +96,7 @@
       "compositePrimaryKeys": {
         "kd_account_provider_providerAccountId_pk": {
           "name": "kd_account_provider_providerAccountId_pk",
-          "columns": [
-            "provider",
-            "providerAccountId"
-          ]
+          "columns": ["provider", "providerAccountId"]
         }
       },
       "uniqueConstraints": {}
@@ -134,9 +129,7 @@
       "indexes": {
         "userId_idx": {
           "name": "userId_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         }
       },
@@ -144,9 +137,7 @@
       "compositePrimaryKeys": {
         "kd_session_sessionToken": {
           "name": "kd_session_sessionToken",
-          "columns": [
-            "sessionToken"
-          ]
+          "columns": ["sessionToken"]
         }
       },
       "uniqueConstraints": {}
@@ -196,9 +187,7 @@
       "compositePrimaryKeys": {
         "kd_user_id": {
           "name": "kd_user_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {}
@@ -233,10 +222,7 @@
       "compositePrimaryKeys": {
         "kd_verificationToken_identifier_token_pk": {
           "name": "kd_verificationToken_identifier_token_pk",
-          "columns": [
-            "identifier",
-            "token"
-          ]
+          "columns": ["identifier", "token"]
         }
       },
       "uniqueConstraints": {}
@@ -287,9 +273,7 @@
       "compositePrimaryKeys": {
         "kd_other_name_id": {
           "name": "kd_other_name_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {}
@@ -361,17 +345,13 @@
       "compositePrimaryKeys": {
         "kd_series_id": {
           "name": "kd_series_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "kd_series_slug_unique": {
           "name": "kd_series_slug_unique",
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       }
     },
@@ -428,9 +408,7 @@
       "compositePrimaryKeys": {
         "kd_watchList_id": {
           "name": "kd_watchList_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {}
