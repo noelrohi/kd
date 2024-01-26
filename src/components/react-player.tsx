@@ -95,7 +95,7 @@ export default function ReactPlayerAsVideo({
       loop={false}
       onEnded={handleEnded}
       onReady={handleReady}
-      onPlay={() => loglib.track("play", { title: slug })}
+      onPlay={() => loglib.track(`Playing ${dramaId}`, { title: slug })}
       playbackRate={Number(playbackRate)}
       onSeek={(number) => {
         setIsSeeking(true);
