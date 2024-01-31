@@ -18,6 +18,9 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 }
+const trustHost =
+  env.NEXT_PUBLIC_APP_URL.startsWith("http://localhost:") ||
+  process.env.NODE_ENV === "production";
 
 export const {
   handlers: { GET, POST },
@@ -38,7 +41,7 @@ export const {
     }),
   ],
   secret: env.NEXTAUTH_SECRET,
-  // trustHost: true,
+  trustHost,
   callbacks: {
     session: ({ session, user }) => ({
       ...session,
