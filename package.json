@@ -14,8 +14,8 @@
     "fmt": "pnpm biome format ./src --write && pnpm biome check ./src --apply-unsafe"
   },
   "dependencies": {
-    "@auth/core": "^0.21.0",
-    "@auth/drizzle-adapter": "^0.3.15",
+    "@auth/core": "^0.24.0",
+    "@auth/drizzle-adapter": "^0.4.0",
     "@irsyadadl/paranoid": "^0.11.5",
     "@loglib/tracker": "^0.8.0",
     "@paralleldrive/cuid2": "^2.2.2",
@@ -27,18 +27,18 @@
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
-    "@t3-oss/env-nextjs": "^0.7.3",
-    "@unkey/nextjs": "^0.13.8",
+    "@t3-oss/env-nextjs": "^0.8.0",
+    "@unkey/nextjs": "^0.15.0",
     "@upstash/ratelimit": "^1.0.0",
     "@vercel/kv": "^1.0.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "date-fns": "^3.3.0",
+    "date-fns": "^3.3.1",
     "drizzle-orm": "^0.29.3",
-    "embla-carousel": "8.0.0-rc19",
-    "embla-carousel-react": "8.0.0-rc19",
+    "embla-carousel": "8.0.0-rc22",
+    "embla-carousel-react": "8.0.0-rc22",
     "geist": "^1.2.1",
-    "lucide-react": "^0.312.0",
+    "lucide-react": "^0.319.0",
     "next": "14.1.0",
     "next-auth": "5.0.0-beta.4",
     "next-pwa": "^5.6.0",
@@ -46,8 +46,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-player": "^2.14.1",
-    "sonner": "^1.3.1",
-    "tailwind-merge": "^2.2.0",
+    "sonner": "^1.4.0",
+    "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.6",
     "zod": "^3.22.4"
   },
@@ -58,14 +58,10 @@
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.4.17",
     "drizzle-kit": "^0.20.13",
-    "mysql2": "^3.7.1",
+    "mysql2": "^3.9.1",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
-    "turbo": "^1.11.3",
+    "turbo": "^1.12.0",
     "typescript": "^5.3.3"
-  },
-  "packageManager": "pnpm@8.9.0",
-  "engines": {
-    "node": ">=18"
   }
 }
