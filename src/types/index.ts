@@ -20,37 +20,40 @@ export type SiteConfig = {
   }[];
 };
 
-export interface Featured {
-  id: string;
-  title: string;
-  image: string;
-}
-
 interface Resp<T> {
   currentPage: number;
   hasNextPage: boolean;
   results: T;
 }
 
+/**
+ * A TypeScript type alias called `Prettify`.
+ * It takes a type as its argument and returns a new type that has the same properties as the original type,
+ * but the properties are not intersected. This means that the new type is easier to read and understand.
+ */
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
+
 export interface Featured {
   id: string;
   title: string;
   image: string;
 }
 
-type RecentResult = {
+interface RecentResult extends Featured {
   type: "RAW" | "SUB";
   time: string;
   number: number;
-} & Featured;
+}
 
-type SearchResult = {
+interface SearchResult extends Featured {
   url: string;
-} & Featured;
+}
 
-export type Recent = Resp<RecentResult[]>;
-export type TopAiring = Resp<Featured[]>;
-export type Search = Resp<SearchResult[]>;
+export type Recent = Prettify<Resp<RecentResult[]>>;
+export type TopAiring = Prettify<Resp<Featured[]>>;
+export type Search = Prettify<Resp<SearchResult[]>>;
 export type EpisodeInfo = {
   title: string;
   id: string;
