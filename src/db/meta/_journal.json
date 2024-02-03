@@ -43,6 +43,13 @@
       "when": 1702104889254,
       "tag": "0005_square_vector",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1706950520125,
+      "tag": "0006_right_gravity",
+      "breakpoints": true
     }
   ]
 }
