@@ -110,3 +110,25 @@ export const episodeRelations = relations(episode, ({ one }) => ({
     references: [series.slug],
   }),
 }));
+
+type Value = {
+  playedSeconds: number;
+  played: number;
+  loadedSeconds: number;
+  loaded: number;
+};
+
+export const backUpLocalStorage = mySqlTable(
+  "backup_local_storage",
+  {
+    id: idCreator,
+    userId: varchar("user_id", { length: 255 }).notNull(),
+    key: varchar("key", { length: 255 }).notNull(),
+    value: json("value").$type<Value>().notNull(),
+  },
+  (table) => ({
+    userIdx: index("user_idx").on(table.userId),
+    keyIdx: index("key_idx").on(table.key),
+    uniqueKeyPerUser: index("unique_key_per_user").on(table.userId, table.key),
+  }),
+);

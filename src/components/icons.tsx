@@ -3,6 +3,8 @@ import {
   ArrowRight,
   Bookmark,
   ChevronLeftSquare,
+  DatabaseBackup,
+  FolderSync,
   Info,
   LogOut,
   LucideProps,
@@ -53,4 +55,6 @@ export const Icons = {
   google: DashiconsGoogle,
   plus: Plus,
   minus: Minus,
+  backup: DatabaseBackup,
+  sync: FolderSync,
 };
