@@ -1,10 +1,15 @@
 "use server";
 
 import { db } from "@/db";
-import { episode as episodeDb, watchList } from "@/db/schema/main";
+import {
+  backUpLocalStorage,
+  episode as episodeDb,
+  watchList,
+} from "@/db/schema/main";
 import { auth } from "@/lib/auth";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
 export async function updateProgress({
   episode,
@@ -56,5 +61,65 @@ export async function updateProgress({
   } catch (error) {
     console.log(error);
     return { message: "Something went wrong.", error: true };
+  }
+}
+
+const arraySchema = z.array(
+  z.object({
+    key: z.string(),
+    value: z.object({
+      playedSeconds: z.number(),
+      played: z.number(),
+      loadedSeconds: z.number(),
+      loaded: z.number(),
+    }),
+  }),
+);
+
+export async function syncProgressToDB(
+  progressList: Array<{ key: string; value: string }>,
+) {
+  try {
+    const parse = arraySchema.safeParse(progressList);
+    if (!parse.success) throw new Error("Invalid value.");
+    const session = await auth();
+    if (!session) throw new Error("Unauthorized.");
+
+    const toInsert: (typeof backUpLocalStorage.$inferInsert)[] = parse.data.map(
+      (d) => ({
+        ...d,
+        userId: session.user.id,
+      }),
+    );
+    await db
+      .delete(backUpLocalStorage)
+      .where(eq(backUpLocalStorage.userId, session.user.id));
+    await db.insert(backUpLocalStorage).values(toInsert);
+    return {
+      error: false,
+      message: "Successfully backed up!",
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        error: true,
+        message: error.message,
+      };
+    }
+    return { error: true, message: "Something went wrong." };
+  }
+}
+
+export async function getProgressList() {
+  try {
+    const session = await auth();
+    if (!session) throw new Error("Unauthorized.");
+    const userId = session.user.id;
+    return await db.query.backUpLocalStorage.findMany({
+      where: (table, { eq }) => eq(table.userId, userId),
+    });
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 }

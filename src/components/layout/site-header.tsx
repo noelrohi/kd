@@ -18,6 +18,10 @@ import { Icons } from "../icons";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Input } from "../ui/input";
 import { ThemeToggle } from "./theme-toggle";
+import {
+  BackupProgressButton,
+  SyncProgressButton,
+} from "@/components/progress";
 
 interface SiteHeaderProps extends React.ComponentPropsWithoutRef<"header"> {
   sticky?: boolean;
@@ -115,6 +119,18 @@ async function UserButton() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <div>
+            <Icons.backup className="mr-2 size-4" aria-hidden="true" />
+            <BackupProgressButton>Backup Progress</BackupProgressButton>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <div>
+            <Icons.sync className="mr-2 size-4" aria-hidden="true" />
+            <SyncProgressButton>Sync Progress</SyncProgressButton>
+          </div>
+        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <div>
             <Icons.logout className="mr-2 size-4" aria-hidden="true" />
