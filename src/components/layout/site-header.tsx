@@ -1,5 +1,9 @@
 import { MainNav } from "@/components/layout/main-nav";
 
+import {
+  BackupProgressButton,
+  SyncProgressButton,
+} from "@/components/progress";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,10 +22,6 @@ import { Icons } from "../icons";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Input } from "../ui/input";
 import { ThemeToggle } from "./theme-toggle";
-import {
-  BackupProgressButton,
-  SyncProgressButton,
-} from "@/components/progress";
 
 interface SiteHeaderProps extends React.ComponentPropsWithoutRef<"header"> {
   sticky?: boolean;
