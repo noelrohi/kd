@@ -25,7 +25,6 @@ const trustHost =
 export const {
   handlers: { GET, POST },
   auth,
-  update,
   signIn,
   signOut,
 } = NextAuth({
