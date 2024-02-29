@@ -2,7 +2,6 @@ import { Icons } from "@/components/icons";
 import { Typography } from "@/components/typography";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { auth } from "@/lib/auth";
 import {
   getEpisodeInfo as getEpInfo,
   getEpisodeSources,
@@ -13,6 +12,9 @@ import type { Metadata, ResolvingMetadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Suspense, cache } from "react";
+import UpdateProgressButton from "./update-progress";
+import { auth } from "@/lib/auth";
+import { db } from "@/db";
 
 interface PageProps {
   params: {
@@ -82,7 +84,22 @@ export default async function Page({ params }: PageProps) {
 }
 
 async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
-  const { episodes, number, downloadLink } = await getEpisodeInfo(episodeSlug);
+  const { episodes, number, downloadLink, dramaId } = await getEpisodeInfo(
+    episodeSlug,
+  );
+  const session = await auth();
+  let watched = false;
+  if (session) {
+    const watchListData = await db.query.watchList.findFirst({
+      where: (table, { eq, and, gte }) =>
+        and(
+          gte(table.episode, number),
+          eq(table.dramaId, dramaId),
+          eq(table.userId, session?.user.id),
+        ),
+    });
+    watched = !!watchListData;
+  }
   return (
     <div className="flex gap-1">
       <Button size={"sm"} disabled={!episodes.previous}>
@@ -120,14 +137,22 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
           Download
         </Link>
       </Button>
+      {!!session && (
+        <UpdateProgressButton
+          size="sm"
+          episode={number}
+          slug={dramaId}
+          watched={watched}
+        />
+      )}
     </div>
   );
 }
 
 type Props = { episodeSlug: string; number: number; dramaId: string };
+
 async function Vid({ episodeSlug, dramaId, number }: Props) {
   const episodeSources = await getEpisodeSources(episodeSlug);
-  const session = await auth();
   const parsed = episodeSourceSchema.parse(episodeSources);
   return (
     <div className="lg:h-1/2">
@@ -137,7 +162,6 @@ async function Vid({ episodeSlug, dramaId, number }: Props) {
           slug={episodeSlug}
           dramaId={dramaId}
           number={number}
-          authenticated={!!session}
         />
       </AspectRatio>
     </div>
