@@ -74,6 +74,9 @@ dependencies:
   embla-carousel-react:
     specifier: 8.0.0
     version: 8.0.0(react@18.2.0)
+  framer-motion:
+    specifier: ^11.0.6
+    version: 11.0.6(react-dom@18.2.0)(react@18.2.0)
   geist:
     specifier: ^1.2.2
     version: 1.2.2(next@14.1.0)
@@ -101,9 +104,12 @@ dependencies:
   react-player:
     specifier: ^2.14.1
     version: 2.14.1(react@18.2.0)
+  simplex-noise:
+    specifier: ^4.0.1
+    version: 4.0.1
   sonner:
-    specifier: ^1.4.1
-    version: 1.4.1(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^1.4.2
+    version: 1.4.2(react-dom@18.2.0)(react@18.2.0)
   tailwind-merge:
     specifier: ^2.2.1
     version: 2.2.1
@@ -1586,6 +1592,20 @@ packages:
     dependencies:
       superjson: 2.2.1
     dev: true
+
+  /@emotion/is-prop-valid@0.8.8:
+    resolution: {integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==}
+    requiresBuild: true
+    dependencies:
+      '@emotion/memoize': 0.7.4
+    dev: false
+    optional: true
+
+  /@emotion/memoize@0.7.4:
+    resolution: {integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==}
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /@esbuild-kit/core-utils@3.3.2:
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
@@ -4162,6 +4182,24 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
+  /framer-motion@11.0.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-BpO3mWF8UwxzO3Ca5AmSkrg14QYTeJa9vKgoLOoBdBdTPj0e81i1dMwnX6EQJXRieUx20uiDBXq8bA6y7N6b8Q==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tslib: 2.6.2
+    optionalDependencies:
+      '@emotion/is-prop-valid': 0.8.8
+    dev: false
+
   /fs-extra@9.1.0:
     resolution: {integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==}
     engines: {node: '>=10'}
@@ -5628,6 +5666,10 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
+  /simplex-noise@4.0.1:
+    resolution: {integrity: sha512-zl/+bdSqW7HJOQ0oDbxrNYaF4F5ik0i7M6YOYmEoIJNtg16NpvWaTTM1Y7oV/7T0jFljawLgYPS81Uu2rsfo1A==}
+    dev: false
+
   /sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
     dev: true
@@ -5637,8 +5679,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /sonner@1.4.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-KJcFbMF+z2OMSJ9H+N6mrk/ffnEzuyLFlHoza/HQvNyiACoY958VtFdC7xD9D74ttzA+kcS1YIJOsNwbKWDsHw==}
+  /sonner@1.4.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-x3Kfzfhb56V/ErvUnH5dZcsu6QkZpyIlRAogO4vAbN+AkBsA/8CFqOV+5djqbE5pQCpejtO4JBWL1zRj2sO/Vg==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
