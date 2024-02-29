@@ -11,48 +11,36 @@ import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export async function updateProgress({
-  episode,
-  slug,
-}: {
+export async function updateProgress(props: {
   episode: number;
   slug: string;
+  watched: boolean;
 }): Promise<{ message: string; error: boolean }> {
+  const { watched, slug } = props;
+  const episode = !watched
+    ? props.episode > 0
+      ? props.episode
+      : 1
+    : props.episode - 1;
   try {
     const session = await auth();
     if (!session) return { message: "Unauthorized.", error: true };
-    const found = await db.query.watchList.findFirst({
-      where: and(
-        eq(watchList.userId, session.user.id),
-        eq(watchList.dramaId, slug),
-      ),
+    const queryEpisode = await db.query.episode.findFirst({
+      where: and(eq(episodeDb.dramaId, slug), eq(episodeDb.number, episode)),
+      columns: {
+        isLast: true,
+      },
     });
-    let status: "watching" | "finished" = "watching";
-    if (!found) {
-      await db.insert(watchList).values({
-        dramaId: slug,
-        status,
-        userId: session.user.id,
-        episode,
-      });
-    } else {
-      const queryEpisode = await db.query.episode.findFirst({
-        where: and(eq(episodeDb.dramaId, slug), eq(episodeDb.number, episode)),
-        columns: {
-          isLast: true,
-        },
-      });
-      status = queryEpisode?.isLast ? "finished" : "watching";
-      await db
-        .update(watchList)
-        .set({ episode, status })
-        .where(
-          and(
-            eq(watchList.dramaId, slug),
-            eq(watchList.userId, session.user.id),
-          ),
-        );
-    }
+    const status = queryEpisode?.isLast ? "finished" : "watching";
+    const values: typeof watchList.$inferInsert = {
+      dramaId: slug,
+      status,
+      userId: session.user.id,
+      episode,
+    };
+    await db.insert(watchList).values(values).onDuplicateKeyUpdate({
+      set: values,
+    });
     revalidatePath(`/drama/${slug.replace("drama-detail/", "")}`);
     return {
       message: `Your progress is updated. Status: ${status}, Episode: ${episode}`,

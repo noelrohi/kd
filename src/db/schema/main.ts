@@ -4,11 +4,11 @@ import {
   date,
   float,
   index,
-  int,
   json,
   longtext,
   mysqlEnum,
   timestamp,
+  unique,
   varchar,
 } from "drizzle-orm/mysql-core";
 import { idCreator, mySqlTable } from "./_table";
@@ -31,13 +31,12 @@ export const watchList = mySqlTable(
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
-  (table) => {
-    return {
-      userIdx: index("user_idx").on(table.userId),
-      dramaIdx: index("drama_idx").on(table.dramaId),
-      statusIdx: index("status_idx").on(table.status),
-    };
-  },
+  (table) => ({
+    userIdx: index("user_idx").on(table.userId),
+    dramaIdx: index("drama_idx").on(table.dramaId),
+    statusIdx: index("status_idx").on(table.status),
+    unique: unique("unique_watchList").on(table.userId, table.dramaId),
+  }),
 );
 
 export const watchListRelations = relations(watchList, ({ one }) => ({
