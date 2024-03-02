@@ -1,15 +1,11 @@
 "use server";
 
 import { db } from "@/db";
-import {
-  backUpLocalStorage,
-  episode as episodeDb,
-  watchList,
-} from "@/db/schema/main";
+import { episode as episodeDb, progress, watchList } from "@/db/schema/main";
 import { auth } from "@/lib/auth";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
+import { cache } from "react";
 
 export async function updateWatchlist(props: {
   episode: number;
@@ -52,62 +48,30 @@ export async function updateWatchlist(props: {
   }
 }
 
-const arraySchema = z.array(
-  z.object({
-    key: z.string(),
-    value: z.object({
-      playedSeconds: z.number(),
-      played: z.number(),
-      loadedSeconds: z.number(),
-      loaded: z.number(),
-    }),
-  }),
-);
+export const cacheProgressUpdate = cache(updateVideoProgress);
 
-export async function syncProgressToDB(
-  progressList: Array<{ key: string; value: string }>,
-) {
+type ProgressUpdateProps = Omit<typeof progress.$inferInsert, "userId">;
+
+async function updateVideoProgress(values: ProgressUpdateProps) {
   try {
-    const parse = arraySchema.safeParse(progressList);
-    if (!parse.success) throw new Error("Invalid value.");
+    console.log("Updating video progress ...");
     const session = await auth();
-    if (!session) throw new Error("Unauthorized.");
-
-    const toInsert: (typeof backUpLocalStorage.$inferInsert)[] = parse.data.map(
-      (d) => ({
-        ...d,
-        userId: session.user.id,
-      }),
-    );
+    if (!session) throw new Error("Unauthorized");
     await db
-      .delete(backUpLocalStorage)
-      .where(eq(backUpLocalStorage.userId, session.user.id));
-    await db.insert(backUpLocalStorage).values(toInsert);
-    return {
-      error: false,
-      message: "Successfully backed up!",
-    };
+      .insert(progress)
+      .values({
+        ...values,
+        userId: session.user.id,
+      })
+      .onDuplicateKeyUpdate({
+        set: {
+          seconds: values.seconds,
+        },
+      });
   } catch (error) {
     if (error instanceof Error) {
-      return {
-        error: true,
-        message: error.message,
-      };
+      console.error(error.message);
     }
-    return { error: true, message: "Something went wrong." };
-  }
-}
-
-export async function getProgressList() {
-  try {
-    const session = await auth();
-    if (!session) throw new Error("Unauthorized.");
-    const userId = session.user.id;
-    return await db.query.backUpLocalStorage.findMany({
-      where: (table, { eq }) => eq(table.userId, userId),
-    });
-  } catch (error) {
     console.error(error);
-    return [];
   }
 }
