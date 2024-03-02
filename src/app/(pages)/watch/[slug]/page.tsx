@@ -59,6 +59,10 @@ const getEpisodeInfo = cache(async (episodeSlug: string) => {
   return episodeInfo;
 });
 
+const cachedAuth = cache(async () => {
+  return await auth();
+});
+
 export default async function Page({ params }: PageProps) {
   const { dramaId, title, number } = await getEpisodeInfo(params.slug);
   const text = `Someone is watching at ${title} episode ${number}`;
@@ -87,7 +91,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
   const { episodes, number, downloadLink, dramaId } = await getEpisodeInfo(
     episodeSlug,
   );
-  const session = await auth();
+  const session = await cachedAuth();
   let watched = false;
   if (session) {
     const watchListData = await db.query.watchList.findFirst({
@@ -153,16 +157,32 @@ type Props = { episodeSlug: string; number: number; dramaId: string };
 
 async function Vid({ episodeSlug, dramaId, number }: Props) {
   const episodeSources = await getEpisodeSources(episodeSlug);
+  const session = await cachedAuth();
+  let seekTo: number | undefined = undefined;
+  if (session) {
+    const progress = await db.query.progress.findFirst({
+      where: (table, { eq, and }) =>
+        and(
+          eq(table.episodeSlug, episodeSlug),
+          eq(table.userId, session.user.id),
+        ),
+    });
+    seekTo = progress?.seconds;
+  }
+
   const parsed = episodeSourceSchema.parse(episodeSources);
+  const props = {
+    slug: episodeSlug,
+    dramaId,
+    number,
+    seekTo,
+    url: parsed.sources[0].url,
+  };
+
   return (
     <div className="lg:h-1/2">
       <AspectRatio ratio={16 / 9}>
-        <VideoPlayer
-          url={parsed.sources[0].url}
-          slug={episodeSlug}
-          dramaId={dramaId}
-          number={number}
-        />
+        <VideoPlayer {...props} />
       </AspectRatio>
     </div>
   );
