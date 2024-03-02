@@ -1,9 +1,5 @@
 import { MainNav } from "@/components/layout/main-nav";
 
-import {
-  BackupProgressButton,
-  SyncProgressButton,
-} from "@/components/progress";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -119,18 +115,6 @@ async function UserButton() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <div>
-            <Icons.backup className="mr-2 size-4" aria-hidden="true" />
-            <BackupProgressButton>Backup Progress</BackupProgressButton>
-          </div>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <div>
-            <Icons.sync className="mr-2 size-4" aria-hidden="true" />
-            <SyncProgressButton>Sync Progress</SyncProgressButton>
-          </div>
-        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <div>
             <Icons.logout className="mr-2 size-4" aria-hidden="true" />
