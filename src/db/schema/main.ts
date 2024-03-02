@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   boolean,
   date,
@@ -28,7 +28,7 @@ export const watchList = mySqlTable(
       "finished",
     ]).notNull(),
     episode: float("episode").default(0),
-    createdAt: timestamp("created_at").defaultNow(),
+    createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (table) => ({
@@ -64,7 +64,7 @@ export const series = mySqlTable(
     otherNames: json("other_names").$type<string[]>(),
     description: longtext("descripton"),
     releaseDate: varchar("releaseDate", { length: 255 }),
-    createdAt: timestamp("created_at").defaultNow(),
+    createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (table) => {
@@ -90,7 +90,7 @@ export const episode = mySqlTable(
     isLast: boolean("isLast").default(false),
     title: varchar("title", { length: 255 }).notNull(),
     releaseDate: date("releaseDate"),
-    createdAt: timestamp("created_at").defaultNow(),
+    createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
     updatedAt: timestamp("updated_at").onUpdateNow(),
   },
   (table) => {
@@ -131,3 +131,29 @@ export const backUpLocalStorage = mySqlTable(
     uniqueKeyPerUser: index("unique_key_per_user").on(table.userId, table.key),
   }),
 );
+
+export const progress = mySqlTable(
+  "progress",
+  {
+    id: idCreator,
+    userId: varchar("user_id", { length: 255 }).notNull(),
+    episodeSlug: varchar("episode_slug", { length: 255 }).notNull(),
+    seconds: float("seconds").notNull(),
+    createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: timestamp("updated_at").onUpdateNow(),
+  },
+  (table) => {
+    return {
+      userIdx: index("user_idx").on(table.userId),
+      episodeSlugIdx: index("episode_slug_idx").on(table.episodeSlug),
+      unique: unique("unique_progress").on(table.userId, table.episodeSlug),
+    };
+  },
+);
+
+export const progressRelations = relations(progress, ({ one }) => ({
+  user: one(users, {
+    fields: [progress.userId],
+    references: [users.id],
+  }),
+}));

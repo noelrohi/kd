@@ -1,9 +1,9 @@
 "use client";
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { cacheProgressUpdate as updateProgress } from "@/lib/actions";
 import { loglib } from "@loglib/tracker";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
 import { Icons } from "./icons";
@@ -12,46 +12,53 @@ interface Props extends ReactPlayerProps {
   slug: string;
   number: number;
   dramaId: string;
+  seekTo?: number;
 }
 
 export default function ReactPlayerAsVideo({
   slug,
   url,
   number,
+  seekTo,
   dramaId,
 }: Props) {
   const storageName = `kd-${slug}-${number}`;
-  const [media, setMedia, rmMedia] = useLocalStorage(storageName, "");
-  const parsedStoredItem: OnProgressProps = media
-    ? JSON.parse(media)
-    : { loadedSeconds: 0, playedSeconds: 0, loaded: 0, played: 0 };
+  const initialMedia = JSON.stringify({
+    loadedSeconds: 0,
+    playedSeconds: seekTo ?? 0,
+    loaded: 0,
+    played: 0,
+  });
+  const [media, setMedia, rmMedia] = useLocalStorage(storageName, initialMedia);
+  const parsedStoredItem: OnProgressProps = JSON.parse(media);
   const [isSeeking, setIsSeeking] = useState(false);
-  const [isEnded, setIsEnded] = useState(false);
   const [progress, setProgress] = useState<OnProgressProps>(parsedStoredItem);
   const [playbackRate, setPlaybackRate] = useLocalStorage(
     "kd-playbackrate",
     "1",
   );
+
+  const [_, startTransition] = useTransition();
+
   const handlePause = () => {
     setMedia(JSON.stringify(progress));
+    startTransition(async () => {
+      await updateProgress({
+        episodeSlug: slug,
+        seconds: progress.playedSeconds,
+      });
+    });
   };
 
   const handleEnded = () => {
-    if (!isEnded) {
-      setIsEnded(true);
-      rmMedia();
-    }
+    rmMedia();
   };
-  const searchParams = useSearchParams();
-  const seek = searchParams.get("seek")
-    ? Number(searchParams.get("seek"))
-    : progress.playedSeconds;
 
   const handleReady = (player: ReactPlayer) => {
     if (isSeeking) {
       return;
     }
-    player.seekTo(seek);
+    player.seekTo(progress.playedSeconds);
   };
 
   return (

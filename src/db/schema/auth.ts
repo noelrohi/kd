@@ -10,7 +10,7 @@ import {
 } from "drizzle-orm/mysql-core";
 
 import { mySqlTable } from "./_table";
-import { watchList } from "./main";
+import { progress, watchList } from "./main";
 
 export const users = mySqlTable(
   "user",
@@ -32,6 +32,7 @@ export const users = mySqlTable(
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   watchlists: many(watchList),
+  progress: many(progress),
 }));
 
 export const accounts = mySqlTable(

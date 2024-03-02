@@ -1,26 +1,26 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { updateProgress } from "@/lib/actions";
+import { updateWatchlist } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { toast } from "sonner";
 
-interface UpdateProgressButtonProps
+interface UpdateWatchlistButtonProps
   extends React.ComponentPropsWithoutRef<typeof Button> {
   slug: string;
   episode: number;
   watched: boolean;
 }
 
-export default function UpdateProgressButton({
+export default function UpdateWatchlistButton({
   episode,
   slug,
   watched,
   className,
   ...props
-}: UpdateProgressButtonProps) {
+}: UpdateWatchlistButtonProps) {
   const router = useRouter();
   const [isWatched, setIsWatched] = React.useOptimistic(watched);
   const [isPending, startTransition] = React.useTransition();
@@ -28,7 +28,7 @@ export default function UpdateProgressButton({
   const handleClick = () => {
     startTransition(async () => {
       setIsWatched(!isWatched);
-      const res = await updateProgress({ episode, slug, watched });
+      const res = await updateWatchlist({ episode, slug, watched });
       if (res.error) {
         toast.error(res.error);
       } else {
