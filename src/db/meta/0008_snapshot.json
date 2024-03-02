@@ -88,9 +88,7 @@
       "indexes": {
         "userId_idx": {
           "name": "userId_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         }
       },
@@ -98,10 +96,7 @@
       "compositePrimaryKeys": {
         "kd_account_provider_providerAccountId_pk": {
           "name": "kd_account_provider_providerAccountId_pk",
-          "columns": [
-            "provider",
-            "providerAccountId"
-          ]
+          "columns": ["provider", "providerAccountId"]
         }
       },
       "uniqueConstraints": {}
@@ -134,9 +129,7 @@
       "indexes": {
         "userId_idx": {
           "name": "userId_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         }
       },
@@ -144,9 +137,7 @@
       "compositePrimaryKeys": {
         "kd_session_sessionToken": {
           "name": "kd_session_sessionToken",
-          "columns": [
-            "sessionToken"
-          ]
+          "columns": ["sessionToken"]
         }
       },
       "uniqueConstraints": {}
@@ -194,9 +185,7 @@
       "indexes": {
         "email_idx": {
           "name": "email_idx",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": false
         }
       },
@@ -204,9 +193,7 @@
       "compositePrimaryKeys": {
         "kd_user_id": {
           "name": "kd_user_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {}
@@ -241,10 +228,7 @@
       "compositePrimaryKeys": {
         "kd_verificationToken_identifier_token_pk": {
           "name": "kd_verificationToken_identifier_token_pk",
-          "columns": [
-            "identifier",
-            "token"
-          ]
+          "columns": ["identifier", "token"]
         }
       },
       "uniqueConstraints": {}
@@ -284,24 +268,17 @@
       "indexes": {
         "user_idx": {
           "name": "user_idx",
-          "columns": [
-            "user_id"
-          ],
+          "columns": ["user_id"],
           "isUnique": false
         },
         "key_idx": {
           "name": "key_idx",
-          "columns": [
-            "key"
-          ],
+          "columns": ["key"],
           "isUnique": false
         },
         "unique_key_per_user": {
           "name": "unique_key_per_user",
-          "columns": [
-            "user_id",
-            "key"
-          ],
+          "columns": ["user_id", "key"],
           "isUnique": false
         }
       },
@@ -309,9 +286,7 @@
       "compositePrimaryKeys": {
         "kd_backup_local_storage_id": {
           "name": "kd_backup_local_storage_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {}
@@ -396,30 +371,22 @@
       "indexes": {
         "drama_idx": {
           "name": "drama_idx",
-          "columns": [
-            "dramaId"
-          ],
+          "columns": ["dramaId"],
           "isUnique": false
         },
         "title_idx": {
           "name": "title_idx",
-          "columns": [
-            "title"
-          ],
+          "columns": ["title"],
           "isUnique": false
         },
         "episode_slug_idx": {
           "name": "episode_slug_idx",
-          "columns": [
-            "episodeSlug"
-          ],
+          "columns": ["episodeSlug"],
           "isUnique": false
         },
         "number_idx": {
           "name": "number_idx",
-          "columns": [
-            "number"
-          ],
+          "columns": ["number"],
           "isUnique": false
         }
       },
@@ -427,9 +394,7 @@
       "compositePrimaryKeys": {
         "kd_episode_id": {
           "name": "kd_episode_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {}
@@ -485,16 +450,12 @@
       "indexes": {
         "user_idx": {
           "name": "user_idx",
-          "columns": [
-            "user_id"
-          ],
+          "columns": ["user_id"],
           "isUnique": false
         },
         "episode_slug_idx": {
           "name": "episode_slug_idx",
-          "columns": [
-            "episode_slug"
-          ],
+          "columns": ["episode_slug"],
           "isUnique": false
         }
       },
@@ -502,18 +463,13 @@
       "compositePrimaryKeys": {
         "kd_progress_id": {
           "name": "kd_progress_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "unique_progress": {
           "name": "unique_progress",
-          "columns": [
-            "user_id",
-            "episode_slug"
-          ]
+          "columns": ["user_id", "episode_slug"]
         }
       }
     },
@@ -604,16 +560,12 @@
       "indexes": {
         "slug_idx": {
           "name": "slug_idx",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": false
         },
         "status_idx": {
           "name": "status_idx",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         }
       },
@@ -621,17 +573,13 @@
       "compositePrimaryKeys": {
         "kd_series_id": {
           "name": "kd_series_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "kd_series_slug_unique": {
           "name": "kd_series_slug_unique",
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       }
     },
@@ -694,23 +642,17 @@
       "indexes": {
         "user_idx": {
           "name": "user_idx",
-          "columns": [
-            "userId"
-          ],
+          "columns": ["userId"],
           "isUnique": false
         },
         "drama_idx": {
           "name": "drama_idx",
-          "columns": [
-            "dramaId"
-          ],
+          "columns": ["dramaId"],
           "isUnique": false
         },
         "status_idx": {
           "name": "status_idx",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         }
       },
@@ -718,18 +660,13 @@
       "compositePrimaryKeys": {
         "kd_watchList_id": {
           "name": "kd_watchList_id",
-          "columns": [
-            "id"
-          ]
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {
         "unique_watchList": {
           "name": "unique_watchList",
-          "columns": [
-            "userId",
-            "dramaId"
-          ]
+          "columns": ["userId", "dramaId"]
         }
       }
     }

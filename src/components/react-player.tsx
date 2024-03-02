@@ -1,12 +1,12 @@
 "use client";
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { cacheProgressUpdate as updateProgress } from "@/lib/actions";
 import { loglib } from "@loglib/tracker";
 import { useState, useTransition } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import { OnProgressProps } from "react-player/base";
 import { Icons } from "./icons";
-import { cacheProgressUpdate as updateProgress } from "@/lib/actions";
 
 interface Props extends ReactPlayerProps {
   slug: string;
