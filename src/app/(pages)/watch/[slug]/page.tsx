@@ -14,7 +14,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Suspense, cache } from "react";
-import UpdateProgressButton from "./update-progress";
+import UpdateWatchlistButton from "./update-progress";
 
 interface PageProps {
   params: {
@@ -84,8 +84,9 @@ export default async function Page({ params }: PageProps) {
 }
 
 async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
-  const { episodes, number, downloadLink, dramaId } =
-    await getEpisodeInfo(episodeSlug);
+  const { episodes, number, downloadLink, dramaId } = await getEpisodeInfo(
+    episodeSlug,
+  );
   const session = await auth();
   let watched = false;
   if (session) {
@@ -137,7 +138,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
         </Link>
       </Button>
       {!!session && (
-        <UpdateProgressButton
+        <UpdateWatchlistButton
           size="sm"
           episode={number}
           slug={dramaId}

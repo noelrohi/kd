@@ -11,7 +11,7 @@ import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export async function updateProgress(props: {
+export async function updateWatchlist(props: {
   episode: number;
   slug: string;
   watched: boolean;
