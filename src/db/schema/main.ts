@@ -131,3 +131,28 @@ export const backUpLocalStorage = mySqlTable(
     uniqueKeyPerUser: index("unique_key_per_user").on(table.userId, table.key),
   }),
 );
+
+export const progress = mySqlTable(
+  "progress",
+  {
+    id: idCreator,
+    userId: varchar("user_id", { length: 255 }).notNull(),
+    episodeSlug: varchar("episode_slug", { length: 255 }).notNull(),
+    seconds: float("seconds").notNull(),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").onUpdateNow(),
+  },
+  (table) => {
+    return {
+      userIdx: index("user_idx").on(table.userId),
+      episodeSlugIdx: index("episode_slug_idx").on(table.episodeSlug),
+    };
+  },
+);
+
+export const progressRelations = relations(progress, ({ one }) => ({
+  user: one(users, {
+    fields: [progress.userId],
+    references: [users.id],
+  }),
+}));
