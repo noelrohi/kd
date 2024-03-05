@@ -25,7 +25,7 @@ export default function ReactPlayerAsVideo({
   const storageName = `kd-${slug}-${number}`;
   const initialMedia = JSON.stringify({
     loadedSeconds: 0,
-    playedSeconds: seekTo ?? 0,
+    playedSeconds: 0,
     loaded: 0,
     played: 0,
   });
@@ -37,6 +37,8 @@ export default function ReactPlayerAsVideo({
     "kd-playbackrate",
     "1",
   );
+
+  const seekSeconds = seekTo ?? progress.playedSeconds;
 
   const [_, startTransition] = useTransition();
 
@@ -58,7 +60,7 @@ export default function ReactPlayerAsVideo({
     if (isSeeking) {
       return;
     }
-    player.seekTo(progress.playedSeconds);
+    player.seekTo(seekSeconds);
   };
 
   return (
