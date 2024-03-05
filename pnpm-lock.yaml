@@ -67,7 +67,7 @@ dependencies:
     version: 3.3.1
   drizzle-orm:
     specifier: ^0.29.4
-    version: 0.29.4(@planetscale/database@1.16.0)(@types/react@18.2.62)(mysql2@3.9.1)(react@18.2.0)
+    version: 0.29.4(@planetscale/database@1.16.0)(@types/react@18.2.62)(mysql2@3.9.2)(react@18.2.0)
   embla-carousel:
     specifier: 8.0.0
     version: 8.0.0
@@ -141,7 +141,7 @@ devDependencies:
     version: 0.20.14
   mysql2:
     specifier: ^3.9.1
-    version: 3.9.1
+    version: 3.9.2
   postcss:
     specifier: ^8.4.35
     version: 8.4.35
@@ -3764,7 +3764,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.29.4(@planetscale/database@1.16.0)(@types/react@18.2.62)(mysql2@3.9.1)(react@18.2.0):
+  /drizzle-orm@0.29.4(@planetscale/database@1.16.0)(@types/react@18.2.62)(mysql2@3.9.2)(react@18.2.0):
     resolution: {integrity: sha512-ZnSM8TAxFhzH7p1s3+w3pRE/eKaOeNkH9SKitm717pubDVVcV2I0BCDBPGKV+pe02+wMfw37ntlTcCyo2rA3IA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -3837,7 +3837,7 @@ packages:
     dependencies:
       '@planetscale/database': 1.16.0
       '@types/react': 18.2.62
-      mysql2: 3.9.1
+      mysql2: 3.9.2
       react: 18.2.0
     dev: false
 
@@ -4987,8 +4987,8 @@ packages:
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
 
-  /mysql2@3.9.1:
-    resolution: {integrity: sha512-3njoWAAhGBYy0tWBabqUQcLtczZUxrmmtc2vszQUekg3kTJyZ5/IeLC3Fo04u6y6Iy5Sba7pIIa2P/gs8D3ZeQ==}
+  /mysql2@3.9.2:
+    resolution: {integrity: sha512-3Cwg/UuRkAv/wm6RhtPE5L7JlPB877vwSF6gfLAS68H+zhH+u5oa3AieqEd0D0/kC3W7qIhYbH419f7O9i/5nw==}
     engines: {node: '>= 8.0'}
     dependencies:
       denque: 2.1.0
