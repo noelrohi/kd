@@ -88,8 +88,9 @@ export default async function Page({ params }: PageProps) {
 }
 
 async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
-  const { episodes, number, downloadLink, dramaId } =
-    await getEpisodeInfo(episodeSlug);
+  const { episodes, number, downloadLink, dramaId } = await getEpisodeInfo(
+    episodeSlug,
+  );
   const session = await cachedAuth();
   let watched = false;
   if (session) {
@@ -104,7 +105,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
     watched = !!watchListData;
   }
   return (
-    <div className="flex gap-1">
+    <div className="flex flex-wrap gap-1">
       <Button size={"sm"} disabled={!episodes.previous}>
         <Link
           href={`/watch/${episodes.previous}`}
