@@ -49,7 +49,7 @@ dependencies:
     version: 0.9.2(typescript@5.3.3)(zod@3.22.4)
   '@unkey/nextjs':
     specifier: ^0.15.0
-    version: 0.15.0
+    version: 0.15.6
   '@upstash/ratelimit':
     specifier: ^1.0.1
     version: 1.0.1
@@ -3014,14 +3014,23 @@ packages:
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
     dev: false
 
-  /@unkey/api@0.17.0:
-    resolution: {integrity: sha512-/rpzSG6VkDo+s/vr9Vz+94zNARrwsuDaqghQQlQ5aHlRR3TR+O8ikOF/hMYDV14k7ksOnvbBZ8lsq970kX23lw==}
+  /@unkey/api@0.19.3:
+    resolution: {integrity: sha512-OSskwhK0OG0w6uKjp8sgRzOPjyx5j9+B0d+TV20UcSFha9PCaNnSR0QCUfW56zM3v887a1O1gcjt+zsCO6SNTQ==}
+    dependencies:
+      '@unkey/rbac': 0.1.11
     dev: false
 
-  /@unkey/nextjs@0.15.0:
-    resolution: {integrity: sha512-LeDUKoxv3RExt/3FdRmCwzVJytJK5yg4ISxaZQhsG8BmQgQo+ftaA2bQ1WAS/DAyQXeZpJRnIzMODUZKW+IBEA==}
+  /@unkey/nextjs@0.15.6:
+    resolution: {integrity: sha512-T0bimcQ2J7NpexYE6opmYwMaShBxnvPJNE7jlQ/xBIjJ6T6enraOuEvwien9XJpkSpkKNjN1UAgJtOKSF4ZQHA==}
     dependencies:
-      '@unkey/api': 0.17.0
+      '@unkey/api': 0.19.3
+    dev: false
+
+  /@unkey/rbac@0.1.11:
+    resolution: {integrity: sha512-S1XkX6rrynW6t6qTZpJd5yxpj9FxsSuZzqKDJBMYsJD1AJXOKBEE0dPqlq/g5nmz/fd2q5hjDEBp7m1s3wPFtQ==}
+    dependencies:
+      zod: 3.22.4
+      zod-error: 1.5.0
     dev: false
 
   /@upstash/core-analytics@0.0.7:
@@ -6609,6 +6618,12 @@ packages:
   /yaml@2.3.4:
     resolution: {integrity: sha512-8aAvwVUSHpfEqTQ4w/KMlf3HcRdt50E5ODIQJBw1fQ5RL34xabzxtUlzTXVqc4rkZsPbvrXKWnABCD7kWSmocA==}
     engines: {node: '>= 14'}
+
+  /zod-error@1.5.0:
+    resolution: {integrity: sha512-zzopKZ/skI9iXpqCEPj+iLCKl9b88E43ehcU+sbRoHuwGd9F1IDVGQ70TyO6kmfiRL1g4IXkjsXK+g1gLYl4WQ==}
+    dependencies:
+      zod: 3.22.4
+    dev: false
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
