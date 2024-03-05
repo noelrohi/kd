@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@auth/core": "^0.28.0",
-    "@auth/drizzle-adapter": "^0.7.0",
+    "@auth/drizzle-adapter": "^0.8.0",
     "@irsyadadl/paranoid": "^1.0.0",
     "@loglib/tracker": "^0.8.0",
     "@paralleldrive/cuid2": "^2.2.2",
