@@ -104,6 +104,9 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
     });
     watched = !!watchListData;
   }
+  const dramaInfo = await db.query.series.findFirst({
+    where: (table, { eq }) => eq(table.slug, dramaId),
+  });
   return (
     <div className="flex flex-wrap gap-1">
       <Button size={"sm"} disabled={!episodes.previous}>
@@ -141,7 +144,7 @@ async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
           Download
         </Link>
       </Button>
-      {!!session && (
+      {!!session && !!dramaInfo && (
         <UpdateWatchlistButton
           size="sm"
           episode={number}
