@@ -48,11 +48,9 @@ export async function updateWatchlist(props: {
   }
 }
 
-export const cacheProgressUpdate = cache(updateVideoProgress);
-
 type ProgressUpdateProps = Omit<typeof progress.$inferInsert, "userId">;
 
-async function updateVideoProgress(values: ProgressUpdateProps) {
+export async function updateVideoProgress(values: ProgressUpdateProps) {
   try {
     console.log("Updating video progress ...");
     const session = await auth();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { cacheProgressUpdate as updateProgress } from "@/lib/actions";
+import { updateVideoProgress as updateProgress } from "@/lib/actions";
 import { loglib } from "@loglib/tracker";
 import { useState, useTransition } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
