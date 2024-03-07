@@ -67,7 +67,7 @@ dependencies:
     version: 3.3.1
   drizzle-orm:
     specifier: ^0.29.4
-    version: 0.29.4(@planetscale/database@1.16.0)(@types/react@18.2.63)(mysql2@3.9.2)(react@18.2.0)
+    version: 0.29.5(@planetscale/database@1.16.0)(@types/react@18.2.63)(mysql2@3.9.2)(react@18.2.0)
   embla-carousel:
     specifier: 8.0.0
     version: 8.0.0
@@ -3749,8 +3749,8 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.29.4(@planetscale/database@1.16.0)(@types/react@18.2.63)(mysql2@3.9.2)(react@18.2.0):
-    resolution: {integrity: sha512-ZnSM8TAxFhzH7p1s3+w3pRE/eKaOeNkH9SKitm717pubDVVcV2I0BCDBPGKV+pe02+wMfw37ntlTcCyo2rA3IA==}
+  /drizzle-orm@0.29.5(@planetscale/database@1.16.0)(@types/react@18.2.63)(mysql2@3.9.2)(react@18.2.0):
+    resolution: {integrity: sha512-jS3+uyzTz4P0Y2CICx8FmRQ1eplURPaIMWDn/yq6k4ShRFj9V7vlJk67lSf2kyYPzQ60GkkNGXcJcwrxZ6QCRw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
@@ -5975,7 +5975,7 @@ packages:
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
-      terser: 5.28.1
+      terser: 5.29.1
       webpack: 5.90.3(esbuild@0.19.11)
     dev: false
 
@@ -6015,8 +6015,8 @@ packages:
       source-map-support: 0.5.21
     dev: false
 
-  /terser@5.28.1:
-    resolution: {integrity: sha512-wM+bZp54v/E9eRRGXb5ZFDvinrJIOaTapx3WUokyVGZu5ucVCK55zEgGd5Dl2fSr3jUo5sDiERErUWLY6QPFyA==}
+  /terser@5.29.1:
+    resolution: {integrity: sha512-lZQ/fyaIGxsbGxApKmoPTODIzELy3++mXhS5hOqaAWZjQtpq/hFHAc+rm29NND1rYRxRWKcjuARNwULNXa5RtQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
