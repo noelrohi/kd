@@ -88,9 +88,8 @@ export default async function Page({ params }: PageProps) {
 }
 
 async function ControlButtons({ episodeSlug }: { episodeSlug: string }) {
-  const { episodes, number, downloadLink, dramaId } = await getEpisodeInfo(
-    episodeSlug,
-  );
+  const { episodes, number, downloadLink, dramaId } =
+    await getEpisodeInfo(episodeSlug);
   const session = await cachedAuth();
   let watched = false;
   if (session) {
