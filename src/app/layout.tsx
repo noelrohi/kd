@@ -1,5 +1,5 @@
 import { Analytics } from "@/components/analytics";
-import { ThemeProvider } from "@/components/providers/theme";
+import { ThemeProvider } from "next-themes";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/config/site";
