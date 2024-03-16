@@ -1,5 +1,5 @@
 import { env } from "@/env.mjs";
-import { EpisodeInfo, Featured, Recent, Search, TopAiring } from "@/types";
+import type { EpisodeInfo, Featured, Recent, Search, TopAiring } from "@/types";
 
 export async function getDramaInfo(slug: string) {
   const url = `${env.API_URL}/info/drama-detail/${slug}`;

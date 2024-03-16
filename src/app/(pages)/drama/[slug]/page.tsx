@@ -22,7 +22,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { Suspense, cache } from "react";
-import { z } from "zod";
+import type { z } from "zod";
 import { SubmitButton } from "./client";
 
 interface PageProps {

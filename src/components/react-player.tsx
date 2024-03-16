@@ -4,8 +4,8 @@ import { useLocalStorage } from "@/hooks/use-local-storage";
 import { updateVideoProgress as updateProgress } from "@/lib/actions";
 import { loglib } from "@loglib/tracker";
 import { useState, useTransition } from "react";
-import ReactPlayer, { ReactPlayerProps } from "react-player";
-import { OnProgressProps } from "react-player/base";
+import ReactPlayer, { type ReactPlayerProps } from "react-player";
+import type { OnProgressProps } from "react-player/base";
 import { Icons } from "./icons";
 
 interface Props extends ReactPlayerProps {

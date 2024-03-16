@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { db } from "@/db";
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 // Update sitemap only once every 6 hours
 export const revalidate = 21600;

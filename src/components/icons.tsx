@@ -7,7 +7,7 @@ import {
   FolderSync,
   Info,
   LogOut,
-  LucideProps,
+  type LucideProps,
   Minus,
   Moon,
   Play,

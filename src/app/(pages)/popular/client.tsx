@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/card";
 import { Button } from "@/components/ui/button";
-import { TopAiring } from "@/types";
+import type { TopAiring } from "@/types";
 import { useState, useTransition } from "react";
 import { getMore } from "./actions";
 

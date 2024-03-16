@@ -1,5 +1,4 @@
 import { Analytics } from "@/components/analytics";
-import { ThemeProvider } from "next-themes";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/config/site";
@@ -7,6 +6,7 @@ import { fontHeading, fontMono, fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
+import { ThemeProvider } from "next-themes";
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
