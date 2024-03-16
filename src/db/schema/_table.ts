@@ -7,7 +7,7 @@ import { pgTableCreator, varchar } from "drizzle-orm/pg-core";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const pgTable = pgTableCreator((name) => `kd_${name}`);
+export const projectTable = pgTableCreator((name) => `kd_${name}`);
 
 export const idCreator = varchar("id", { length: 128 })
   .$defaultFn(() => createId())

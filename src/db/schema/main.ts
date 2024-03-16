@@ -5,46 +5,47 @@ import {
   index,
   integer,
   json,
+  text as longtext,
   pgEnum,
-  text,
   timestamp,
   unique,
   varchar,
 } from "drizzle-orm/pg-core";
-import { idCreator, pgTable } from "./_table";
+import { idCreator, projectTable } from "./_table";
 
-const watchlistStatus = pgEnum("watchlist_status", [
+export const watchListStatusEnum = pgEnum("watchlist_status", [
   "watching",
   "on_hold",
   "dropped",
   "plan_to_watch",
   "finished",
 ]);
-const seriesStatusEnum = pgEnum("series_status", [
+
+export const seriesStatusEnum = pgEnum("series_status", [
   "ongoing",
   "upcoming",
   "completed",
 ]);
 
-export const watchList = pgTable(
+export const subTypeEnum = pgEnum("sub_type", ["SUB", "DUB", "RAW"]);
+
+export const watchList = projectTable(
   "watchList",
   {
     id: idCreator,
     userId: varchar("userId", { length: 255 }).notNull(),
     dramaId: varchar("dramaId", { length: 255 }).notNull(),
-    status: watchlistStatus("status").notNull(),
+    status: watchListStatusEnum("status").notNull(),
     episode: integer("episode").default(0),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: timestamp("updated_at").defaultNow(),
+    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => ({
-    dramaIdx: index("drama_idx").on(table.dramaId),
-    statusIdx: index("status_idx").on(table.status),
     unique: unique("unique_watchList").on(table.userId, table.dramaId),
   }),
 );
 
-export const series = pgTable(
+export const series = projectTable(
   "series",
   {
     id: idCreator,
@@ -54,10 +55,10 @@ export const series = pgTable(
     status: seriesStatusEnum("status").default("upcoming"),
     genres: json("genres").$type<string[]>(),
     otherNames: json("other_names").$type<string[]>(),
-    description: text("descripton"),
+    description: longtext("descripton"),
     releaseDate: varchar("releaseDate", { length: 255 }),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: timestamp("updated_at").defaultNow(),
+    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => {
     return {
@@ -66,21 +67,19 @@ export const series = pgTable(
   },
 );
 
-const subTypeEnum = pgEnum("sub_type", ["SUB", "DUB", "RAW"]);
-
-export const episode = pgTable(
+export const episode = projectTable(
   "episode",
   {
     id: idCreator,
     episodeSlug: varchar("episodeSlug", { length: 255 }).notNull(),
     dramaId: varchar("dramaId", { length: 255 }).notNull(),
     number: integer("number").notNull(),
-    subType: subTypeEnum("subType"),
+    subType: subTypeEnum("subType_enum"),
     isLast: boolean("isLast").default(false),
     title: varchar("title", { length: 255 }).notNull(),
     releaseDate: date("releaseDate"),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: timestamp("updated_at").defaultNow(),
+    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => {
     return {
@@ -92,7 +91,7 @@ export const episode = pgTable(
   },
 );
 
-export const progress = pgTable(
+export const progress = projectTable(
   "progress",
   {
     id: idCreator,
@@ -100,11 +99,10 @@ export const progress = pgTable(
     episodeSlug: varchar("episode_slug", { length: 255 }).notNull(),
     seconds: integer("seconds").notNull(),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: timestamp("updated_at").defaultNow(),
+    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => {
     return {
-      episodeSlugIdx: index("episode_slug_idx").on(table.episodeSlug),
       unique: unique("unique_progress").on(table.userId, table.episodeSlug),
     };
   },

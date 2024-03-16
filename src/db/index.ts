@@ -8,7 +8,7 @@ import * as relations from "./schema/relations";
 
 export const schema = { ...auth, ...main, ...relations };
 
-export { pgTable as tableCreator } from "./schema/_table";
+export { projectTable as tableCreator } from "./schema/_table";
 
 const sql: NeonQueryFunction<boolean, boolean> = neon(env.DATABASE_URL);
 export const db = drizzle(sql, { schema });

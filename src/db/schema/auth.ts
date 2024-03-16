@@ -1,13 +1,8 @@
-import {
-  timestamp,
-  pgTable,
-  text,
-  primaryKey,
-  integer,
-} from "drizzle-orm/pg-core";
+import { timestamp, text, primaryKey, integer } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
+import { projectTable } from "./_table";
 
-export const users = pgTable("user", {
+export const users = projectTable("user", {
   id: text("id").notNull().primaryKey(),
   name: text("name"),
   email: text("email").notNull(),
@@ -15,12 +10,10 @@ export const users = pgTable("user", {
   image: text("image"),
 });
 
-export const accounts = pgTable(
+export const accounts = projectTable(
   "account",
   {
-    userId: text("userId")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+    userId: text("userId").notNull(),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("providerAccountId").notNull(),
@@ -39,15 +32,13 @@ export const accounts = pgTable(
   }),
 );
 
-export const sessions = pgTable("session", {
+export const sessions = projectTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+  userId: text("userId").notNull(),
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
-export const verificationTokens = pgTable(
+export const verificationTokens = projectTable(
   "verificationToken",
   {
     identifier: text("identifier").notNull(),
