@@ -1,16 +1,14 @@
 import { env } from "@/env.mjs";
-import { Client } from "@planetscale/database";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
+import { type NeonQueryFunction, neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 
 import * as auth from "./schema/auth";
 import * as main from "./schema/main";
+import * as relations from "./schema/relations";
 
-export const schema = { ...auth, ...main };
+export const schema = { ...auth, ...main, ...relations };
 
-export { mySqlTable as tableCreator } from "./schema/_table";
+export { pgTable as tableCreator } from "./schema/_table";
 
-// Create the connection
-const connection = new Client({
-  url: env.DATABASE_URL,
-});
-export const db = drizzle(connection, { schema });
+const sql: NeonQueryFunction<boolean, boolean> = neon(env.DATABASE_URL);
+export const db = drizzle(sql, { schema });
