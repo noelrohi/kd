@@ -1,5 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
-import { mysqlTableCreator, varchar } from "drizzle-orm/mysql-core";
+import { pgTableCreator, varchar } from "drizzle-orm/pg-core";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -7,7 +7,7 @@ import { mysqlTableCreator, varchar } from "drizzle-orm/mysql-core";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const mySqlTable = mysqlTableCreator((name) => `kd_${name}`);
+export const pgTable = pgTableCreator((name) => `kd_${name}`);
 
 export const idCreator = varchar("id", { length: 128 })
   .$defaultFn(() => createId())
