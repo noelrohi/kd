@@ -1,5 +1,5 @@
-import { timestamp, text, primaryKey, integer } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
+import { integer, primaryKey, text, timestamp } from "drizzle-orm/pg-core";
 import { projectTable } from "./_table";
 
 export const users = projectTable("user", {
