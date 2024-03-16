@@ -74,7 +74,7 @@ export const episode = projectTable(
     episodeSlug: varchar("episodeSlug", { length: 255 }).notNull(),
     dramaId: varchar("dramaId", { length: 255 }).notNull(),
     number: integer("number").notNull(),
-    subType: subTypeEnum("subType_enum"),
+    subType: subTypeEnum("subType"),
     isLast: boolean("isLast").default(false),
     title: varchar("title", { length: 255 }).notNull(),
     releaseDate: date("releaseDate"),
