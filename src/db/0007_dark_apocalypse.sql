@@ -1,1 +1,0 @@
-ALTER TABLE `kd_watchList` ADD CONSTRAINT `unique_watchList` UNIQUE(`userId`,`dramaId`);
