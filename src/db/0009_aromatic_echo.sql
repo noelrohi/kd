@@ -1,0 +1,1 @@
+DROP TABLE `kd_backup_local_storage`;
