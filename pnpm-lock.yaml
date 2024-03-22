@@ -50,9 +50,6 @@ dependencies:
   '@unkey/nextjs':
     specifier: ^0.15.6
     version: 0.15.7
-  '@upstash/ratelimit':
-    specifier: ^1.0.1
-    version: 1.0.1
   '@vercel/kv':
     specifier: ^1.0.1
     version: 1.0.1
@@ -3026,27 +3023,8 @@ packages:
       zod-error: 1.5.0
     dev: false
 
-  /@upstash/core-analytics@0.0.7:
-    resolution: {integrity: sha512-lC2j5efqb1haX/fpTGaPUx1rue1WUkOZBVHDzCB7eMIVsRdFFp4xiHtyH/G9omiR1zj39fU5SCTWFiKJH3KOpw==}
-    engines: {node: '>=16.0.0'}
-    dependencies:
-      '@upstash/redis': 1.28.4
-    dev: false
-
-  /@upstash/ratelimit@1.0.1:
-    resolution: {integrity: sha512-G9LZ7idhlkuYknbUngCB3qzd7QnkK1xDkFG5jRtEJZuOUS5UKJ0UTKbhalCtp39eX2wu2Ubv8W7HCeaJQOWM0A==}
-    dependencies:
-      '@upstash/core-analytics': 0.0.7
-    dev: false
-
   /@upstash/redis@1.25.1:
     resolution: {integrity: sha512-ACj0GhJ4qrQyBshwFgPod6XufVEfKX2wcaihsEvSdLYnY+m+pa13kGt1RXm/yTHKf4TQi/Dy2A8z/y6WUEOmlg==}
-    dependencies:
-      crypto-js: 4.2.0
-    dev: false
-
-  /@upstash/redis@1.28.4:
-    resolution: {integrity: sha512-UalkSAny/dz1m8giEhD3Y5ru1o+CPHI32wFyS3MyzDzj2TRvEN+lTw+mPwi20ojk0H2gs8TBW3qsrvwuLLy+pA==}
     dependencies:
       crypto-js: 4.2.0
     dev: false
