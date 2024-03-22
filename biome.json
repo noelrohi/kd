@@ -15,6 +15,9 @@
       "complexity": {
         "noBannedTypes": "off"
       },
+      "correctness": {
+        "noUnusedImports": "error"
+      },
       "nursery": {
         "useSortedClasses": "error"
       },

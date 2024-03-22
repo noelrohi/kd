@@ -5,7 +5,6 @@ import { episode as episodeDb, progress, watchList } from "@/db/schema/main";
 import { auth } from "@/lib/auth";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { cache } from "react";
 
 export async function updateWatchlist(props: {
   episode: number;

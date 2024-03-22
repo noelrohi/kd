@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { siteConfig } from "@/config/site";
 
 export function SiteFooter() {
