@@ -246,9 +246,13 @@ async function AdminAction(props: { slug: string }) {
             })) ?? [];
 
           await db.transaction(async (tx) => {
-            await tx.insert(series).values(values).onDuplicateKeyUpdate({
-              set: values,
-            });
+            await tx
+              .insert(series)
+              .values(values)
+              .onConflictDoUpdate({
+                target: [series.slug],
+                set: values,
+              });
 
             if (episodes.length > 0) {
               await tx.delete(episode).where(eq(episode.dramaId, slug));
@@ -310,7 +314,7 @@ async function LastPlayedEpisode({ slug }: { slug: string }) {
     },
   });
   if (!watchlistData || watchlistData.status === "finished") return null;
-  const episodes = watchlistData.series.episodes;
+  const episodes = watchlistData.series?.episodes || [];
   const episodeIndex = episodes.findIndex(
     (e) => e.number === watchlistData.episode,
   );

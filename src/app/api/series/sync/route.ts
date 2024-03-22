@@ -28,7 +28,7 @@ export const POST = withUnkey(async (req) => {
     await db
       .insert(series)
       .values(valuesToInsert)
-      .onDuplicateKeyUpdate({ set: { id: sql`id` } });
+      .onConflictDoUpdate({ target: [series.slug], set: { id: sql`id` } });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.log(error);
