@@ -251,7 +251,10 @@ async function AdminAction(props: { slug: string }) {
               .values(values)
               .onConflictDoUpdate({
                 target: [series.slug],
-                set: values,
+                set: {
+                  updatedAt: new Date(),
+                  ...values,
+                },
               });
 
             if (episodes.length > 0) {

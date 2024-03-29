@@ -62,6 +62,7 @@ export async function updateVideoProgress(values: ProgressUpdateProps) {
       .insert(progress)
       .values({
         ...values,
+        updatedAt: new Date(),
         userId: session.user.id,
       })
       .onConflictDoUpdate({
