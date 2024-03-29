@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().url().endsWith('ssl={"rejectUnauthorized":true}'),
+    DATABASE_URL: z.string().url().includes("neondb"),
     NEXTAUTH_SECRET: z.string().min(1),
     DISCORD_CLIENT_SECRET: z.string().min(1),
     DISCORD_CLIENT_ID: z.string().min(1),

@@ -1,75 +1,19 @@
 {
   "version": "5",
-  "dialect": "mysql",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1701995143641,
-      "tag": "0000_neat_kree",
+      "when": 1710565633339,
+      "tag": "0000_slow_romulus",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1702030717949,
-      "tag": "0001_white_eternals",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1702036995849,
-      "tag": "0002_nosy_landau",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1702095376670,
-      "tag": "0003_bright_gateway",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1702101109667,
-      "tag": "0004_wakeful_ultimo",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1702104889254,
-      "tag": "0005_square_vector",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1706950520125,
-      "tag": "0006_right_gravity",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1709169759791,
-      "tag": "0007_dark_apocalypse",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1709368737243,
-      "tag": "0008_steep_amphibian",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "5",
-      "when": 1710558758648,
-      "tag": "0009_aromatic_echo",
+      "when": 1710566949738,
+      "tag": "0001_steep_marvex",
       "breakpoints": true
     }
   ]

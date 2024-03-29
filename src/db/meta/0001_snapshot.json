@@ -1,97 +1,81 @@
 {
+  "id": "2f879518-fcaa-45ae-81b0-d5b2626dc9b2",
+  "prevId": "e996b8e6-96c2-48a6-9876-9f8d89294948",
   "version": "5",
-  "dialect": "mysql",
-  "id": "3128d69f-3542-4c54-b922-93660cffa264",
-  "prevId": "0031d1e7-7e28-427e-9888-c0d0ea79950c",
+  "dialect": "pg",
   "tables": {
     "kd_account": {
       "name": "kd_account",
+      "schema": "",
       "columns": {
         "userId": {
           "name": "userId",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "type": {
           "name": "type",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "provider": {
           "name": "provider",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "providerAccountId": {
           "name": "providerAccountId",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "refresh_token": {
           "name": "refresh_token",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "access_token": {
           "name": "access_token",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "expires_at": {
           "name": "expires_at",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "token_type": {
           "name": "token_type",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "scope": {
           "name": "scope",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "id_token": {
           "name": "id_token",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "session_state": {
           "name": "session_state",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
-      "indexes": {
-        "userId_idx": {
-          "name": "userId_idx",
-          "columns": ["userId"],
-          "isUnique": false
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
         "kd_account_provider_providerAccountId_pk": {
@@ -103,118 +87,93 @@
     },
     "kd_session": {
       "name": "kd_session",
+      "schema": "",
       "columns": {
         "sessionToken": {
           "name": "sessionToken",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
         },
         "userId": {
           "name": "userId",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "expires": {
           "name": "expires",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "userId_idx": {
-          "name": "userId_idx",
-          "columns": ["userId"],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "kd_session_sessionToken": {
-          "name": "kd_session_sessionToken",
-          "columns": ["sessionToken"]
-        }
-      },
-      "uniqueConstraints": {}
-    },
-    "kd_user": {
-      "name": "kd_user",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "email": {
-          "name": "email",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "emailVerified": {
-          "name": "emailVerified",
-          "type": "timestamp(3)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP(3)"
-        },
-        "image": {
-          "name": "image",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "kd_user_id": {
-          "name": "kd_user_id",
-          "columns": ["id"]
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "kd_user": {
+      "name": "kd_user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "kd_verificationToken": {
       "name": "kd_verificationToken",
+      "schema": "",
       "columns": {
         "identifier": {
           "name": "identifier",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "token": {
           "name": "token",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "expires": {
           "name": "expires",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -227,262 +186,229 @@
       },
       "uniqueConstraints": {}
     },
-    "kd_genre": {
-      "name": "kd_genre",
+    "kd_episode": {
+      "name": "kd_episode",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
           "type": "varchar(128)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "episodeSlug": {
+          "name": "episodeSlug",
+          "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "dramaId": {
           "name": "dramaId",
-          "type": "varchar(128)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "name": {
-          "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
+        "number": {
+          "name": "number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subType": {
+          "name": "subType",
+          "type": "sub_type",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isLast": {
+          "name": "isLast",
+          "type": "boolean",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "onUpdate": true
-        }
-      },
-      "indexes": {
-        "drama_idx": {
-          "name": "drama_idx",
-          "columns": ["dramaId"],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "kd_genre_id": {
-          "name": "kd_genre_id",
-          "columns": ["id"]
-        }
-      },
-      "uniqueConstraints": {}
-    },
-    "kd_other_name": {
-      "name": "kd_other_name",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(128)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "dramaId": {
-          "name": "dramaId",
-          "type": "varchar(128)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "onUpdate": true
-        }
-      },
-      "indexes": {
-        "drama_idx": {
-          "name": "drama_idx",
-          "columns": ["dramaId"],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "kd_other_name_id": {
-          "name": "kd_other_name_id",
-          "columns": ["id"]
-        }
-      },
-      "uniqueConstraints": {}
-    },
-    "kd_series": {
-      "name": "kd_series",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(128)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "slug": {
-          "name": "slug",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "default": false
         },
         "title": {
           "name": "title",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "coverImage": {
-          "name": "coverImage",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "descripton": {
-          "name": "descripton",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": true
         },
         "releaseDate": {
           "name": "releaseDate",
-          "type": "varchar(255)",
+          "type": "date",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
+          "default": "CURRENT_TIMESTAMP"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
-          "onUpdate": true
+          "default": "CURRENT_TIMESTAMP"
         }
       },
       "indexes": {
-        "slug_idx": {
-          "name": "slug_idx",
-          "columns": ["slug"],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "kd_series_id": {
-          "name": "kd_series_id",
-          "columns": ["id"]
-        }
-      },
-      "uniqueConstraints": {
-        "kd_series_slug_unique": {
-          "name": "kd_series_slug_unique",
-          "columns": ["slug"]
-        }
-      }
-    },
-    "kd_watchList": {
-      "name": "kd_watchList",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(128)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "userId": {
-          "name": "userId",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "dramaId": {
-          "name": "dramaId",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "status": {
-          "name": "status",
-          "type": "enum('watching','on_hold','dropped','plan_to_watch','finished')",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "(now())"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "onUpdate": true
-        }
-      },
-      "indexes": {
-        "user_idx": {
-          "name": "user_idx",
-          "columns": ["userId"],
-          "isUnique": false
-        },
         "drama_idx": {
           "name": "drama_idx",
           "columns": ["dramaId"],
           "isUnique": false
         },
+        "title_idx": {
+          "name": "title_idx",
+          "columns": ["title"],
+          "isUnique": false
+        },
+        "episode_slug_idx": {
+          "name": "episode_slug_idx",
+          "columns": ["episodeSlug"],
+          "isUnique": false
+        },
+        "number_idx": {
+          "name": "number_idx",
+          "columns": ["number"],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "kd_progress": {
+      "name": "kd_progress",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(128)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "episode_slug": {
+          "name": "episode_slug",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "seconds": {
+          "name": "seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_progress": {
+          "name": "unique_progress",
+          "nullsNotDistinct": false,
+          "columns": ["user_id", "episode_slug"]
+        }
+      }
+    },
+    "kd_series": {
+      "name": "kd_series",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(128)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coverImage": {
+          "name": "coverImage",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "series_status",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'upcoming'"
+        },
+        "genres": {
+          "name": "genres",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_names": {
+          "name": "other_names",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "descripton": {
+          "name": "descripton",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "releaseDate": {
+          "name": "releaseDate",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {
         "status_idx": {
           "name": "status_idx",
           "columns": ["status"],
@@ -490,19 +416,109 @@
         }
       },
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "kd_watchList_id": {
-          "name": "kd_watchList_id",
-          "columns": ["id"]
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "kd_series_slug_unique": {
+          "name": "kd_series_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": ["slug"]
+        }
+      }
+    },
+    "kd_watchList": {
+      "name": "kd_watchList",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(128)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dramaId": {
+          "name": "dramaId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "watchlist_status",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "episode": {
+          "name": "episode",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
         }
       },
-      "uniqueConstraints": {}
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "unique_watchList": {
+          "name": "unique_watchList",
+          "nullsNotDistinct": false,
+          "columns": ["userId", "dramaId"]
+        }
+      }
+    }
+  },
+  "enums": {
+    "series_status": {
+      "name": "series_status",
+      "values": {
+        "ongoing": "ongoing",
+        "upcoming": "upcoming",
+        "completed": "completed"
+      }
+    },
+    "sub_type": {
+      "name": "sub_type",
+      "values": {
+        "SUB": "SUB",
+        "DUB": "DUB",
+        "RAW": "RAW"
+      }
+    },
+    "watchlist_status": {
+      "name": "watchlist_status",
+      "values": {
+        "watching": "watching",
+        "on_hold": "on_hold",
+        "dropped": "dropped",
+        "plan_to_watch": "plan_to_watch",
+        "finished": "finished"
+      }
     }
   },
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
+    "tables": {}
   }
 }

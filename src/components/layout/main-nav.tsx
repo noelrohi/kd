@@ -1,11 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useParams,
-  usePathname,
-  useSelectedLayoutSegment,
-} from "next/navigation";
+import { usePathname } from "next/navigation";
 import * as React from "react";
 
 import { Icons } from "@/components/icons";

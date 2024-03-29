@@ -1,0 +1,1 @@
+ALTER TABLE "kd_episode" RENAME COLUMN "subType_enum" TO "subType";

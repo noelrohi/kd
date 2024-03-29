@@ -5,7 +5,6 @@ import { episode as episodeDb, progress, watchList } from "@/db/schema/main";
 import { auth } from "@/lib/auth";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { cache } from "react";
 
 export async function updateWatchlist(props: {
   episode: number;
@@ -34,9 +33,13 @@ export async function updateWatchlist(props: {
       userId: session.user.id,
       episode,
     };
-    await db.insert(watchList).values(values).onDuplicateKeyUpdate({
-      set: values,
-    });
+    await db
+      .insert(watchList)
+      .values(values)
+      .onConflictDoUpdate({
+        target: [watchList.userId, watchList.dramaId],
+        set: values,
+      });
     revalidatePath(`/drama/${slug.replace("drama-detail/", "")}`);
     return {
       message: `Your progress is updated. Status: ${status}, Episode: ${episode}`,
@@ -61,7 +64,8 @@ export async function updateVideoProgress(values: ProgressUpdateProps) {
         ...values,
         userId: session.user.id,
       })
-      .onDuplicateKeyUpdate({
+      .onConflictDoUpdate({
+        target: [progress.userId, progress.episodeSlug],
         set: {
           seconds: values.seconds,
         },
