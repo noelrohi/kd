@@ -15,6 +15,13 @@
       "when": 1710566949738,
       "tag": "0001_steep_marvex",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1711715792274,
+      "tag": "0002_dry_iron_lad",
+      "breakpoints": true
     }
   ]
 }

@@ -2,9 +2,9 @@ import { sql } from "drizzle-orm";
 import {
   boolean,
   date,
+  decimal,
   index,
   integer,
-  decimal,
   json,
   text as longtext,
   pgEnum,
