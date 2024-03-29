@@ -169,7 +169,7 @@ async function Vid({ episodeSlug, dramaId, number }: Props) {
           eq(table.userId, session.user.id),
         ),
     });
-    seekTo = progress?.seconds;
+    seekTo = progress ? Number(progress.seconds) : undefined;
   }
 
   const parsed = episodeSourceSchema.parse(episodeSources);

@@ -35,7 +35,7 @@ export async function updateWatchlist(props: {
     };
     await db
       .insert(watchList)
-      .values(values)
+      .values({ ...values, updatedAt: new Date() })
       .onConflictDoUpdate({
         target: [watchList.userId, watchList.dramaId],
         set: values,

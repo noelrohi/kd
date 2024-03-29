@@ -43,9 +43,8 @@ export async function getWatchLists(): Promise<
   if (session) {
     const lists = await db.query.watchList.findMany({
       where: eq(watchListSchema.userId, session.user.id),
-      orderBy: (watchList, { desc }) => [
-        desc(watchList.updatedAt),
-        desc(watchList.createdAt),
+      orderBy: (watchList, { sql }) => [
+        sql`${watchList.updatedAt} desc nulls last`,
       ],
       columns: {
         dramaId: true,

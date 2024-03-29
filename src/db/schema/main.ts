@@ -2,6 +2,7 @@ import { sql } from "drizzle-orm";
 import {
   boolean,
   date,
+  decimal,
   index,
   integer,
   json,
@@ -97,7 +98,7 @@ export const progress = projectTable(
     id: idCreator,
     userId: varchar("user_id", { length: 255 }).notNull(),
     episodeSlug: varchar("episode_slug", { length: 255 }).notNull(),
-    seconds: integer("seconds").notNull(),
+    seconds: decimal("seconds").notNull(),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
     updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
   },

@@ -1,0 +1,1 @@
+ALTER TABLE "kd_progress" ALTER COLUMN "seconds" SET DATA TYPE numeric;
