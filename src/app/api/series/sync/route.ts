@@ -30,7 +30,7 @@ export const POST = withUnkey(async (req) => {
       .values(valuesToInsert)
       .onConflictDoUpdate({
         target: [series.slug],
-        set: { id: sql`${series.id}` },
+        set: { id: sql`${series.id}`, updatedAt: new Date() },
       });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
