@@ -47,7 +47,7 @@ export default function ReactPlayerAsVideo({
     startTransition(async () => {
       await updateProgress({
         episodeSlug: slug,
-        seconds: progress.playedSeconds,
+        seconds: String(progress.playedSeconds),
       });
     });
   };
