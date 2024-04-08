@@ -14,7 +14,7 @@
     "fmt": "bun biome format ./src --write && bun biome check ./src --apply-unsafe"
   },
   "dependencies": {
-    "@auth/core": "^0.28.2",
+    "@auth/core": "^0.29.0",
     "@auth/drizzle-adapter": "^0.8.2",
     "@irsyadadl/paranoid": "^1.0.25",
     "@loglib/tracker": "^0.8.0",
