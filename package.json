@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@auth/core": "^0.28.2",
-    "@auth/drizzle-adapter": "^0.8.2",
+    "@auth/drizzle-adapter": "^0.9.0",
     "@irsyadadl/paranoid": "^1.0.25",
     "@loglib/tracker": "^0.8.0",
     "@neondatabase/serverless": "^0.9.0",
