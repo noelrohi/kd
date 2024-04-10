@@ -1,7 +1,11 @@
 import { db } from "@/db";
-import { series, watchList as watchListSchema } from "@/db/schema/main";
+import {
+  series,
+  watchList as watchListSchema,
+  type watchListStatusEnum,
+} from "@/db/schema/main";
 import { auth } from "@/lib/auth";
-import { and, eq, inArray } from "drizzle-orm";
+import { type InferSelectModel, and, eq, inArray } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { z } from "zod";
 
@@ -17,28 +21,15 @@ const watchListZodSchema = z.array(
   }),
 );
 
-export async function getWatchLists(): Promise<
-  {
-    dramaId: string;
-    status:
-      | "watching"
-      | "on_hold"
-      | "dropped"
-      | "plan_to_watch"
-      | "finished"
-      | null;
-    series: {
-      id: string;
-      description: string | null;
-      createdAt: Date | null;
-      updatedAt: Date | null;
-      slug: string;
-      title: string;
-      coverImage: string;
-      releaseDate: string | null;
-    } | null;
-  }[]
-> {
+type WatchListStatus = (typeof watchListStatusEnum.enumValues)[number];
+
+interface Watchlist {
+  dramaId: string;
+  status: WatchListStatus | null;
+  series: InferSelectModel<typeof series> | null;
+}
+
+export async function getWatchLists(): Promise<Array<Watchlist>> {
   const [session, cookieStore] = await authOrCookie();
   if (session) {
     const lists = await db.query.watchList.findMany({

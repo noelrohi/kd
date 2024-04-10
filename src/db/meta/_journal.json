@@ -22,6 +22,13 @@
       "when": 1711715792274,
       "tag": "0002_dry_iron_lad",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1712749746465,
+      "tag": "0003_nifty_thunderbolt_ross",
+      "breakpoints": true
     }
   ]
 }
