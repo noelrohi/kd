@@ -39,7 +39,7 @@ export const watchList = projectTable(
     status: watchListStatusEnum("status").notNull(),
     episode: integer("episode").default(0),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (table) => ({
     unique: unique("unique_watchList").on(table.userId, table.dramaId),
@@ -59,7 +59,7 @@ export const series = projectTable(
     description: longtext("descripton"),
     releaseDate: varchar("releaseDate", { length: 255 }),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (table) => {
     return {
@@ -80,7 +80,7 @@ export const episode = projectTable(
     title: varchar("title", { length: 255 }).notNull(),
     releaseDate: date("releaseDate"),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (table) => {
     return {
@@ -100,7 +100,7 @@ export const progress = projectTable(
     episodeSlug: varchar("episode_slug", { length: 255 }).notNull(),
     seconds: decimal("seconds").notNull(),
     createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: timestamp("updated_at").default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (table) => {
     return {
