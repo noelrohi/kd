@@ -14,11 +14,11 @@
     "fmt": "bun biome format ./src --write && bun biome check ./src --apply-unsafe"
   },
   "dependencies": {
-    "@auth/core": "^0.29.0",
+    "@auth/core": "^0.30.0",
     "@auth/drizzle-adapter": "^0.9.0",
-    "@irsyadadl/paranoid": "^1.0.29",
+    "@irsyadadl/paranoid": "^1.0.36",
     "@loglib/tracker": "^0.8.0",
-    "@neondatabase/serverless": "^0.9.0",
+    "@neondatabase/serverless": "^0.9.1",
     "@paralleldrive/cuid2": "^2.2.2",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -33,13 +33,13 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
-    "drizzle-orm": "^0.30.7",
-    "embla-carousel": "8.0.1",
-    "embla-carousel-react": "8.0.1",
-    "framer-motion": "^11.0.25",
+    "drizzle-orm": "^0.30.9",
+    "embla-carousel": "8.0.2",
+    "embla-carousel-react": "8.0.2",
+    "framer-motion": "^11.1.7",
     "geist": "^1.3.0",
-    "lucide-react": "^0.364.0",
-    "next": "14.1.4",
+    "lucide-react": "^0.372.0",
+    "next": "14.2.2",
     "next-auth": "5.0.0-beta.16",
     "next-pwa": "^5.6.0",
     "next-themes": "^0.3.0",
@@ -48,20 +48,23 @@
     "react-player": "^2.16.0",
     "simplex-noise": "^4.0.1",
     "sonner": "^1.4.41",
-    "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.6",
-    "zod": "^3.22.4"
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.22.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.6.4",
+    "@biomejs/biome": "1.7.0",
     "@types/node": "^20.12.7",
-    "@types/react": "^18.2.75",
-    "@types/react-dom": "^18.2.24",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
     "autoprefixer": "^10.4.19",
-    "drizzle-kit": "^0.20.14",
+    "drizzle-kit": "^0.20.17",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "turbo": "^1.13.2",
-    "typescript": "^5.4.4"
-  }
+    "typescript": "^5.4.5"
+  },
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ]
 }
