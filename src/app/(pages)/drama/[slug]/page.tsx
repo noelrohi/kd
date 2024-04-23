@@ -233,7 +233,6 @@ async function AdminAction(props: { slug: string }) {
           };
 
           const episodeCount = data.episodes?.length ?? 0;
-          console.log({ episodeCount });
           const episodes: (typeof episode.$inferInsert)[] =
             data.episodes?.map((ep) => ({
               dramaId: slug,
@@ -262,9 +261,7 @@ async function AdminAction(props: { slug: string }) {
             }
           });
           revalidatePath(`/drama/${props.slug}`);
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
       }}
     >
       <SubmitButton
