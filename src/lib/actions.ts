@@ -46,7 +46,7 @@ export async function updateWatchlist(props: {
       error: false,
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return { message: "Something went wrong.", error: true };
   }
 }
@@ -55,7 +55,6 @@ type ProgressUpdateProps = Omit<typeof progress.$inferInsert, "userId">;
 
 export async function updateVideoProgress(values: ProgressUpdateProps) {
   try {
-    console.log("Updating video progress ...");
     const session = await auth();
     if (!session) throw new Error("Unauthorized");
     await db

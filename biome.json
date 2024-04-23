@@ -22,7 +22,8 @@
         "useSortedClasses": "error"
       },
       "suspicious": {
-        "noArrayIndexKey": "off"
+        "noArrayIndexKey": "off",
+        "noConsoleLog": "error"
       },
       "a11y": {
         "useButtonType": "off",

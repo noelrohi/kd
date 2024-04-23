@@ -34,7 +34,7 @@ export const POST = withUnkey(async (req) => {
       });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return NextResponse.json(
       { error: "Something went wrong." },
       { status: 500 },
