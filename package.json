@@ -35,7 +35,7 @@
     "date-fns": "^3.6.0",
     "drizzle-orm": "^0.30.9",
     "embla-carousel": "8.0.2",
-    "embla-carousel-react": "8.0.2",
+    "embla-carousel-react": "8.0.4",
     "framer-motion": "^11.1.7",
     "geist": "^1.3.0",
     "lucide-react": "^0.372.0",
