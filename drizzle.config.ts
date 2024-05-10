@@ -3,10 +3,10 @@ import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
   schema: "./src/db/schema",
-  driver: "pg",
+  dialect: "postgresql",
   out: "./src/db",
   dbCredentials: {
-    connectionString: env.DATABASE_URL,
+    url: env.DATABASE_URL,
   },
   tablesFilter: ["kd_*"],
   verbose: true,

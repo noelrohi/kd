@@ -1,10 +1,8 @@
 {
-  "id": "f8f4e8a1-8307-4fbd-ad24-3c6c31c87dd5",
-  "prevId": "daef41bb-0d81-4ba8-b08f-ade8fe0510ee",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "kd_account": {
+    "public.kd_account": {
       "name": "kd_account",
       "schema": "",
       "columns": {
@@ -85,7 +83,7 @@
       },
       "uniqueConstraints": {}
     },
-    "kd_session": {
+    "public.kd_session": {
       "name": "kd_session",
       "schema": "",
       "columns": {
@@ -113,7 +111,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "kd_user": {
+    "public.kd_user": {
       "name": "kd_user",
       "schema": "",
       "columns": {
@@ -153,7 +151,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "kd_verificationToken": {
+    "public.kd_verificationToken": {
       "name": "kd_verificationToken",
       "schema": "",
       "columns": {
@@ -186,7 +184,7 @@
       },
       "uniqueConstraints": {}
     },
-    "kd_episode": {
+    "public.kd_episode": {
       "name": "kd_episode",
       "schema": "",
       "columns": {
@@ -279,7 +277,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "kd_progress": {
+    "public.kd_progress": {
       "name": "kd_progress",
       "schema": "",
       "columns": {
@@ -327,12 +325,12 @@
       "uniqueConstraints": {
         "unique_progress": {
           "name": "unique_progress",
-          "nullsNotDistinct": false,
-          "columns": ["user_id", "episode_slug"]
+          "columns": ["user_id", "episode_slug"],
+          "nullsNotDistinct": false
         }
       }
     },
-    "kd_series": {
+    "public.kd_series": {
       "name": "kd_series",
       "schema": "",
       "columns": {
@@ -417,12 +415,12 @@
       "uniqueConstraints": {
         "kd_series_slug_unique": {
           "name": "kd_series_slug_unique",
-          "nullsNotDistinct": false,
-          "columns": ["slug"]
+          "columns": ["slug"],
+          "nullsNotDistinct": false
         }
       }
     },
-    "kd_watchList": {
+    "public.kd_watchList": {
       "name": "kd_watchList",
       "schema": "",
       "columns": {
@@ -477,44 +475,35 @@
       "uniqueConstraints": {
         "unique_watchList": {
           "name": "unique_watchList",
-          "nullsNotDistinct": false,
-          "columns": ["userId", "dramaId"]
+          "columns": ["userId", "dramaId"],
+          "nullsNotDistinct": false
         }
       }
     }
   },
   "enums": {
-    "series_status": {
+    "public.series_status": {
       "name": "series_status",
-      "values": {
-        "ongoing": "ongoing",
-        "upcoming": "upcoming",
-        "completed": "completed"
-      }
+      "schema": "public",
+      "values": ["ongoing", "upcoming", "completed"]
     },
-    "sub_type": {
+    "public.sub_type": {
       "name": "sub_type",
-      "values": {
-        "SUB": "SUB",
-        "DUB": "DUB",
-        "RAW": "RAW"
-      }
+      "schema": "public",
+      "values": ["SUB", "DUB", "RAW"]
     },
-    "watchlist_status": {
+    "public.watchlist_status": {
       "name": "watchlist_status",
-      "values": {
-        "watching": "watching",
-        "on_hold": "on_hold",
-        "dropped": "dropped",
-        "plan_to_watch": "plan_to_watch",
-        "finished": "finished"
-      }
+      "schema": "public",
+      "values": ["watching", "on_hold", "dropped", "plan_to_watch", "finished"]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "f8f4e8a1-8307-4fbd-ad24-3c6c31c87dd5",
+  "prevId": "daef41bb-0d81-4ba8-b08f-ade8fe0510ee"
 }
