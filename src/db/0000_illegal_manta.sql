@@ -1,17 +1,17 @@
 DO $$ BEGIN
- CREATE TYPE "series_status" AS ENUM('ongoing', 'upcoming', 'completed');
+ CREATE TYPE "public"."series_status" AS ENUM('ongoing', 'upcoming', 'completed');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- CREATE TYPE "sub_type" AS ENUM('SUB', 'DUB', 'RAW');
+ CREATE TYPE "public"."sub_type" AS ENUM('SUB', 'DUB', 'RAW');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- CREATE TYPE "watchlist_status" AS ENUM('watching', 'on_hold', 'dropped', 'plan_to_watch', 'finished');
+ CREATE TYPE "public"."watchlist_status" AS ENUM('watching', 'on_hold', 'dropped', 'plan_to_watch', 'finished');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -57,21 +57,21 @@ CREATE TABLE IF NOT EXISTS "kd_episode" (
 	"episodeSlug" varchar(255) NOT NULL,
 	"dramaId" varchar(255) NOT NULL,
 	"number" integer NOT NULL,
-	"subType_enum" "sub_type",
+	"subType" "sub_type",
 	"isLast" boolean DEFAULT false,
 	"title" varchar(255) NOT NULL,
 	"releaseDate" date,
 	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
-	"updated_at" timestamp DEFAULT CURRENT_TIMESTAMP
+	"updated_at" timestamp
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "kd_progress" (
 	"id" varchar(128) PRIMARY KEY NOT NULL,
 	"user_id" varchar(255) NOT NULL,
 	"episode_slug" varchar(255) NOT NULL,
-	"seconds" integer NOT NULL,
+	"seconds" numeric NOT NULL,
 	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
-	"updated_at" timestamp DEFAULT CURRENT_TIMESTAMP,
+	"updated_at" timestamp,
 	CONSTRAINT "unique_progress" UNIQUE("user_id","episode_slug")
 );
 --> statement-breakpoint
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS "kd_series" (
 	"descripton" text,
 	"releaseDate" varchar(255),
 	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
-	"updated_at" timestamp DEFAULT CURRENT_TIMESTAMP,
+	"updated_at" timestamp,
 	CONSTRAINT "kd_series_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS "kd_watchList" (
 	"status" "watchlist_status" NOT NULL,
 	"episode" integer DEFAULT 0,
 	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
-	"updated_at" timestamp DEFAULT CURRENT_TIMESTAMP,
+	"updated_at" timestamp,
 	CONSTRAINT "unique_watchList" UNIQUE("userId","dramaId")
 );
 --> statement-breakpoint

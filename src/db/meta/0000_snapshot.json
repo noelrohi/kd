@@ -1,4 +1,6 @@
 {
+  "id": "4a8c954b-2d8a-44c7-8362-300b252f15f2",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
   "tables": {
@@ -212,9 +214,10 @@
           "primaryKey": false,
           "notNull": true
         },
-        "subType_enum": {
-          "name": "subType_enum",
+        "subType": {
+          "name": "subType",
           "type": "sub_type",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         },
@@ -248,8 +251,7 @@
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
-          "default": "CURRENT_TIMESTAMP"
+          "notNull": false
         }
       },
       "indexes": {
@@ -302,7 +304,7 @@
         },
         "seconds": {
           "name": "seconds",
-          "type": "integer",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": true
         },
@@ -317,8 +319,7 @@
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
-          "default": "CURRENT_TIMESTAMP"
+          "notNull": false
         }
       },
       "indexes": {},
@@ -327,8 +328,8 @@
       "uniqueConstraints": {
         "unique_progress": {
           "name": "unique_progress",
-          "columns": ["user_id", "episode_slug"],
-          "nullsNotDistinct": false
+          "nullsNotDistinct": false,
+          "columns": ["user_id", "episode_slug"]
         }
       }
     },
@@ -363,6 +364,7 @@
         "status": {
           "name": "status",
           "type": "series_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false,
           "default": "'upcoming'"
@@ -402,8 +404,7 @@
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
-          "default": "CURRENT_TIMESTAMP"
+          "notNull": false
         }
       },
       "indexes": {
@@ -418,8 +419,8 @@
       "uniqueConstraints": {
         "kd_series_slug_unique": {
           "name": "kd_series_slug_unique",
-          "columns": ["slug"],
-          "nullsNotDistinct": false
+          "nullsNotDistinct": false,
+          "columns": ["slug"]
         }
       }
     },
@@ -448,6 +449,7 @@
         "status": {
           "name": "status",
           "type": "watchlist_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -469,8 +471,7 @@
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
-          "default": "CURRENT_TIMESTAMP"
+          "notNull": false
         }
       },
       "indexes": {},
@@ -479,8 +480,8 @@
       "uniqueConstraints": {
         "unique_watchList": {
           "name": "unique_watchList",
-          "columns": ["userId", "dramaId"],
-          "nullsNotDistinct": false
+          "nullsNotDistinct": false,
+          "columns": ["userId", "dramaId"]
         }
       }
     }
@@ -504,10 +505,8 @@
   },
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
-  },
-  "id": "e996b8e6-96c2-48a6-9876-9f8d89294948",
-  "prevId": "00000000-0000-0000-0000-000000000000"
+    "tables": {}
+  }
 }
