@@ -244,24 +244,24 @@ async function AdminAction(props: { slug: string }) {
               subType: ep.subType,
             })) ?? [];
 
-          await db.transaction(async (tx) => {
-            await tx
-              .insert(series)
-              .values(values)
-              .onConflictDoUpdate({
-                target: [series.slug],
-                set: {
-                  ...values,
-                },
-              });
+          await db
+            .insert(series)
+            .values(values)
+            .onConflictDoUpdate({
+              target: [series.slug],
+              set: {
+                ...values,
+              },
+            });
 
-            if (episodes.length > 0) {
-              await tx.delete(episode).where(eq(episode.dramaId, slug));
-              await tx.insert(episode).values(episodes);
-            }
-          });
+          if (episodes.length > 0) {
+            await db.delete(episode).where(eq(episode.dramaId, slug));
+            await db.insert(episode).values(episodes);
+          }
           revalidatePath(`/drama/${props.slug}`);
-        } catch (error) {}
+        } catch (error) {
+          console.error(error);
+        }
       }}
     >
       <SubmitButton
