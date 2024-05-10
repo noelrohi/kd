@@ -15,7 +15,7 @@ const metaSchema = z.object({
 export const dynamic = "force-dynamic";
 
 export const GET = withUnkey(async (req) => {
-  if (!req.unkey.valid) {
+  if (!req.unkey?.valid) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
   }
   const parse = metaSchema.safeParse(req.unkey.meta);
