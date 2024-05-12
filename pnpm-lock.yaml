@@ -13,7 +13,7 @@ dependencies:
     version: 0.9.0
   '@irsyadadl/paranoid':
     specifier: ^1.0.39
-    version: 1.0.39(react@18.3.1)
+    version: 1.0.40(react@18.3.1)
   '@loglib/tracker':
     specifier: ^0.8.0
     version: 0.8.0(react@18.3.1)
@@ -2120,8 +2120,8 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: false
 
-  /@irsyadadl/paranoid@1.0.39(react@18.3.1):
-    resolution: {integrity: sha512-lnWVr0yujk0kJGcY306b3OsKrEYEe1G4LrruMnMtQCGpfAkF7Zj4wOBN4Se+SSP7xhhmnIo6vBOW5f3GDsVHGg==}
+  /@irsyadadl/paranoid@1.0.40(react@18.3.1):
+    resolution: {integrity: sha512-qwk1BJW+MbriXB6xGnarR7F4NHwPAmOI0qADDbgM4qnI4uuwEcjRiBcQPpMw1Cy2XIk+2yeWjux33srhXZK1Jg==}
     peerDependencies:
       react: ^16 || ^17 || ^18
     dependencies:
