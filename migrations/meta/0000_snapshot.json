@@ -1,5 +1,5 @@
 {
-  "id": "4a8c954b-2d8a-44c7-8362-300b252f15f2",
+  "id": "cd97a739-493b-4990-9a27-df506a389a0e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -80,7 +80,10 @@
       "compositePrimaryKeys": {
         "kd_account_provider_providerAccountId_pk": {
           "name": "kd_account_provider_providerAccountId_pk",
-          "columns": ["provider", "providerAccountId"]
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ]
         }
       },
       "uniqueConstraints": {}
@@ -181,7 +184,10 @@
       "compositePrimaryKeys": {
         "kd_verificationToken_identifier_token_pk": {
           "name": "kd_verificationToken_identifier_token_pk",
-          "columns": ["identifier", "token"]
+          "columns": [
+            "identifier",
+            "token"
+          ]
         }
       },
       "uniqueConstraints": {}
@@ -257,22 +263,30 @@
       "indexes": {
         "drama_idx": {
           "name": "drama_idx",
-          "columns": ["dramaId"],
+          "columns": [
+            "dramaId"
+          ],
           "isUnique": false
         },
         "title_idx": {
           "name": "title_idx",
-          "columns": ["title"],
+          "columns": [
+            "title"
+          ],
           "isUnique": false
         },
         "episode_slug_idx": {
           "name": "episode_slug_idx",
-          "columns": ["episodeSlug"],
+          "columns": [
+            "episodeSlug"
+          ],
           "isUnique": false
         },
         "number_idx": {
           "name": "number_idx",
-          "columns": ["number"],
+          "columns": [
+            "number"
+          ],
           "isUnique": false
         }
       },
@@ -329,7 +343,10 @@
         "unique_progress": {
           "name": "unique_progress",
           "nullsNotDistinct": false,
-          "columns": ["user_id", "episode_slug"]
+          "columns": [
+            "user_id",
+            "episode_slug"
+          ]
         }
       }
     },
@@ -410,7 +427,9 @@
       "indexes": {
         "status_idx": {
           "name": "status_idx",
-          "columns": ["status"],
+          "columns": [
+            "status"
+          ],
           "isUnique": false
         }
       },
@@ -420,7 +439,9 @@
         "kd_series_slug_unique": {
           "name": "kd_series_slug_unique",
           "nullsNotDistinct": false,
-          "columns": ["slug"]
+          "columns": [
+            "slug"
+          ]
         }
       }
     },
@@ -481,7 +502,10 @@
         "unique_watchList": {
           "name": "unique_watchList",
           "nullsNotDistinct": false,
-          "columns": ["userId", "dramaId"]
+          "columns": [
+            "userId",
+            "dramaId"
+          ]
         }
       }
     }
@@ -490,17 +514,31 @@
     "public.series_status": {
       "name": "series_status",
       "schema": "public",
-      "values": ["ongoing", "upcoming", "completed"]
+      "values": [
+        "ongoing",
+        "upcoming",
+        "completed"
+      ]
     },
     "public.sub_type": {
       "name": "sub_type",
       "schema": "public",
-      "values": ["SUB", "DUB", "RAW"]
+      "values": [
+        "SUB",
+        "DUB",
+        "RAW"
+      ]
     },
     "public.watchlist_status": {
       "name": "watchlist_status",
       "schema": "public",
-      "values": ["watching", "on_hold", "dropped", "plan_to_watch", "finished"]
+      "values": [
+        "watching",
+        "on_hold",
+        "dropped",
+        "plan_to_watch",
+        "finished"
+      ]
     }
   },
   "schemas": {},
