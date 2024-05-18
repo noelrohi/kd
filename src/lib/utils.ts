@@ -8,9 +8,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function absoluteUrl(path: string) {
-  return path.startsWith("/")
-    ? env.NEXT_PUBLIC_APP_URL + path
-    : `${env.NEXT_PUBLIC_APP_URL}/${path}`;
+  const url = env.VERCEL_URL || env.NEXT_PUBLIC_APP_URL;
+  return path.startsWith("/") ? url + path : `${url}/${path}`;
 }
 
 export function generateMetadata({
