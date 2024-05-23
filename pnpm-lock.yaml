@@ -49,7 +49,7 @@ dependencies:
     version: 0.10.1(typescript@5.4.5)(zod@3.23.8)
   '@unkey/nextjs':
     specifier: ^0.15.11
-    version: 0.15.11
+    version: 0.15.12
   '@vercel/kv':
     specifier: ^1.0.1
     version: 1.0.1
@@ -252,7 +252,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/highlight': 7.24.5
-      picocolors: 1.0.0
+      picocolors: 1.0.1
     dev: false
 
   /@babel/compat-data@7.23.5:
@@ -624,7 +624,7 @@ packages:
       '@babel/helper-validator-identifier': 7.24.5
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.0
+      picocolors: 1.0.1
     dev: false
 
   /@babel/parser@7.23.5:
@@ -3089,10 +3089,10 @@ packages:
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
     dev: false
 
-  /@unkey/api@0.20.2:
-    resolution: {integrity: sha512-KOdwz6vreOkHQDqjAogcjyFZfA0NJc7QjufYyM40yuN1yGyn8G7M85T16UqBadB1DFmTMyMlm5phneH46LjeQQ==}
+  /@unkey/api@0.20.3:
+    resolution: {integrity: sha512-O9J/dnXNuuuz4qrgXXrpS0qL/pU3Ny6OVvhngZGSSlgAN3N8EwLT+K10IFIokYri0GEPDggPR8lSVnrw3qxkmQ==}
     dependencies:
-      '@unkey/rbac': 0.1.12
+      '@unkey/rbac': 0.1.13
     dev: false
 
   /@unkey/error@0.0.2:
@@ -3102,18 +3102,17 @@ packages:
       zod-error: 1.5.0
     dev: false
 
-  /@unkey/nextjs@0.15.11:
-    resolution: {integrity: sha512-7d0AkVm0PZfR2Ht0ML7GNtcxaMPr1ity8bnoomvaLoe1DydQoGkS8yqSwmlqswCbBY+ZtC7vSXe7JFv5m2KoYA==}
+  /@unkey/nextjs@0.15.12:
+    resolution: {integrity: sha512-WDouJbjTfzF7azWs9eJxRN2pLSHlMhkXvyPf9YLCxToI9SRoFnBzfbjo9nZmwCejCyXkGDU+bPz2LbM15teS1w==}
     dependencies:
-      '@unkey/api': 0.20.2
+      '@unkey/api': 0.20.3
     dev: false
 
-  /@unkey/rbac@0.1.12:
-    resolution: {integrity: sha512-eXuvqrDtp3DpdxS6Zej6zDR/vj9u0c399NhXrmXwBsQh3a+fb6xsfNm7FFK8AcLTNd4dMc7N3EbizKnjqSx8kg==}
+  /@unkey/rbac@0.1.13:
+    resolution: {integrity: sha512-BUuKQb7xoI2e+UtuDvr5U0ShZkG1gG8UxG5VzL6tonmoxGVC1vP0ZS5TKMLbhjYD6Dh5SDeak95qGDsQdaX7Ew==}
     dependencies:
       '@unkey/error': 0.0.2
       zod: 3.23.8
-      zod-error: 1.5.0
     dev: false
 
   /@upstash/redis@1.25.1:
@@ -3980,8 +3979,8 @@ packages:
       which-typed-array: 1.1.11
     dev: false
 
-  /es-module-lexer@1.5.2:
-    resolution: {integrity: sha512-l60ETUTmLqbVbVHv1J4/qj+M8nq7AwMzEcg3kmJDt9dCNrTk+yHcYFf/Kw75pMDwd9mPcIGCG5LcS20SxYRzFA==}
+  /es-module-lexer@1.5.3:
+    resolution: {integrity: sha512-i1gCgmR9dCl6Vil6UKPI/trA69s08g/syhiDK9TG0Nf1RJjjFI+AzoWW7sPufzkgYAn861skuCwJa0pIIHYxvg==}
     dev: false
 
   /es-set-tostringtag@2.0.1:
@@ -5228,6 +5227,10 @@ packages:
   /picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
 
+  /picocolors@1.0.1:
+    resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
+    dev: false
+
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
@@ -6354,7 +6357,7 @@ packages:
       browserslist: 4.23.0
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.16.1
-      es-module-lexer: 1.5.2
+      es-module-lexer: 1.5.3
       eslint-scope: 5.1.1
       events: 3.3.0
       glob-to-regexp: 0.4.1
