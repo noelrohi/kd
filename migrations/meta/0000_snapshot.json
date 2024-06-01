@@ -1,7 +1,5 @@
 {
-  "id": "cd97a739-493b-4990-9a27-df506a389a0e",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "6",
+  "version": "7",
   "dialect": "postgresql",
   "tables": {
     "public.kd_account": {
@@ -262,32 +260,60 @@
       },
       "indexes": {
         "drama_idx": {
-          "name": "drama_idx",
           "columns": [
-            "dramaId"
+            {
+              "expression": "dramaId",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "name": "drama_idx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "title_idx": {
-          "name": "title_idx",
           "columns": [
-            "title"
+            {
+              "expression": "title",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "name": "title_idx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "episode_slug_idx": {
-          "name": "episode_slug_idx",
           "columns": [
-            "episodeSlug"
+            {
+              "expression": "episodeSlug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "name": "episode_slug_idx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         },
         "number_idx": {
-          "name": "number_idx",
           "columns": [
-            "number"
+            {
+              "expression": "number",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "name": "number_idx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -342,11 +368,11 @@
       "uniqueConstraints": {
         "unique_progress": {
           "name": "unique_progress",
-          "nullsNotDistinct": false,
           "columns": [
             "user_id",
             "episode_slug"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -426,11 +452,18 @@
       },
       "indexes": {
         "status_idx": {
-          "name": "status_idx",
           "columns": [
-            "status"
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
           ],
-          "isUnique": false
+          "name": "status_idx",
+          "isUnique": false,
+          "method": "btree",
+          "concurrently": false
         }
       },
       "foreignKeys": {},
@@ -438,10 +471,10 @@
       "uniqueConstraints": {
         "kd_series_slug_unique": {
           "name": "kd_series_slug_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "slug"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -501,11 +534,11 @@
       "uniqueConstraints": {
         "unique_watchList": {
           "name": "unique_watchList",
-          "nullsNotDistinct": false,
           "columns": [
             "userId",
             "dramaId"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     }
@@ -543,8 +576,10 @@
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "cd97a739-493b-4990-9a27-df506a389a0e",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }
