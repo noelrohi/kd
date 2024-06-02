@@ -8,6 +8,13 @@
       "when": 1716037600901,
       "tag": "0000_aspiring_pretty_boy",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1717329667070,
+      "tag": "0001_glossy_kate_bishop",
+      "breakpoints": true
     }
   ]
 }
