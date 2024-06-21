@@ -12,7 +12,7 @@
     "fmt": "biome format src --write && biome check src --write --unsafe"
   },
   "dependencies": {
-    "@auth/core": "^0.33.0",
+    "@auth/core": "^0.34.0",
     "@auth/drizzle-adapter": "^0.9.0",
     "@irsyadadl/paranoid": "^1.1.0",
     "@loglib/tracker": "^0.8.0",
