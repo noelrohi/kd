@@ -43,7 +43,8 @@ export default function Page() {
               Watch list
             </h2>
             <p className="text-muted-foreground text-sm">
-              This is your watch list! Here, you can save and keep track of your favorite K-dramas and all their episodes.
+              This is your watch list! Here, you can save and keep track of your
+              favorite K-dramas and all their episodes.
             </p>
           </div>
         </div>

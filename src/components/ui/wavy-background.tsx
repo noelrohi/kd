@@ -105,6 +105,7 @@ export function WavyBackground({
     return () => {
       cancelAnimationFrame(animationId);
     };
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   }, [animationId, init]);
 
   return (
