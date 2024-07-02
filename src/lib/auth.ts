@@ -4,10 +4,11 @@ import NextAuth from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 
-import { db, tableCreator } from "@/db";
+import { db } from "@/db";
 
 import { env } from "@/env.mjs";
 import { notify } from "./webhooks/slack";
+import { accounts, sessions, users, verificationTokens } from "@/db/schema";
 
 export type { Session } from "next-auth";
 
@@ -18,9 +19,7 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 }
-const trustHost =
-  env.NEXT_PUBLIC_APP_URL.startsWith("http://localhost:") ||
-  process.env.NODE_ENV === "production";
+const trustHost = true;
 
 export const {
   handlers: { GET, POST },
@@ -28,7 +27,12 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
-  adapter: DrizzleAdapter(db, tableCreator),
+  adapter: DrizzleAdapter(db, {
+    accountsTable: accounts,
+    usersTable: users,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+  }),
   providers: [
     DiscordProvider({
       clientSecret: env.DISCORD_CLIENT_SECRET,
