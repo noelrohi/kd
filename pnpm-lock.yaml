@@ -51,8 +51,8 @@ importers:
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.5.3)(zod@3.23.8)
       '@unkey/nextjs':
-        specifier: ^0.15.16
-        version: 0.15.16
+        specifier: ^0.17.0
+        version: 0.17.1
       '@vercel/kv':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1683,17 +1683,17 @@ packages:
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
-  '@unkey/api@0.20.7':
-    resolution: {integrity: sha512-6+ZA2TLSQBYsJhUUoAc8eCjxvkCtjUZCbrm0Yhp4P4ImD7d4VOT0iV14zJE0ozmHcLDYYMs+Ik4R01gGygqSkw==}
+  '@unkey/api@0.22.1':
+    resolution: {integrity: sha512-4evhhhRxORRIjseVLRZlJ8mXxGTD+YMfZqs/wLAHH/7XdNxQQZGuF8xkCKrGLy3q0RPFjVCm6Bg8Omy/Dsb2/A==}
 
-  '@unkey/error@0.0.2':
-    resolution: {integrity: sha512-E4/2PClLeZ/X9nGUqe36xy/tX2KFwBsOrqCMZbG3mscAUsHtnjSLzV8xa9TVQlfH4tXt2mfgAqxLqEwr1ayZDA==}
+  '@unkey/error@0.2.0':
+    resolution: {integrity: sha512-DFGb4A7SrusZPP0FYuRIF0CO+Gi4etLUAEJ6EKc+TKYmscL0nEJ2Pr38FyX9MvjI4Wx5l35Wc9KsBjMm9Ybh7w==}
 
-  '@unkey/nextjs@0.15.16':
-    resolution: {integrity: sha512-ovD7iFcESRlDGv140jxoNzed2gwMHc1S1xmHVr7WY0l5gJoYKirBT7VbHUZ8U1+Fbblq+DGVKAT4kM4OLlg8OA==}
+  '@unkey/nextjs@0.17.1':
+    resolution: {integrity: sha512-8nS18CtrG907dhUf1PWWzZhWomiR2HQSRKubbEQTiC06O8t3njlwZJj4gvnaw5yfhhw7t9oHexDf3auqC16KtQ==}
 
-  '@unkey/rbac@0.1.13':
-    resolution: {integrity: sha512-BUuKQb7xoI2e+UtuDvr5U0ShZkG1gG8UxG5VzL6tonmoxGVC1vP0ZS5TKMLbhjYD6Dh5SDeak95qGDsQdaX7Ew==}
+  '@unkey/rbac@0.3.1':
+    resolution: {integrity: sha512-Hj+52XRIlBBl3/qOUq9K71Fwy3PWExBQOpOClVYHdrcmbgqNL6L4EdW/BzliLhqPCdwZTPVSJTnZ3Hw4ZYixsQ==}
 
   '@upstash/redis@1.31.3':
     resolution: {integrity: sha512-KtVgWBUEx/LGbR8oRwYexwzHh3s5DNqYW0bjkD+gjFZVOnREJITvK+hC4PjSSD+8D4qJ+Xbkfmy8ANADZ9EUFg==}
@@ -2397,6 +2397,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
@@ -2463,6 +2464,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -3127,6 +3129,7 @@ packages:
 
   rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rollup-plugin-terser@7.0.2:
@@ -3594,6 +3597,7 @@ packages:
 
   workbox-google-analytics@6.6.0:
     resolution: {integrity: sha512-p4DJa6OldXWd6M9zRl0H6vB9lkrmqYFkRQ2xEiNdBFp9U0LhsGO7hsBscVEyH9H2/3eZZt8c97NB2FD9U2NJ+Q==}
+    deprecated: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
 
   workbox-navigation-preload@6.6.0:
     resolution: {integrity: sha512-utNEWG+uOfXdaZmvhshrh7KzhDu/1iMHyQOV6Aqup8Mm78D286ugu5k9MFD9SzBT5TcwgwSORVvInaXWbvKz9Q==}
@@ -3646,9 +3650,6 @@ packages:
     resolution: {integrity: sha512-sntgmxj8o7DE7g/Qi60cqpLBA3HG3STcDA0kO+WfB05jEKhZMbY7umNm2rBpQvsmZ16/lPXCJGW2672dgOUkrg==}
     engines: {node: '>= 14'}
     hasBin: true
-
-  zod-error@1.5.0:
-    resolution: {integrity: sha512-zzopKZ/skI9iXpqCEPj+iLCKl9b88E43ehcU+sbRoHuwGd9F1IDVGQ70TyO6kmfiRL1g4IXkjsXK+g1gLYl4WQ==}
 
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
@@ -5118,22 +5119,21 @@ snapshots:
 
   '@types/trusted-types@2.0.7': {}
 
-  '@unkey/api@0.20.7':
+  '@unkey/api@0.22.1':
     dependencies:
-      '@unkey/rbac': 0.1.13
+      '@unkey/rbac': 0.3.1
 
-  '@unkey/error@0.0.2':
+  '@unkey/error@0.2.0':
     dependencies:
       zod: 3.23.8
-      zod-error: 1.5.0
 
-  '@unkey/nextjs@0.15.16':
+  '@unkey/nextjs@0.17.1':
     dependencies:
-      '@unkey/api': 0.20.7
+      '@unkey/api': 0.22.1
 
-  '@unkey/rbac@0.1.13':
+  '@unkey/rbac@0.3.1':
     dependencies:
-      '@unkey/error': 0.0.2
+      '@unkey/error': 0.2.0
       zod: 3.23.8
 
   '@upstash/redis@1.31.3':
@@ -7156,9 +7156,5 @@ snapshots:
   yallist@3.1.1: {}
 
   yaml@2.4.3: {}
-
-  zod-error@1.5.0:
-    dependencies:
-      zod: 3.23.8
 
   zod@3.23.8: {}
