@@ -31,7 +31,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
-    "drizzle-orm": "^0.31.2",
+    "drizzle-orm": "^0.32.0",
     "embla-carousel": "8.1.6",
     "embla-carousel-react": "8.1.6",
     "framer-motion": "^11.2.12",
