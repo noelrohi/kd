@@ -29,7 +29,7 @@ export async function getEpisodeInfo(episodeSlug: string) {
 
 export async function getTrending(page = 1) {
   const url = `${env.API_URL}/top-airing?page=${page}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: "no-cache" });
   if (!res.ok) return null;
   const data: TopAiring = await res.json();
   return data;
@@ -37,7 +37,7 @@ export async function getTrending(page = 1) {
 
 export async function getFeatured() {
   const url = `${env.API_URL}/featured`;
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: "no-cache" });
   if (!res.ok) return null;
   const data: Featured[] = await res.json();
   return data;
